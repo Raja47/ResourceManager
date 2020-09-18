@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::prefix('site')
+    ->group(base_path('routes/apisite.php'));
+
+Route::prefix('cms')
+    ->group(base_path('routes/apicms.php'));    
