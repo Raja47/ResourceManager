@@ -1,0 +1,34 @@
+.searhresultsingle h1, .searhresultsingle p {
+    display: block !important;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+.relatedimgs h2 {
+    display: block !important;
+    width: 100%;
+    text-align: left;
+}
+
+.searhresultsingleimg img{
+    width: 100%;
+}
+
+.searhresultsingle {
+    margin-top: 51px;
+    
+}
+
+
+.relatedimgs h2{
+    margin-top: 70px;
+    margin-bottom: 33px;
+    
+}
+
+
+.relatedimgs {
+    margin-bottom: 70px;
+}
