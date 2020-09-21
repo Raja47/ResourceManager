@@ -1,10 +1,36 @@
-import React from 'react';
+import React ,{ Component , Fragmnent} from 'react';
 import {Button, Carousel ,Container ,Row,Col,Card,Tabs,Tab,Sonnet ,Form,Image} from 'react-bootstrap';
 import './search.css';
 import Searchimg from './../../assets/img/searchimg.jpg'; 
+import { connect } from 'react-redux'
+
+import { loginAction ,}  from "./../../../actions/authActions";
 
 
-function Search() {
+
+class Search extends Component{
+
+
+  constructor(props) {
+        super(props);
+        this.state = { 
+          resources:[],  
+        };
+        
+    }
+    componentDidMount() {
+        this.props.dispatch(loginAction());
+        
+    }
+
+    componentDidUpdate(){
+      
+    }
+
+
+
+
+  render () {
   return (
     <Row className="searhresultsec">
       
@@ -95,7 +121,13 @@ function Search() {
 
   );
 }
-  
 
-  export default Search;
+}
+ function mapStateToProps(state){
+   return {  
+        resources: state.loginReducer, 
+    }
+ }
+
+export default connect(mapStateToProps)(Search)
   

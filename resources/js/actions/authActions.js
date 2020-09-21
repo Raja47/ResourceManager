@@ -2,16 +2,14 @@ import axios from "axios"
 
 
 
-
-
-export const searchResourcesAction = () => dispatch => {
+export const loginAction = () => dispatch => {
    
   axios.get(api_url+`/site/resource`)
   .then((response) => {
     
     if(response.data){
 
-      dispatch({type: "SEARCH_RESOURCE", payload: response.data });
+      dispatch({type: "ATTEMPT_LOGIN", payload: response.data });
 
     }
     else{

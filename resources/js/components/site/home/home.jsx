@@ -1,17 +1,9 @@
 import React ,{ Component , Fragmnent} from 'react'
 import {Button, Carousel ,Container ,Row,Col,Card} from 'react-bootstrap';
 import { connect } from 'react-redux'
-
-// import  searchResourcesReducer from "./../../../reducers/resources.js";
 import { searchResourcesAction ,}  from "./../../../actions/resourceActions";
-
-
-/* components link */
-
 import Carouselslider from './partials/carousels/carousels.jsx';
 
-/*import Formaction from '../signup/sendgridcode';*/
-/* components link */
 
 
 class Home extends Component{
@@ -29,8 +21,34 @@ class Home extends Component{
         
     }
 
+
+    componentDidUpdate(prevProps) {
+	  // Typical usage (don't forget to compare props):
+	  if (this.props.resources !== prevProps.resources) {
+	    this.setState({resources:this.props.resources});
+	  }
+	}
+
+    // componentWillReceiveProps(nextProps) {
+        
+    //     if(nextProps.resources !== null && nextProps.resources !== null){
+    //         if(nextProps.resources !== this.props.resources){
+                 
+    //             // var siteSelectdData = nextProps.sites.map(site => {
+    //             //         let rObj = {}
+    //             //        rObj['value'] = site.id;
+    //             //        rObj['label'] = site.title;
+    //             //        return rObj
+    //             // });
+    //             this.setState({resources:nextProps.resources});
+    //         }
+    //     }
+        
+    // }
+
 	render () {
 		return (
+
 		   <div className="App">
 		  
 		    <Container className="MainAppFluid" fluid>
@@ -46,9 +64,10 @@ class Home extends Component{
 
 function mapStateToProps(state) {
     return {  
-        resources: state.searchResourcesReducer, 
+        resources: state.searchResourcesReducer.searchedResources, 
     }
 }
+
 export default connect(mapStateToProps)(Home)
 
 // const mapStateToProps = (state) => ({

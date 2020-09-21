@@ -13,8 +13,9 @@ class ResourceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {   
+
+        return response()->json(["data" => "my love","status" => true]);
     }
 
     /**

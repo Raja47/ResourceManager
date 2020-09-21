@@ -1,18 +1,15 @@
-const initialState = {
-    response:[],
-    errors:[],
-    searchedResources:[],
-    task_comments:[],
+ const initialState = {
+   authenticatedUser:[]
 };
-  
-  export default function(state = initialState, action) {
+
+ export default function(state = initialState, action) {
     switch (action.type) {
     
 
-      case "SEARCH_RESOURCE": 
+      case "ATTEMPT_LOGIN": 
           return {
             ...state,
-            searchedResources: action.payload
+            authenticatedUser: action.payload
           };
       case "FETCH_AUTH_USER_TASKS": 
           return {
@@ -55,4 +52,3 @@ const initialState = {
         return state;
     }
   }  
-

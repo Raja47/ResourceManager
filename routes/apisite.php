@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get("/admin" , "Site\ResourceController@index" )->name('resourceIndex');
+Route::get("/resource" , "Site\ResourceController@index" )->name('resourceIndex');
 
 
 ?>
