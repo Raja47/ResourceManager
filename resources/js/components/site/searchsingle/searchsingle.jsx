@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import axios from 'axios';
 import './../searchsingle/searchsingle.css';
 import searchresult from '../../assets/img/searchresult.jpg'; 
-import { searchResourcesAction ,}  from "./../../../actions/resourceActions";
+import { searchResourceAction ,}  from "./../../../actions/resourceActions";
 
 
 class Searchsingle extends Component{
@@ -15,12 +15,11 @@ class Searchsingle extends Component{
         super(props);
         this.state = {
             resource:[],
-            
         };
         
   }
   componentDidMount() {
-        this.props.dispatch(searchResourcesAction());
+        this.props.dispatch(searchResourceAction());
         
   }
 
@@ -88,7 +87,7 @@ class Searchsingle extends Component{
 
 const mapStateToProps = (state) => {
   return {
-    resource : state.searchResourcesReducer.searchedResources
+    resource : state.resourcesReducer.searchedResources
   }
 };
 

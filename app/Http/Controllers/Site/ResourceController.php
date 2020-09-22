@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Site;
 use App\Models\Resource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Spatie\Searchable\Search;
+use Spatie\Searchable\ModelSearchAspect;
 
 class ResourceController extends Controller
 {
@@ -14,7 +16,6 @@ class ResourceController extends Controller
      */
     public function index()
     {   
-
         return response()->json(["data" => "my love","status" => true]);
     }
 
@@ -47,7 +48,7 @@ class ResourceController extends Controller
      */
     public function show(Resource $resource)
     {
-        //
+        
     }
 
     /**
@@ -83,4 +84,20 @@ class ResourceController extends Controller
     {
         //
     }
+
+    public function search($type ,$keywords){
+
+       $searchResults = (new Search())
+            ->registerModel(Resource::class, function(ModelSearchAspect $modelSearchAspect) use ($type){
+               $modelSearchAspect
+                ->addSearchableAttribute('title')
+                ->addSearchableAttribute('keywords') // return results for partial matches on usernames
+                // ->addExactSearchableAttribute('email') // only return results that exactly e.g email
+                ->type($type)  // resourceCategoryId image 1 video 2 
+                // ->has('posts')
+                ->with('categories')
+                ->with('images');
+            })->search($keywords); 
+       return response()->json(["data" =>$searchResults,"status" => true]);
+    }   
 }

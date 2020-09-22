@@ -16,7 +16,7 @@ class ResourceCategory extends Model
      * @var array
      */
     protected $fillable = [
-       'title' , 'description','keywords' ,'status' , 'resource_category_id' 
+       'title' ,'status'  
     ];
 
     /**

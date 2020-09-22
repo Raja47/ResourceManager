@@ -1,11 +1,11 @@
   
 import { combineReducers } from 'redux'
 
-import searchResourcesReducer from './resources.js'
+import resourceReducer from './resources.js'
 import loginReducer from './auth.js'
 
 export default combineReducers({
  
-  searchResourcesReducer,
+  resourceReducer,
   loginReducer,
 })

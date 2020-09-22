@@ -2,7 +2,6 @@ const initialState = {
     response:[],
     errors:[],
     searchedResources:[],
-    task_comments:[],
 };
   
   export default function(state = initialState, action) {

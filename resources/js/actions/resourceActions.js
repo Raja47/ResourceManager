@@ -4,23 +4,25 @@ import axios from "axios"
 
 
 
-export const searchResourcesAction = () => dispatch => {
+export const searchResourceAction = (type, keywords) => dispatch => {
    
-  axios.get(api_url+`/site/resource`)
+  axios.get(api_url+`/site/resource/search/${type}/${keywords}`)
   .then((response) => {
     
     if(response.data){
 
       dispatch({type: "SEARCH_RESOURCE", payload: response.data });
-
     }
     else{
-      dispatch({type: "FETCH_SITE_TASKS", payload: response.data});
+
+      dispatch({type: "RETURN_EMPTY", payload: response.data});
     }
   })
   .catch((error) => {
     console.log(error)
-  //   dispatch({type: "FETCH_EMPLOYEES_REJECTED", payload: error});
+    dispatch({type: "ERROR_OCCURED", payload: error});
   })
 
 };
+
+

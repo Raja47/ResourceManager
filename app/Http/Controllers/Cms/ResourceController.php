@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Cms\Controllers;
+namespace App\Http\Controllers\Cms;
 
 use App\Models\Resource;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ResourceController extends Controller
 {

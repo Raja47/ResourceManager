@@ -1,8 +1,8 @@
 import React ,{ Component , Fragmnent} from 'react'
 import {Button, Carousel ,Container ,Row,Col,Card} from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { searchResourcesAction ,}  from "./../../../actions/resourceActions";
-import Carouselslider from './partials/carousels/carousels.jsx';
+import { searchResourceAction,}  from "./../../../actions/resourceActions";
+import Carouselslider from './partials/carousels';
 
 
 
@@ -11,13 +11,12 @@ class Home extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            resources:[],
-            
-        };
-        
+            resources:[],  
+        };  
     }
+
     componentDidMount() {
-        this.props.dispatch(searchResourcesAction());
+        this.props.dispatch(searchResourceAction());
         
     }
 
@@ -64,7 +63,7 @@ class Home extends Component{
 
 function mapStateToProps(state) {
     return {  
-        resources: state.searchResourcesReducer.searchedResources, 
+        resources: state.resourceReducer.searchedResources, 
     }
 }
 
