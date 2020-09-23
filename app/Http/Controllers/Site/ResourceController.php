@@ -16,7 +16,7 @@ class ResourceController extends Controller
      */
     public function index()
     {   
-        return response()->json(["data" => "my love","status" => true]);
+        return response()->json(["data" => "resource site index method","status" => true]);
     }
 
     /**
@@ -46,8 +46,26 @@ class ResourceController extends Controller
      * @param  \App\Models\Resource  $resource
      * @return \Illuminate\Http\Response
      */
-    public function show(Resource $resource)
-    {
+    public function show($id)
+    {   
+        $resource = Resource::find($id);
+        if($resource){
+            return response()->json(
+            [
+            "data" => [ 
+                "resource"  => $resource ,
+                "images"    => $resource->images    ,
+                "files"     => $resource->files
+            ],
+            "status" => true]
+            );    
+        }else{
+            return response()->json(
+            [
+            "data" =>null,
+            "status" => false]
+            );
+        }
         
     }
 
@@ -85,6 +103,18 @@ class ResourceController extends Controller
         //
     }
 
+    public function suggest($type ,$keywords){
+        $searchResults = (new Search())
+            ->registerModel(Resource::class, function(ModelSearchAspect $modelSearchAspect) use ($type){
+               $modelSearchAspect
+                ->addSearchableAttribute('title')
+                ->addSearchableAttribute('keywords') // return results for partial matches on usernames
+                // ->addExactSearchableAttribute('email') // only return results that exactly e.g email
+                ->type($type);  // resourceCategoryId image 1 video 2 
+            })->search($keywords)->take(10); 
+       return response()->json(["data" =>$searchResults,"status" => true]);
+    }
+
     public function search($type ,$keywords){
 
        $searchResults = (new Search())
@@ -97,7 +127,7 @@ class ResourceController extends Controller
                 // ->has('posts')
                 ->with('categories')
                 ->with('images');
-            })->search($keywords); 
+            })->search($keywords);
        return response()->json(["data" =>$searchResults,"status" => true]);
     }   
 }

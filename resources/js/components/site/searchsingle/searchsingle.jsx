@@ -2,10 +2,16 @@ import React ,{useState , useEffect ,Component , Fragmnent} from 'react';
 import {Button, Carousel ,Container ,Row,Col,Card,Image} from 'react-bootstrap';
 
 import { connect } from 'react-redux'
+import queryString from 'query-string'
 import axios from 'axios';
 import './../searchsingle/searchsingle.css';
 import searchresult from '../../assets/img/searchresult.jpg'; 
-import { searchResourceAction ,}  from "./../../../actions/resourceActions";
+import { getResourceAction, }  from "./../../../actions/resourceActions";
+
+// get our fontawesome imports
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faHome , faDownload } from "@fortawesome/free-solid-svg-icons";
+
 
 
 class Searchsingle extends Component{
@@ -14,12 +20,16 @@ class Searchsingle extends Component{
   constructor(props) {
         super(props);
         this.state = {
-            resource:[],
+            resource:'',
         };
-        
   }
+
   componentDidMount() {
-        this.props.dispatch(searchResourceAction());
+
+    const values = queryString.parse(this.props.location.search)
+    if(values.id != null || values.id != undefined){
+      this.props.dispatch(getResourceAction(values.id));  
+    }
         
   }
 
@@ -34,60 +44,74 @@ class Searchsingle extends Component{
      
 
   render () {
+    
+    const resource = this.state.resource;
+    if(resource == ''){
+      return (
+            <h1>Sorry ! Resource not found</h1>
+        )
+    }else{
     return (
+     
+
      <div>  
         <Container>
-         
+
           <Row className="searhresultsingle">
              
               <Col md={8} className="searhresultsingleimg">
-                  <Image src={searchresult} rounded />
+                  <Image src={""} rounded />
                   </Col>
                   <Col md={4}>
                  
-                   <h2>Test</h2>
-                  <p>Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                      
+                   <h2>{resource.resource.title}</h2>
+                   <p>{resource.resource.description}</p>
+                           
+                      <Button variant="primary"><FontAwesomeIcon icon={faDownload} /> Download for free</Button>
                   </Col>
               </Row>
 
               <Row className="relatedimgs">
-                <h2>Related Photos</h2>
-                <Col md={3}>
-                      <Card >
-                          <Card.Img variant="top" src={searchresult} />
-                        </Card>
-                </Col>
-                <Col md={3}>
-                      <Card >
-                          <Card.Img variant="top" src={searchresult} />
-   
-                        </Card>
-                </Col>
-                <Col md={3}>
-                      <Card >
-                          <Card.Img variant="top" src={searchresult} />
-                          
-                        </Card>
-                </Col>
-                <Col md={3}>
-                      <Card >
-                          <Card.Img variant="top" src={searchresult} />
-                         
-                        </Card>
-                </Col>
+                <h2>Other Images</h2>
+                {() => {
+                    const images = resource.resource.images;
+                      if(images == []){
+                        return (
+                          <div >
+                              <Col md={3}>
+                                  <Card >
+                                    <Card.Img variant="top" src={searchresult} />        
+                                </Card>
+                              </Col>
+                          </div>
+                        );
+                      }else{
+                      images.map( (image , i) => {
+                        return  (<div><Col md={3}>
+                          <Card >
+                              <Card.Img variant="top" src={image.url}  />
+       
+                          </Card>
+                        </Col></div>);
+                      } )  
+                      
+                  }
+                }}
+                
+                
+
 
               </Row>
          </Container>
       </div> 
     );
   }
+  }
 }
 
 const mapStateToProps = (state) => {
   return {
-    resource : state.resourcesReducer.searchedResources
+    resource : state.resourceReducer.resource
   }
 };
 

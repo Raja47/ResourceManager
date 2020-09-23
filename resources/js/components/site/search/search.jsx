@@ -5,6 +5,11 @@ import Searchimg from './../../assets/img/searchimg.jpg';
 import { connect } from 'react-redux'
 
 import { searchResourceAction ,}  from "./../../../actions/resourceActions";
+import Searchbar from './partials/Searchbar/';
+
+// get our fontawesome imports
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faHome , faDownload } from "@fortawesome/free-solid-svg-icons";
 
 
 
@@ -47,7 +52,7 @@ class Search extends Component{
       <Row className="searhresultsec">
          <Col md={12}> </Col>
          <Col md={12}> 
-          <Form.Control type="email" placeholder="Find the perfect eWorldTrade photos, Videos and More..." />
+           <Searchbar/><br/>
          </Col>
          <Col md={12}> </Col>
          <Col md={3}>
@@ -56,7 +61,7 @@ class Search extends Component{
                 <Card.Body>
                   <Card.Title> Title</Card.Title>
                  
-                  <Button variant="primary">Go somewhere</Button>
+                  <FontAwesomeIcon icon={faEye} />
                 </Card.Body>
               </Card>
           </Col>
@@ -132,8 +137,6 @@ class Search extends Component{
               </Card>
           </Col>   
       </Row>
-      
-
     );
   }
 

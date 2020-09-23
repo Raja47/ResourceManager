@@ -32,7 +32,7 @@
 }
 
 .searhresultsec .card-body {
-    background: rgb(0 0 0 / 76%);
+    background: rgb(0 0 0 / 57%);
     color: white;
     position: absolute;
     width: 100%;
@@ -49,4 +49,40 @@
     background: #f5b11f;
     border-color: #f5b11f;
     color:white;
+}
+
+.searhresultsec .slidermain.row {
+    background: white !important;
+    width: 100%;
+    height: auto !important;
+    padding-top: initial;
+    min-height: 400px !important;
+}
+
+
+.searhresultsec .slidermain h1 {
+    display: none;
+}
+
+
+.searhresultsec .card-title.h5 {
+    position: absolute;
+    top: 13px;
+    left: 11px;
+    text-align: left;
+    text-overflow: ellipsis;
+    width: 271px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: visible;
+    color: white;
+    font-size: 18px;
+}
+
+.searhresultsec .svg-inline--fa.fa-eye {
+    font-size: 27px; 
+    position: absolute;
+    top: 11px;
+    right: 15px;
+    
 }
