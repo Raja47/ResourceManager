@@ -105,7 +105,8 @@ class Carouselslider extends Component {
           />
           <span className="searchsugggestions">
             {suggestions.map((object,i) => {
-                 return  <Link to={"/resource"} key={i}>{ object.title }</Link>
+                 return  <div key={i}><Link to={"/resource"} >{ object.title }</Link>
+                         <br/></div> 
             })}
             <FontAwesomeIcon icon={faSearch} />
             <strong className="Search-tip">Search tip</strong>

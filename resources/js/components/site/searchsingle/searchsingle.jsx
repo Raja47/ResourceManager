@@ -41,6 +41,9 @@ class Searchsingle extends Component{
     }
 
   }
+  handleDownload = (downloadableType,downloadableId) => {
+    alert(downloadableId);
+  } 
      
 
   render () {
@@ -51,6 +54,10 @@ class Searchsingle extends Component{
             <h1>Sorry ! Resource not found</h1>
         )
     }else{
+
+    const resourceType = resource.category.title;
+      
+
     return (
      
 
@@ -60,15 +67,32 @@ class Searchsingle extends Component{
           <Row className="searhresultsingle">
              
               <Col md={8} className="searhresultsingleimg">
-                  <Image src={""} rounded />
-                  </Col>
-                  <Col md={4}>
+
+                  <Image src={asset_url()+"/resources/images/original/"+resource.resource.images[0].url} rounded />
+              </Col>
+              <Col md={4}>
                  
                    <h2>{resource.resource.title}</h2>
                    <p>{resource.resource.description}</p>
-                           
-                      <Button variant="primary"><FontAwesomeIcon icon={faDownload} /> Download for free</Button>
-                  </Col>
+                   
+                   { resourceType == "image" && resource.images !=[] && <Button variant="primary" onClick={() => this.handleDownload(resourceType,resource.images[0].id)}><FontAwesomeIcon icon={faDownload} /> Download Now</Button> }
+                   { resourceType != "image" && resource.files  !=[] && <Button variant="primary" onClick={() => this.handleDownload(resourceType,resource.files[0].id)}><FontAwesomeIcon icon={faDownload} /> Download Now</Button> }
+                     
+                  
+                   
+              </Col>
+
+              <Col md={8}>
+                    <h2>{"Related Keywords"}</h2>
+                   { resource.resource.keywords != undefined  && 
+                         resource.resource.keywords.map(ele => {
+                            return <span className="badge label-info">{ele} </span>
+                        })
+                    }                
+                  
+              </Col>
+
+
               </Row>
 
               <Row className="relatedimgs">

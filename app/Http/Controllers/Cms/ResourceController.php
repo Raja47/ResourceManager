@@ -2,85 +2,90 @@
 
 namespace App\Http\Controllers\Cms;
 
-use App\Models\Resource;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Contracts\ResourceContract;
+use App\Contracts\CategoryContract;
+use App\Http\Controllers\BaseController;
+// use App\Http\Requests\StoreResourceFormRequest;
 
-class ResourceController extends Controller
+
+class ResourceController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+
+    protected $categoryRepository;
+
+    protected $resourceRepository;
+
+    public function __construct(
+       
+        ResourceContract $resourceRepository,
+        CategoryContract $categoryRepository
+    )
+    {
+       
+        $this->categoryRepository = $categoryRepository;
+        $this->resourceRepository = $resourceRepository;
+    }
+
     public function index()
     {
-        //
+        $resources = $this->resourceRepository->listResources('id', 'desc');
+
+        $this->setPageTitle('Resources', 'Resources List');
+        return view('admin.resources.index', compact('resources'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+       
+        $categories = $this->categoryRepository->listCategories('title', 'asc');
+
+        $this->setPageTitle('Resources', 'Create Resource');
+        return view('admin.resources.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $params = $request->except('_token');
+
+        $resource = $this->resourceRepository->createResource($params);
+
+        if (!$resource) {
+            return $this->responseRedirectBack('Error occurred while creating resource.', 'error', true, true);
+        }
+        return redirect()->route('admin.resources.edit' , ['id' => $resource->id]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Resource  $resource
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Resource $resource)
+    public function edit($id)
     {
-        //
+        $resource    = $this->resourceRepository->findResourceById($id);
+        
+        $categories = $this->categoryRepository->listCategories('title', 'asc');
+
+        $this->setPageTitle('Resources', 'Edit Resource');
+        return view('admin.resources.edit', compact('categories',  'resource'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Resource  $resource
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Resource $resource)
+    public function update(Request $request)
     {
-        //
-    }
+        $params = $request->except('_token');
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Resource  $resource
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Resource $resource)
-    {
-        //
-    }
+        $resource = $this->resourceRepository->updateResource($params);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Resource  $resource
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Resource $resource)
-    {
-        //
+        if (!$resource) {
+            return $this->responseRedirectBack('Error occurred while updating resource.', 'error', true, true);
+        }
+        return $this->responseRedirect( 'admin.resources.index' , 'Resource updated successfully' ,'success',false, false);
+    }
+    
+    public function delete($id){
+        
+       $resource= $this->resourceRepository->deleteResource($id);
+       
+        if (!$resource) {
+            return $this->responseRedirectBack('Error occurred while deleting resource.', 'error', true, true);
+        }
+        return $this->responseRedirect('admin.resources.index', 'Resource deleted successfully' ,'success',false, false);
     }
 }

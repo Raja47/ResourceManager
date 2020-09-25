@@ -180,3 +180,10 @@ width: 100%;
 .formfirstcontent svg.svg-inline--fa.fa-search.fa-w-16 {
     font-size: 18px;
 }
+.searhresultsec p {
+    margin-bottom: 5px;
+}
+
+.searchbarmaindiv .formfirstcontent.col-md-8 {
+    top: 8%;
+}

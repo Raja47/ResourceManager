@@ -12,7 +12,7 @@ const initialState = {
       case "SEARCH_RESOURCE": 
           return {
             ...state,
-            searchedResources: action.payload
+            searchedResources: action.payload.data
           };
       
       case "SUGGEST_RESOURCE": 

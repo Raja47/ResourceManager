@@ -1,12 +1,20 @@
 import React ,{Component, Fragment} from 'react';
-import { Redirect} from "react-router-dom";
+<<<<<<< HEAD
+import { Link, Redirect} from "react-router-dom";
 import {Button, Carousel ,Container ,Row,Col,Card,Tabs,Tab,Sonnet,Form, Navbar,Nav,NavDropdown} from 'react-bootstrap';
 import './searchbar.css';
+import { connect } from 'react-redux'
+
+
 import icon from '../../../../assets/img/icon.png'; 
 import Select from "react-select";
 // get our fontawesome imports
 import { faSearch ,faEye} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
+import { suggestResourceAction }  from "../../../../../actions/resourceActions"; 
+
 
 class Searchbar extends Component {
 
@@ -18,12 +26,15 @@ class Searchbar extends Component {
           resources:[],
           searchKeywords:"",
           selectedType : '1',
+          suggestions : [],
           options: [
              { value: '1',  label:'Image'  },
              { value: '2',  label:'Video'  },
-             { value: '3', label:'plugin' }
+             { value: '3',  label:'plugin' }
           ]  
       };
+      // const {keywords , type} = this.props.location.state;
+      // alert(keywords);alert(type);
 
   }
 
@@ -33,8 +44,10 @@ class Searchbar extends Component {
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.resources !== prevProps.resources) {
-      this.setState({resources:this.props.resources});
+
+    if (this.props.suggestions !== prevProps.suggestions) {
+      this.setState({suggestions:this.props.suggestions});
+
     }
   }
 
@@ -49,8 +62,12 @@ class Searchbar extends Component {
   }
 
   handleChangeKeywords = (e) => {
+
+
+    var {selectedType } = this.state;
+    this.props.dispatch(suggestResourceAction(selectedType,e.target.value));
     this.setState({searchKeywords: e.target.value});
-    
+
   }
   
   handleSearhClick = () => {
@@ -73,6 +90,10 @@ class Searchbar extends Component {
                 />
     }
 
+
+    const suggestions = this.state.suggestions;
+    
+
     return (
       <Row className="slidermain">
         
@@ -83,7 +104,8 @@ class Searchbar extends Component {
         <Col md={2}></Col>
         <Col md={8} className="formfirstcontent">
           <img src={icon} />
-          
+
+
           <Form.Control 
             name="searchKeywords"
             type="text" 
@@ -92,15 +114,19 @@ class Searchbar extends Component {
             placeholder="Find the perfect eWorldTrade photos, Videos and More..." 
             autoComplete="off"
           />
+
+
           <span className="searchsugggestions">
-            <p>C</p>
-            <p>C</p>
-            <p>C</p>
-            <p>C</p>
+            {suggestions.map((object,i) => {
+                 return  <div key={i}><Link to={"/resource"} >{ object.title }</Link>
+                         <br/></div> 
+            })}
+
             <FontAwesomeIcon icon={faSearch} />
             <strong className="Search-tip">Search tip</strong>
             <span className="Search-tip-span">Try the <strong>Fresh content</strong> sort for our newest images.</span>
           </span>
+
           <Select
             name="type" 
             placeholder="Select Type" 
@@ -126,4 +152,15 @@ class Searchbar extends Component {
   }
 }
 
-export default Searchbar;
+
+function mapStateToProps(state){
+   return {  
+        suggestions: state.resourceReducer.suggestedResources 
+    }
+ }
+
+
+export default connect(mapStateToProps)(Searchbar)
+
+
+
