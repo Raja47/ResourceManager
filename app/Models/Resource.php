@@ -27,9 +27,9 @@ class Resource extends Model implements Searchable
      *
      * @var array
      */
-    // protected $casts = [
-    //     'keywords' => 'json'
-    // ];
+    protected $casts = [
+        //'keywords' => 'json'
+    ];
 
     /**
      * { Creator of Resource }
@@ -90,12 +90,11 @@ class Resource extends Model implements Searchable
     public function getSearchResult(): SearchResult
     {
         $url = "resource/".$this->id;
-     
-         return new \Spatie\Searchable\SearchResult(
+        return new \Spatie\Searchable\SearchResult(
             $this,
             $this->title,
             $url
-         );
+        );
     }
 
     

@@ -30,7 +30,8 @@ class App extends Component {
                     <Route path="/search" component={Search} />
                      
                     <Route path="/searchsingle" component={Searchsingle} />
-                      
+                    
+                    <Route path="/resource" component={Searchsingle} />  
                 </Switch>
                <Footer/>
             </Router>
