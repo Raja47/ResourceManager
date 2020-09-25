@@ -1,7 +1,7 @@
 import React ,{ Component , Fragmnent} from 'react'
 import {Button, Carousel ,Container ,Row,Col,Card} from 'react-bootstrap';
 import { connect } from 'react-redux'
-
+import { searchResourceAction,}  from "./../../../actions/resourceActions";
 import Carouselslider from './partials/carousels';
 
 
@@ -16,7 +16,7 @@ class Home extends Component{
     }
 
     componentDidMount() {
-       
+        this.props.dispatch(searchResourceAction());
         
     }
 
@@ -28,7 +28,22 @@ class Home extends Component{
 	  }
 	}
 
-    
+    // componentWillReceiveProps(nextProps) {
+        
+    //     if(nextProps.resources !== null && nextProps.resources !== null){
+    //         if(nextProps.resources !== this.props.resources){
+                 
+    //             // var siteSelectdData = nextProps.sites.map(site => {
+    //             //         let rObj = {}
+    //             //        rObj['value'] = site.id;
+    //             //        rObj['label'] = site.title;
+    //             //        return rObj
+    //             // });
+    //             this.setState({resources:nextProps.resources});
+    //         }
+    //     }
+        
+    // }
 
 	render () {
 		return (
@@ -46,32 +61,14 @@ class Home extends Component{
 	}
 }
 
-// function mapStateToProps(state) {
-//     return {  
-//         resources: state.resourceReducer.searchedResources, 
-//     }
-// }
+function mapStateToProps(state) {
+    return {  
+        resources: state.resourceReducer.searchedResources, 
+    }
+}
 
-export default Home
+export default connect(mapStateToProps)(Home)
 
-
-
-
-
-
-// componentWillReceiveProps(nextProps) {
-        
-    //     if(nextProps.resources !== null && nextProps.resources !== null){
-    //         if(nextProps.resources !== this.props.resources){
-                 
-    //             // var siteSelectdData = nextProps.sites.map(site => {
-    //             //         let rObj = {}
-    //             //        rObj['value'] = site.id;
-    //             //        rObj['label'] = site.title;
-    //             //        return rObj
-    //             // });
-    //             this.setState({resources:nextProps.resources});
-    //         }
-    //     }
-        
-    // }
+// const mapStateToProps = (state) => ({
+//   resources: searchResourcesReducer(state),
+// })

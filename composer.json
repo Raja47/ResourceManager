@@ -16,8 +16,7 @@
         "laravel/passport": "8.*",
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.0",
-        "spatie/laravel-searchable": "^1.7",
-        "tcg/voyager": "^1.4"
+        "spatie/laravel-searchable": "^1.7"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

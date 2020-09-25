@@ -1,15 +1,10 @@
 import React ,{Component, Fragment} from 'react';
-import { Link, Redirect} from "react-router-dom";
+import { Redirect} from "react-router-dom";
 import {Button, Carousel ,Container ,Row,Col,Card,Tabs,Tab,Sonnet,Form, Navbar,Nav,NavDropdown} from 'react-bootstrap';
 import './carousels.css';
-import { connect } from 'react-redux'
 import icon from '../../../../assets/img/icon.png'; 
 import Select from "react-select";
-// get our fontawesome imports
-import { faSearch ,faEye} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { suggestResourceAction }  from "../../../../../actions/resourceActions"; 
 
 class Carouselslider extends Component {
 
@@ -21,11 +16,10 @@ class Carouselslider extends Component {
           resources:[],
           searchKeywords:"",
           selectedType : '1',
-          suggestions : [],
           options: [
              { value: '1',  label:'Image'  },
              { value: '2',  label:'Video'  },
-             { value: '3',  label:'plugin' }
+             { value: '3', label:'plugin' }
           ]  
       };
 
@@ -37,8 +31,8 @@ class Carouselslider extends Component {
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.suggestions !== prevProps.suggestions) {
-      this.setState({suggestions:this.props.suggestions});
+    if (this.props.resources !== prevProps.resources) {
+      this.setState({resources:this.props.resources});
     }
   }
 
@@ -48,14 +42,10 @@ class Carouselslider extends Component {
    */
   
   handleChangeType = (e) => {
-    alert(e.value);
     this.setState({'selectedType':e.value})
   }
 
   handleChangeKeywords = (e) => {
-
-    var {selectedType } = this.state;
-    this.props.dispatch(suggestResourceAction(selectedType,e.target.value));
     this.setState({searchKeywords: e.target.value});
   }
   
@@ -79,8 +69,6 @@ class Carouselslider extends Component {
                 />
     }
 
-    const suggestions = this.state.suggestions;
-    
     return (
       <Row className="slidermain">
         
@@ -91,27 +79,15 @@ class Carouselslider extends Component {
         <Col md={2}></Col>
         <Col md={8} className="formfirstcontent">
           <img src={icon} />
-
-           
-
-
+          
           <Form.Control 
             name="searchKeywords"
             type="text" 
             onChange={ e => {this.handleChangeKeywords(e)}}
             value={this.state.searchKeywords}
             placeholder="Find the perfect eWorldTrade photos, Videos and More..." 
-            autoComplete="off"
           />
-          <span className="searchsugggestions">
-            {suggestions.map((object,i) => {
-                 return  <div key={i}><Link to={"/resource"} >{ object.title }</Link>
-                         <br/></div> 
-            })}
-            <FontAwesomeIcon icon={faSearch} />
-            <strong className="Search-tip">Search tip</strong>
-            <span className="Search-tip-span">Try the <strong>Fresh content</strong> sort for our newest images.</span>
-          </span>
+          
           <Select
             name="type" 
             placeholder="Select Type" 
@@ -137,12 +113,30 @@ class Carouselslider extends Component {
   }
 }
 
-
-function mapStateToProps(state){
-   return {  
-        suggestions: state.resourceReducer.suggestedResources 
-    }
- }
+export default Carouselslider;
 
 
-export default connect(mapStateToProps)(Carouselslider)
+
+
+
+
+
+
+
+
+{/*<Navbar bg="light" expand="lg">
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                      <Nav className="mr-auto">
+                        <NavDropdown title="IMAGAES" id="basic-nav-dropdown">
+                          <NavDropdown.Item onClick={ this.setTye('images') }>Images</NavDropdown.Item>
+                          <NavDropdown.Item href="">Videos</NavDropdown.Item>
+                          <NavDropdown.Item href="#action/3.3">Plugins</NavDropdown.Item>
+                        </NavDropdown>
+                      </Nav>
+                       <Form inline>
+                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                        <Button variant="outline-success">Search</Button>
+                      </Form> 
+                    </Navbar.Collapse>
+          </Navbar>*/}
