@@ -32,3 +32,15 @@
 .relatedimgs {
     margin-bottom: 70px;
 }
+
+.searhresultsingle button.btn.btn-primary {
+    background: #f5b11f;
+    border-color: #f5b11f;
+    color: white;
+    padding: 12px;
+    text-shadow: 0 0 4px rgba(0,0,0,.38);
+    margin-top: 8px;
+    padding: 0 40px;
+    font-weight: 700;
+    font-size: 22px;
+}

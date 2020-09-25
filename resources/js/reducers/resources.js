@@ -1,50 +1,63 @@
 const initialState = {
     response:[],
     errors:[],
+    resource: [],
     searchedResources:[],
+    suggestedResources:[],
 };
   
   export default function(state = initialState, action) {
     switch (action.type) {
-    
 
       case "SEARCH_RESOURCE": 
           return {
             ...state,
-            searchedResources: action.payload
+            searchedResources: action.payload.data
           };
-      case "FETCH_AUTH_USER_TASKS": 
+      
+      case "SUGGEST_RESOURCE": 
           return {
             ...state,
-            site_tasks: action.payload.data
+            suggestedResources: action.payload.data
           };    
-      case "VALIDATE_SITE_TASK":
+      
+      case "GET_RESOURCE": 
+          return {
+            ...state,
+            resource: action.payload.data
+          };    
+      
+      case "RETURN_EMPTY":
           return {
               ...state,
-              errors: action.payload.errors,
-              success: false
+              resource:null
           }
+      
       case "ASSIGN_SITE_TASK": 
           return {
              ...state,
              errors: [],
           };   
+     
       case "UPDATE_TASK_STATUS":
           return {
              ...state,
             errors: [],
           }; 
-       case "FETCH_TASK_COMMENTS":
+      
+      case "FETCH_TASK_COMMENTS":
             return {
               ... state,
               task_comments: action.payload,
             }; 
-       case "ADD_TASK_COMMENT":
+      
+      case "ADD_TASK_COMMENT":
         return {
           ...state,
           errors:[],
         };
-       case "VALIDATE_TASK_COMMENT":
+      
+      case "ERROR_OCCURED":
         return {
             ...state,
             errors: action.payload.errors,
