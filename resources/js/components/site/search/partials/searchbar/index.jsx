@@ -1,5 +1,4 @@
 import React ,{Component, Fragment} from 'react';
-<<<<<<< HEAD
 import { Link, Redirect} from "react-router-dom";
 import {Button, Carousel ,Container ,Row,Col,Card,Tabs,Tab,Sonnet,Form, Navbar,Nav,NavDropdown} from 'react-bootstrap';
 import './searchbar.css';
