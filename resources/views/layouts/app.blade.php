@@ -11,6 +11,9 @@
         <link href="{{ asset('css/app.css')  }}" rel="stylesheet" >
         <script>
             const api_url = "http://localhost:8000/api";
+		function asset_url(){
+                return "{{ config('filesystems.disks.public.url') }}";
+            }  
         </script>
             
     </head>

@@ -55,7 +55,8 @@ class ResourceController extends Controller
             "data" => [ 
                 "resource"  => $resource ,
                 "images"    => $resource->images    ,
-                "files"     => $resource->files
+                "files"     => $resource->files ,
+                "category"  => $resource->category,
             ],
             "status" => true]
             );    
