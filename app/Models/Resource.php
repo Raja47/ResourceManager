@@ -5,7 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; 
 
-class Resource extends Model
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
+
+class Resource extends Model implements Searchable
 {
     use SoftDeletes;
 
@@ -24,7 +27,9 @@ class Resource extends Model
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        'keywords' => 'array'
+    ];
 
     /**
      * { Creator of Resource }
@@ -64,4 +69,33 @@ class Resource extends Model
         return $this->morphMany('App\Models\Image', 'imageable');
     }
 
+    /**
+     * { filter resources of provided type }
+     *
+     * @param      <type>  $query  The query
+     * @param      <type>  $type   ResourceCatgoryId
+     *
+     * @return     <Objects>  ( resources of $type )
+     */
+    public function scopeType($query,$type)
+    {
+        return $query->where('resource_category_id', $type);
+    }
+
+    /**
+     * Gets the search result.
+     *
+     * @return     SearchResult|\  The search result.
+     */
+    public function getSearchResult(): SearchResult
+    {
+        $url = "resource?id=".$this->id;
+        return new \Spatie\Searchable\SearchResult(
+            $this,
+            $this->title,
+            $url
+        );
+    }
+
+    
 }

@@ -11,12 +11,13 @@ import Header from './site/partials/header/header';
 import Footer from './site/partials/footer/footer';
 import Search from './site/search/search.jsx';
 import Searchsingle from './site/searchsingle/searchsingle';
-import Home from './site/home/home';
+import Home from './site/home';
 
 
 class App extends Component {
     render() {
         return (
+          
           <div className="App">
             <Container className="MainAppFluid" fluid>
               
@@ -29,7 +30,8 @@ class App extends Component {
                     <Route path="/search" component={Search} />
                      
                     <Route path="/searchsingle" component={Searchsingle} />
-                      
+                    
+                    <Route path="/resource" component={Searchsingle} />  
                 </Switch>
                <Footer/>
             </Router>

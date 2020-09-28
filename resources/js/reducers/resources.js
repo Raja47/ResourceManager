@@ -1,68 +1,63 @@
-
-
-
-
-// const searchResourcesReducer = (state = initialState , action ) => {
-
-//   switch (action.type) {
-//     case "SEARCH_RESOURCE":return {
-//         ...state ,
-//         action
-//       }
-//     default:
-//       return state
-//   }
-// }
-
-
 const initialState = {
     response:[],
     errors:[],
+    resource: [],
     searchedResources:[],
-    task_comments:[],
-  };
+    suggestedResources:[],
+};
   
   export default function(state = initialState, action) {
     switch (action.type) {
-    
 
       case "SEARCH_RESOURCE": 
           return {
             ...state,
-            resources: action.payload
+            searchedResources: action.payload.data
           };
-      case "FETCH_AUTH_USER_TASKS": 
+      
+      case "SUGGEST_RESOURCE": 
           return {
             ...state,
-            site_tasks: action.payload.data
+            suggestedResources: action.payload.data
           };    
-      case "VALIDATE_SITE_TASK":
+      
+      case "GET_RESOURCE": 
+          return {
+            ...state,
+            resource: action.payload.data
+          };    
+      
+      case "RETURN_EMPTY":
           return {
               ...state,
-              errors: action.payload.errors,
-              success: false
+              resource:null
           }
+      
       case "ASSIGN_SITE_TASK": 
           return {
              ...state,
              errors: [],
           };   
+     
       case "UPDATE_TASK_STATUS":
           return {
              ...state,
             errors: [],
           }; 
-       case "FETCH_TASK_COMMENTS":
+      
+      case "FETCH_TASK_COMMENTS":
             return {
               ... state,
               task_comments: action.payload,
             }; 
-       case "ADD_TASK_COMMENT":
+      
+      case "ADD_TASK_COMMENT":
         return {
           ...state,
           errors:[],
         };
-       case "VALIDATE_TASK_COMMENT":
+      
+      case "ERROR_OCCURED":
         return {
             ...state,
             errors: action.payload.errors,
@@ -73,44 +68,3 @@ const initialState = {
     }
   }  
 
-   // const byId = (state = {}, action) => {
-//   switch (action.type) {
-//     case RECEIVE_PRODUCTS:
-//       return {
-//         ...state,
-//         ...action.products.reduce((obj, product) => {
-//           obj[product.id] = product
-//           return obj
-//         }, {})
-//       }
-//     default:
-//       const { productId } = action
-//       if (productId) {
-//         return {
-//           ...state,
-//           [productId]: products(state[productId], action)
-//         }
-//       }
-//       return state
-//   }
-// }
-
-// const visibleIds = (state = [], action) => {
-//   switch (action.type) {
-//     case RECEIVE_PRODUCTS:
-//       return action.products.map(product => product.id)
-//     default:
-//       return state
-//   }
-// }
-
-// export default combineReducers({
-//   byId,
-//   visibleIds
-// })
-
-// export const getProduct = (state, id) =>
-//   state.byId[id]
-
-// export const getVisibleProducts = state =>
-//   state.visibleIds.map(id => getProduct(state, id))

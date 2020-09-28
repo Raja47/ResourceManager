@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
-import reducer from './../reducers'
+import reducer from './../reducers/index.js'
 // import { getAllProducts } from './actions'
 import App from './App.jsx'
 
@@ -14,7 +14,7 @@ import App from './App.jsx'
 	}
 
 	const store = createStore(
-		reducer, 
+		reducer,
 		/* preloadedState, */
 		
 		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() && applyMiddleware(...middleware) ,

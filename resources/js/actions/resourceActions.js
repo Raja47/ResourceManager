@@ -1,39 +1,91 @@
-const resources = [
-          {"id": 10, "title": "iPad", "price": 500.01, "inventory": 2},
-          {"id": 20, "title": "H&M",  "price": 10.99, "inventory": 10},
-          {"id": 30, "title": "Charli","price": 19.99, "inventory": 5}
-        ];
+import axios from "axios"
 
 
-// const receiveProducts = products => ({
-//   type: "SEARCH_RESOURCE_SUCCESS",
-//   resources
-// })
 
-// export const searchResourcesAction = () => dispatch => {
-    
-//     dispatch({type: "SEARCH_RESOURCE",
-//   	payload:resources});
-  
-// };
 
-export const searchResourcesAction = () => dispatch => {
+
+export const searchResourceAction = (type, keywords) => dispatch => {
    
-  // axios.get(api_url+`/site-task/index/`)
-  // .then((response) => {
+  axios.get(api_url+`/site/resource/search/${type}/${keywords}`)
+  .then((response) => {
     
-  //   if(response.data.status){
+    if(response.data){
 
-    return dispatch({type: "SEARCH_RESOURCE", payload: resources});
+      dispatch({type: "SEARCH_RESOURCE", payload: response.data });
+    }
+    else{
 
-  //   }
-  //   else{
-  //     dispatch({type: "FETCH_SITE_TASKS", payload: response.data});
-  //   }
-  // })
-  // .catch((error) => {
-  //   console.log(error)
-  // //   dispatch({type: "FETCH_EMPLOYEES_REJECTED", payload: error});
-  // })
+      dispatch({type: "RETURN_EMPTY", payload: response.data});
+    }
+  })
+  .catch((error) => {
+    console.log(error)
+    dispatch({type: "ERROR_OCCURED", payload: error});
+  })
 
 };
+
+
+export const suggestResourceAction = (type, keywords) => dispatch => {
+   
+  axios.get(api_url+`/site/resource/suggest/${type}/${keywords}`)
+  .then((response) => {
+    
+    if(response.data){
+
+      dispatch({type: "SUGGEST_RESOURCE", payload: response.data });
+    }
+    else{
+
+      dispatch({type: "RETURN_EMPTY", payload: response.data});
+    }
+  })
+  .catch((error) => {
+    console.log(error)
+    dispatch({type: "ERROR_OCCURED", payload: error});
+  })
+
+};
+
+export const getResourceAction = (id) => dispatch => {
+   
+  axios.get(api_url+`/site/resource/${id}`)
+  .then((response) => {
+    
+    if(response.data){
+
+      dispatch({type: "GET_RESOURCE", payload: response.data });
+    }
+    else{
+
+      dispatch({type: "RETURN_EMPTY", payload: response.data});
+    }
+  })
+  .catch((error) => {
+    console.log(error)
+    dispatch({type: "ERROR_OCCURED", payload: error});
+  })
+
+};
+
+export const downloadResourceAction = (type,id) => dispatch => {
+   
+  axios.get(api_url+`/site/download/${type}/${id}`)
+  .then((response) => {
+    
+    if(response.data){
+
+      dispatch({type: "GET_RESOURCE", payload: response.data });
+    }
+    else{
+
+      dispatch({type: "RETURN_EMPTY", payload: response.data});
+    }
+  })
+  .catch((error) => {
+    console.log(error)
+    dispatch({type: "ERROR_OCCURED", payload: error});
+  })
+
+};
+
