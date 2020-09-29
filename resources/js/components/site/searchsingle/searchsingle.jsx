@@ -1,6 +1,6 @@
 import React ,{useState , useEffect ,Component , Fragmnent} from 'react';
 import {Button, Carousel ,Container ,Row,Col,Card,Image} from 'react-bootstrap';
-
+import {Link, Redirect } from "react-router-dom"
 import { connect } from 'react-redux'
 import queryString from 'query-string'
 import axios from 'axios';
@@ -24,6 +24,8 @@ class Searchsingle extends Component{
         };
   }
 
+
+
   componentDidMount() {
 
     const values = queryString.parse(this.props.location.search)
@@ -33,14 +35,29 @@ class Searchsingle extends Component{
         
   }
 
+  redirectToSearch = (keywords) => {
+      
+      return {
+        pathname:"/search",
+        search:"",
+        state: {
+          type: (this.state.resource?.category?.id ?? "1"),
+          keywords: keywords
+        }
+      }
+
+  }
 
   componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
+   
     if (this.props.resource !== prevProps.resource) {
       this.setState({resource:this.props.resource});
     }
 
   }
+
+
+
   handleDownload = (downloadableType,downloadableId) => {
     alert(downloadableId);
   } 
@@ -68,7 +85,7 @@ class Searchsingle extends Component{
              
               <Col md={8} className="searhresultsingleimg">
 
-                  <Image src={asset_url()+"/resources/images/original/"+resource.resource.images[0].url} rounded />
+                  <Image src={asset_url()+"/resources/images/original/"+ (resource.resource.images?.[0]?.url ?? "not-found.jpg" )} rounded />
               </Col>
               <Col md={4}>
                  
@@ -77,16 +94,14 @@ class Searchsingle extends Component{
                    
                    { resourceType == "image" && resource.images !=[] && <Button variant="primary" onClick={() => this.handleDownload(resourceType,resource.images[0].id)}><FontAwesomeIcon icon={faDownload} /> Download Now</Button> }
                    { resourceType != "image" && resource.files  !=[] && <Button variant="primary" onClick={() => this.handleDownload(resourceType,resource.files[0].id)}><FontAwesomeIcon icon={faDownload} /> Download Now</Button> }
-                     
-                  
                    
               </Col>
 
               <Col md={8}>
                     <h2>{"Related Keywords"}</h2>
                    { resource.resource.keywords != undefined  && 
-                         resource.resource.keywords.map(ele => {
-                            return <span className="badge label-info">{ele} </span>
+                        resource.resource.keywords.map(keyword => {
+                            return <Link to={() => this.redirectToSearch(keyword) } ><span className="badge label-info"  > {keyword} </span></Link>
                         })
                     }                
                   
@@ -113,7 +128,7 @@ class Searchsingle extends Component{
                       images.map( (image , i) => {
                         return  (<div><Col md={3}>
                           <Card >
-                              <Card.Img variant="top" src={image.url}  />
+                              <Card.Img variant="top" src={image.url }  />
        
                           </Card>
                         </Col></div>);
