@@ -3,6 +3,7 @@ const initialState = {
     errors:[],
     resource: [],
     searchedResources:[],
+    searchedFor:[],
     suggestedResources:[],
 };
   
@@ -12,7 +13,8 @@ const initialState = {
       case "SEARCH_RESOURCE": 
           return {
             ...state,
-            searchedResources: action.payload.data
+            searchedResources: action.payload.data,
+            searchedFor : action.payload.searchedFor,
           };
       
       case "SUGGEST_RESOURCE": 

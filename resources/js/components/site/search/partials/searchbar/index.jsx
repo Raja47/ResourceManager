@@ -1,5 +1,7 @@
 import React ,{Component, Fragment} from 'react';
-import { Link, Redirect} from "react-router-dom";
+
+import { Link, Redirect ,useHistory} from "react-router-dom";
+// import { history } from 'history'
 import {Button, Carousel ,Container ,Row,Col,Card,Tabs,Tab,Sonnet,Form, Navbar,Nav,NavDropdown} from 'react-bootstrap';
 import './searchbar.css';
 import { connect } from 'react-redux'
@@ -25,6 +27,7 @@ class Searchbar extends Component {
           resources:[],
           searchKeywords:"",
           selectedType : '1',
+          searchedFor: [],
           suggestions : [],
           options: [
              { value: '1',  label:'Image'  },
@@ -32,9 +35,8 @@ class Searchbar extends Component {
              { value: '3',  label:'plugin' }
           ]  
       };
-      // const {keywords , type} = this.props.location.state;
-      // alert(keywords);alert(type);
-
+      
+      
   }
 
   componentDidMount() {      
@@ -47,6 +49,10 @@ class Searchbar extends Component {
     if (this.props.suggestions !== prevProps.suggestions) {
       this.setState({suggestions:this.props.suggestions});
 
+    }
+
+    if(this.props.searchedFor !== prevProps.searchedFor){
+      this.setState({searchKeywords:this.props.searchedFor.keywords,selectedType:this.props.searchedFor.type});
     }
   }
 
@@ -70,29 +76,17 @@ class Searchbar extends Component {
   }
   
   handleSearhClick = () => {
-    var {searchKeywords , selectedType } = this.state;
-    if(searchKeywords !== "" ){
-        this.setState({redirect : "/search"}) 
-    } 
-  }
+    const {searchKeywords , selectedType } = this.state;
+    
+      if(searchKeywords !== "" ){
+          this.props.handler(selectedType,searchKeywords);
+      }
+  } 
+
 
   render() {
-    
-    if (this.state.redirect) {
-
-      var {searchKeywords , selectedType } = this.state;
-      return <Redirect 
-                to={{
-                    pathname: this.state.redirect,
-                    state: { keywords: searchKeywords , type: selectedType  }
-                }}
-                />
-    }
-
-
     const suggestions = this.state.suggestions;
     
-
     return (
       <Row className="slidermain">
         
@@ -149,12 +143,14 @@ class Searchbar extends Component {
       </Row>
     );
   }
+  
 }
 
 
 function mapStateToProps(state){
    return {  
-        suggestions: state.resourceReducer.suggestedResources 
+        suggestions: state.resourceReducer.suggestedResources ,
+        searchedFor : state.resourceReducer.searchedFor
     }
  }
 

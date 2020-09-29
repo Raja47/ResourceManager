@@ -2,7 +2,7 @@ import React ,{ Component , Fragmnent} from 'react';
 import {Button, Carousel ,Container ,Row,Col,Card,Tabs,Tab,Sonnet ,Form,Image} from 'react-bootstrap';
 import './search.css';
 
-import {Redirect , Link} from "react-router-dom";
+import {Redirect , Link ,useHistory} from "react-router-dom";
 import Searchimg from './../../assets/img/searchimg.jpg'; 
 import { connect } from 'react-redux'
 
@@ -23,62 +23,55 @@ class Search extends Component{
       this.state = { 
         keywords : '',
         type : '',
-
         redirect: null,
         resources:[],  
       };
-        
+      this.handler = this.handler.bind(this);    
     }
-    
+
     componentDidMount() {
-      
         if(this.props.location.state != undefined){
-          
-          const {keywords , type} = this.props.location.state;
+          const {keywords , type } = this.props.location.state;
           this.props.dispatch(searchResourceAction(type,keywords));
         }
-        // keywords: this.props.location.state == undefined ? '' : this.props.location.state.keywords,
-        // type : this.props.location.state == undefined ? '' : this.props.location.state.type,
-       
-        // this.props.location.state.keywords  
     }
 
     componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
       if (this.props.resources !== prevProps.resources) {
-        this.setState({resources:this.props.resources});
+        this.setState({resources:this.props.resources });
       }
-
     }
 
-    handleRedirect = (url) => {
-     
+    handler = (type ,keywords) => {
+        this.props.dispatch(searchResourceAction(type,keywords));   
+    }
+
+    handleRedirectToProduct = (url) => { 
       this.setState({redirect: url});    
     }
 
 
   render () {
     const resources = this.state.resources;
-    if (this.state.redirect != null){
+    if( this.state.redirect != null ){
       return <Redirect to={this.state.redirect} />
     }
     return (
       <Row className="searhresultsec">
          
          <Col md={12}> 
-           <Searchbar/><br/>
+           <Searchbar handler={this.handler}  /><br/>
          </Col>
          <Col md={12}> </Col>
          { resources.map((resource,i) => {
 
                  return <Col md={3} key={i}>
                             <Card >
-                            
-
-                              <Card.Img variant="top" src={asset_url()+"/resources/images/original/"+resource.searchable.images[0].url} />
+                              <Card.Img variant="top" src={ asset_url()+"/resources/images/original/"+ ( resource.searchable.images?.[0]?.url ??  "not-found.jpg")} />
                               <Card.Body>
                                 <Card.Title> { resource.title} </Card.Title>
-                                <div key={resource.title} onClick={() => this.handleRedirect(resource.url)}>
+                                <div key={resource.title} onClick={() => this.handleRedirectToProduct(resource.url)}>
                                 <FontAwesomeIcon icon={faEye}  />
                                 </div>  
                               </Card.Body>
@@ -97,6 +90,7 @@ class Search extends Component{
  function mapStateToProps(state){
    return {  
         resources: state.resourceReducer.searchedResources, 
+       
     }
  }
 

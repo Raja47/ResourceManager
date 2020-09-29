@@ -54,7 +54,7 @@ class ResourceController extends Controller
             [
             "data" => [ 
                 "resource"  => $resource ,
-                "images"    => $resource->images    ,
+                "images"    => $resource->images ,
                 "files"     => $resource->files ,
                 "category"  => $resource->category,
             ],
@@ -113,7 +113,7 @@ class ResourceController extends Controller
                 // ->addExactSearchableAttribute('email') // only return results that exactly e.g email
                 ->type($type);  // resourceCategoryId image 1 video 2 
             })->search($keywords)->take(10); 
-       return response()->json(["data" =>$searchResults,"status" => true]);
+            return response()->json(["data" =>$searchResults,"status" => true ]);
     }
 
     public function search($type ,$keywords){
@@ -129,6 +129,6 @@ class ResourceController extends Controller
                 ->with('categories')
                 ->with('images');
             })->search($keywords);
-       return response()->json(["data" =>$searchResults,"status" => true]);
+       return response()->json(["data" =>$searchResults,"status" => true ,"searchedFor" => ["type" => $type, "keywords" => $keywords ]]);
     }   
 }
