@@ -67,8 +67,11 @@ class Search extends Component{
          { resources.map((resource,i) => {
 
                  return <Col md={3} key={i}>
+                            
                             <Card >
+                              
                               <Card.Img variant="top" src={ asset_url()+"/resources/images/original/"+ ( resource.searchable.images?.[0]?.url ??  "not-found.jpg")} />
+                              
                               <Card.Body>
                                 <Card.Title> { resource.title} </Card.Title>
                                 <div key={resource.title} onClick={() => this.handleRedirectToProduct(resource.url)}>

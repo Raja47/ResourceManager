@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Searchable\Search;
 use Spatie\Searchable\ModelSearchAspect;
+use Illuminate\Support\Arr;
 
 class ResourceController extends Controller
 {
@@ -112,8 +113,23 @@ class ResourceController extends Controller
                 ->addSearchableAttribute('keywords') // return results for partial matches on usernames
                 // ->addExactSearchableAttribute('email') // only return results that exactly e.g email
                 ->type($type);  // resourceCategoryId image 1 video 2 
-            })->search($keywords)->take(10); 
-            return response()->json(["data" =>$searchResults,"status" => true ]);
+            })->search($keywords)->take(5);
+            
+            $suggestedKeywords = [];
+            foreach($searchResults as $row){
+                $suggestedKeywords = array_merge($suggestedKeywords , $row->searchable->keywords);
+            }
+
+            $temp_array = [];
+            foreach ($suggestedKeywords as $value) {
+                $arr = [];
+                $arr['label'] = $value;    
+                $arr["value"] = $value;
+                $temp_array[] = $arr;
+            }
+            $suggestedKeywords = $temp_array;
+
+            return response()->json(["data" =>$searchResults,"status" => true , 'suggestedKeywords'=> $suggestedKeywords ]);
     }
 
     public function search($type ,$keywords){

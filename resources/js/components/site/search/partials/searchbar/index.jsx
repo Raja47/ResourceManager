@@ -5,10 +5,12 @@ import { Link, Redirect ,useHistory} from "react-router-dom";
 import {Button, Carousel ,Container ,Row,Col,Card,Tabs,Tab,Sonnet,Form, Navbar,Nav,NavDropdown} from 'react-bootstrap';
 import './searchbar.css';
 import { connect } from 'react-redux'
+import Select from "react-select-search"
+import SelectSearch from "react-select"
 
 
 import icon from '../../../../assets/img/icon.png'; 
-import Select from "react-select";
+
 // get our fontawesome imports
 import { faSearch ,faEye} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,10 +31,12 @@ class Searchbar extends Component {
           selectedType : '1',
           searchedFor: [],
           suggestions : [],
+          suggestedKeywords: [],
           options: [
-             { value: '1',  label:'Image'  },
-             { value: '2',  label:'Video'  },
-             { value: '3',  label:'plugin' }
+             { value: '1',  name:'Image'  },
+             { value: '2',  name:'Video'  },
+             { value: '3',  name:'plugin' },
+             { value: '3',  name:'Theme' },
           ]  
       };
       
@@ -44,15 +48,21 @@ class Searchbar extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
+    
 
     if (this.props.suggestions !== prevProps.suggestions) {
+      
       this.setState({suggestions:this.props.suggestions});
-
     }
 
     if(this.props.searchedFor !== prevProps.searchedFor){
-      this.setState({searchKeywords:this.props.searchedFor.keywords,selectedType:this.props.searchedFor.type});
+      
+      this.setState({searchKeywords:{label:this.props.searchedFor.keywords,value:this.props.searchedFor.keywords},selectedType:this.props.searchedFor.type});
+    }
+
+    if (this.props.suggestedKeywords !== prevProps.suggestedKeywords) {
+
+      this.setState({suggestedKeywords:this.props.suggestedKeywords});
     }
   }
 
@@ -62,31 +72,37 @@ class Searchbar extends Component {
    */
   
   handleChangeType = (e) => {
-    alert(e.value);
-    this.setState({'selectedType':e.value})
+    alert(e);
+    this.setState({'selectedType':e})
   }
 
   handleChangeKeywords = (e) => {
+   
+    
+    this.setState({searchKeywords:e});
+    
+  }
 
-
+  handleTypedKeywords = (e) => {
     var {selectedType } = this.state;
     this.props.dispatch(suggestResourceAction(selectedType,e.target.value));
-    this.setState({searchKeywords: e.target.value});
-
+    this.setState({searchKeywords:{label:e.target.value , value:e.target.value}});
+    
   }
   
   handleSearhClick = () => {
     const {searchKeywords , selectedType } = this.state;
     
       if(searchKeywords !== "" ){
-          this.props.handler(selectedType,searchKeywords);
+          this.props.handler(selectedType,searchKeywords.value);
       }
   } 
 
 
   render() {
-    const suggestions = this.state.suggestions;
-    
+     const {selectedType, searchKeywords} = this.state;
+     const {suggestions,suggestedKeywords} = this.state;
+   
     return (
       <Row className="slidermain">
         
@@ -94,40 +110,28 @@ class Searchbar extends Component {
         
         
         <Row>
-        <Col md={2}></Col>
+        <Col md={2}> <img src={icon} /></Col>
         <Col md={8} className="formfirstcontent">
-          <img src={icon} />
+         
 
-
-          <Form.Control 
-            name="searchKeywords"
-            type="text" 
-            onChange={ e => {this.handleChangeKeywords(e)}}
-            value={this.state.searchKeywords}
-            placeholder="Find the perfect eWorldTrade photos, Videos and More..." 
-            autoComplete="off"
-          />
-
-
-          <span className="searchsugggestions">
-            {suggestions.map((object,i) => {
-                 return  <div key={i}><Link to={"/resource"} >{ object.title }</Link>
-                         <br/></div> 
-            })}
-
-            <FontAwesomeIcon icon={faSearch} />
-            <strong className="Search-tip">Search tip</strong>
-            <span className="Search-tip-span">Try the <strong>Fresh content</strong> sort for our newest images.</span>
-          </span>
 
           <Select
-            name="type" 
+            name="types" 
             placeholder="Select Type" 
             options={this.state.options}
-            defaultValue={{ label: "Image", value: "1" }}
             onChange={ e => {this.handleChangeType(e)}}
+            value={this.state.selectedType}
           />
-
+          
+          <SelectSearch
+              name="keywors"
+              onKeyDown={e => {this.handleTypedKeywords(e)}}
+              onChange={e  =>  {this.handleChangeKeywords(e)}} 
+              options={suggestedKeywords} 
+              placeholder="Type Keywords" 
+              className="form-control"
+              value={this.state.searchKeywords} 
+          />
           <Button 
             className="getbtn"
             variant="warning"
@@ -150,7 +154,8 @@ class Searchbar extends Component {
 function mapStateToProps(state){
    return {  
         suggestions: state.resourceReducer.suggestedResources ,
-        searchedFor : state.resourceReducer.searchedFor
+        searchedFor : state.resourceReducer.searchedFor,
+        suggestedKeywords: state.resourceReducer.suggestedKeywords
     }
  }
 
