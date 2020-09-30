@@ -5,6 +5,7 @@ const initialState = {
     searchedResources:[],
     searchedFor:[],
     suggestedResources:[],
+    suggestedKeywords:[],
 };
   
   export default function(state = initialState, action) {
@@ -20,7 +21,8 @@ const initialState = {
       case "SUGGEST_RESOURCE": 
           return {
             ...state,
-            suggestedResources: action.payload.data
+            suggestedResources: action.payload.data,
+            suggestedKeywords : action.payload.suggestedKeywords
           };    
       
       case "GET_RESOURCE": 

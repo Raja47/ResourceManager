@@ -4,10 +4,11 @@ import {Button, Carousel ,Container ,Row,Col,Card,Tabs,Tab,Sonnet,Form, Navbar,N
 import './carousels.css';
 import { connect } from 'react-redux'
 import icon from '../../../../assets/img/icon.png'; 
-import Select from "react-select";
+import Select from "react-select-search";
 // get our fontawesome imports
 import { faSearch ,faEye} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SelectSearch from "react-select"
 
 import { suggestResourceAction }  from "../../../../../actions/resourceActions"; 
 
@@ -19,14 +20,18 @@ class Carouselslider extends Component {
 
       this.state = {
           resources:[],
+          type: 'group',
           searchKeywords:"",
           selectedType : '1',
           suggestions : [],
-          options: [
-             { value: '1',  label:'Image'  },
-             { value: '2',  label:'Video'  },
-             { value: '3',  label:'plugin' }
-          ]  
+          suggestedKeywords: [],
+          options:[
+             { value: '1',  name:'Image'  },
+             { value: '2',  name:'Video'  },
+             { value: '3',  name:'Plugin' },
+             { value: '4',  name:'Theme' },
+                
+          ]
       };
 
   }
@@ -40,6 +45,10 @@ class Carouselslider extends Component {
     if (this.props.suggestions !== prevProps.suggestions) {
       this.setState({suggestions:this.props.suggestions});
     }
+
+    if (this.props.suggestedKeywords !== prevProps.suggestedKeywords) {
+      this.setState({suggestedKeywords:this.props.suggestedKeywords});
+    }
   }
 
 
@@ -48,15 +57,24 @@ class Carouselslider extends Component {
    */
   
   handleChangeType = (e) => {
-    alert(e.value);
-    this.setState({'selectedType':e.value})
+    this.setState({'selectedType':e})
   }
 
   handleChangeKeywords = (e) => {
+    this.setState({searchKeywords:e});
+    
+  }
 
-    var {selectedType } = this.state;
-    this.props.dispatch(suggestResourceAction(selectedType,e.target.value));
-    this.setState({searchKeywords: e.target.value});
+  handleTypedKeywords = (e) => {
+
+    if( e =="" || e == undefined){
+         this.setState({suggestedKeywords:[]});
+    }else{
+
+      var {selectedType } = this.state;
+      this.props.dispatch(suggestResourceAction(selectedType,e));
+      this.setState({searchKeywords:{label:e , value:e}});  
+    }
   }
   
   handleSearhClick = () => {
@@ -66,59 +84,80 @@ class Carouselslider extends Component {
     } 
   }
 
+
+  /**
+   * Renders the Component.
+   *
+   * @return {<Html>}  { return reactable html on web page}
+  */
   render() {
     
     if (this.state.redirect) {
-
       var {searchKeywords , selectedType } = this.state;
       return <Redirect 
-                to={{
-                    pathname: this.state.redirect,
-                    state: { keywords: searchKeywords , type: selectedType  }
-                }}
-                />
+              to={{
+                  pathname: this.state.redirect,
+                  state: { keywords: searchKeywords.value , type: selectedType  }
+              }}
+              />
     }
 
-    const suggestions = this.state.suggestions;
+    const {suggestions,suggestedKeywords} = this.state;
     
+
     return (
       <Row className="slidermain">
         
         <Col md={12}>
-        
+         
+{/*         <Row>
+            <SelectSearch onKeyDown={e => {this.handleChangeKeywords(e)}} options={this.state.suggestedKeywords}  placeholder="Choose your language" />
+         </Row>*/}
         
         <Row>
-        <Col md={2}></Col>
+        <Col md={2}> <img src={icon} /> </Col>
         <Col md={8} className="formfirstcontent">
-          <img src={icon} />
+         
 
-           
-
-
-          <Form.Control 
+          {/*<Form.Control 
             name="searchKeywords"
             type="text" 
             onChange={ e => {this.handleChangeKeywords(e)}}
             value={this.state.searchKeywords}
             placeholder="Find the perfect eWorldTrade photos, Videos and More..." 
             autoComplete="off"
-          />
-          <span className="searchsugggestions">
-            {suggestions.map((object,i) => {
-                 return  <div key={i}><Link to={"/resource"} >{ object.title }</Link>
-                         <br/></div> 
-            })}
-            <FontAwesomeIcon icon={faSearch} />
-            <strong className="Search-tip">Search tip</strong>
-            <span className="Search-tip-span">Try the <strong>Fresh content</strong> sort for our newest images.</span>
-          </span>
+          />*/}
           <Select
             name="type" 
             placeholder="Select Type" 
             options={this.state.options}
-            defaultValue={{ label: "Image", value: "1" }}
             onChange={ e => {this.handleChangeType(e)}}
           />
+          
+          <SelectSearch 
+            onInputChange={e => {this.handleTypedKeywords(e)}}
+            onChange={e  =>  {this.handleChangeKeywords(e)}} 
+            options={this.state.suggestedKeywords} 
+            placeholder="Type Your keywords" 
+            className="form-control"
+            value={this.state.searchKeywords}
+          />
+
+          {/*<span className="searchsugggestions">
+           
+                
+                {suggestedKeywords.map((object , i) => {
+                     return   <li type="none" >{ object.name }</li>
+                })}
+
+            <FontAwesomeIcon icon={faSearch} />
+            <strong className="Search-tip">Search tip</strong>
+            <span className="Search-tip-span">Try the <strong>Fresh content</strong> sort for our newest images.</span>
+          </span>*/}
+
+
+
+            
 
           <Button 
             className="getbtn"
@@ -140,7 +179,8 @@ class Carouselslider extends Component {
 
 function mapStateToProps(state){
    return {  
-        suggestions: state.resourceReducer.suggestedResources 
+        suggestions: state.resourceReducer.suggestedResources,
+        suggestedKeywords: state.resourceReducer.suggestedKeywords
     }
  }
 
