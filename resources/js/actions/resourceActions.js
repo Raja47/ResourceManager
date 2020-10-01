@@ -1,9 +1,6 @@
 import axios from "axios"
 
 
-
-
-
 export const searchResourceAction = (type, keywords) => dispatch => {
    
   axios.get(api_url+`/site/resource/search/${type}/${keywords}`)
@@ -24,6 +21,7 @@ export const searchResourceAction = (type, keywords) => dispatch => {
   })
 
 };
+
 
 
 export const suggestResourceAction = (type, keywords) => dispatch => {
@@ -47,6 +45,8 @@ export const suggestResourceAction = (type, keywords) => dispatch => {
 
 };
 
+
+
 export const getResourceAction = (id) => dispatch => {
    
   axios.get(api_url+`/site/resource/${id}`)
@@ -67,6 +67,7 @@ export const getResourceAction = (id) => dispatch => {
   })
 
 };
+
 
 export const downloadResourceAction = (type,id) => dispatch => {
    

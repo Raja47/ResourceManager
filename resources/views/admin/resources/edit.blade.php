@@ -54,10 +54,11 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="control-label" for="categories">Category</label>
-                                            <select name="category" id="categories" class="form-control">
+                                            <select name="resource_category_id" id="categories" class="form-control" >
                                                 @foreach($categories as $category)
-                                                    @php $check = $category->id == $resource->category->id ? 'selected' : ''@endphp
-                                                    <option value="{{ $category->id }}" {{ $check }}>{{ $category->title }}</option>
+                                                    
+                                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+
                                                 @endforeach
                                             </select>
                                         </div>
@@ -210,11 +211,14 @@
 
         $( document ).ready(function() {
            
-            
-         
+                                               
+            var selected_category =  "{{ $resource->resource_category_id}}";
+            $("#categories option[value='"+selected_category+"']").attr('selected','selected');     
+
              $("#keywords").select2({
                 tags: true,
             });
+          
           
 
             let myDropzone = new Dropzone("#dropzone", {

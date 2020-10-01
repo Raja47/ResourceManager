@@ -83,13 +83,32 @@ class Searchbar extends Component {
     
   }
 
-  handleTypedKeywords = (e) => {
-    var {selectedType } = this.state;
-    this.props.dispatch(suggestResourceAction(selectedType,e.target.value));
-    this.setState({searchKeywords:{label:e.target.value , value:e.target.value}});
+  handleEnterKey = (e) => {
+    
+    if(e.keyCode === 13){
+      const {searchKeywords , selectedType } = this.state;
+    
+      if(searchKeywords !== "" ){
+          this.props.handler(selectedType,searchKeywords.value);
+      }
+
+    }
     
   }
   
+
+
+  handleTypedKeywords = (e) => {
+    if( e =="" || e == undefined){
+         this.setState({suggestedKeywords:[]});
+    }else{
+
+      var {selectedType } = this.state;
+      this.props.dispatch(suggestResourceAction(selectedType,e));
+      this.setState({searchKeywords:{label:e , value:e}});  
+    }
+  }
+
   handleSearhClick = () => {
     const {searchKeywords , selectedType } = this.state;
     
@@ -125,7 +144,8 @@ class Searchbar extends Component {
           
           <SelectSearch
               name="keywors"
-              onKeyDown={e => {this.handleTypedKeywords(e)}}
+              onInputChange={e => {this.handleTypedKeywords(e)}}
+              onKeyDown={e => {this.handleEnterKey(e)}}
               onChange={e  =>  {this.handleChangeKeywords(e)}} 
               options={suggestedKeywords} 
               placeholder="Type Keywords" 

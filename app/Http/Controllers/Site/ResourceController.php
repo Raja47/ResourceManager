@@ -113,7 +113,7 @@ class ResourceController extends Controller
                 ->addSearchableAttribute('keywords') // return results for partial matches on usernames
                 // ->addExactSearchableAttribute('email') // only return results that exactly e.g email
                 ->type($type);  // resourceCategoryId image 1 video 2 
-            })->search($keywords)->take(5);
+        })->search($keywords)->take(5);
             
             $suggestedKeywords = [];
             foreach($searchResults as $row){
@@ -133,7 +133,7 @@ class ResourceController extends Controller
     }
 
     public function search($type ,$keywords){
-
+            
        $searchResults = (new Search())
             ->registerModel(Resource::class, function(ModelSearchAspect $modelSearchAspect) use ($type){
                $modelSearchAspect
@@ -142,8 +142,7 @@ class ResourceController extends Controller
                 // ->addExactSearchableAttribute('email') // only return results that exactly e.g email
                 ->type($type)  // resourceCategoryId image 1 video 2 
                 // ->has('posts')
-                ->with('categories')
-                ->with('images');
+                ->with(['category','images','files']);
             })->search($keywords);
        return response()->json(["data" =>$searchResults,"status" => true ,"searchedFor" => ["type" => $type, "keywords" => $keywords ]]);
     }   
