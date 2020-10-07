@@ -161,9 +161,9 @@ class Carouselslider extends Component {
                 className="form-control"
                 value={this.state.searchKeywords}
               />
-              <FontAwesomeIcon icon={faSearch}  onClick = {this.handleSearhClick} className="getbtn"/>
+             
             </Col>
-            
+            <FontAwesomeIcon icon={faSearch}  onClick = {this.handleSearhClick} className="getbtn"/>
           </Row>
               
           </Col>
