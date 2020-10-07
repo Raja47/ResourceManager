@@ -109,7 +109,7 @@ class Searchsingle extends Component{
 
           <Row className="searhresultsingle">
              
-              <Col md={8} className="searhresultsingleimg">
+              <Col lg={8} className="searhresultsingleimg">
                 { (resourceType == "video" || resourceType == "Video")  && <Player  autoPlay={true} poster={asset_url()+"/resources/images/small/"+ ( resource.images?.[0]?.url ??  "not-found.jpg")}>
                       <source src={asset_url()+"/resources/files/"+(resource.files?.[0]?.url)} />
                       <ControlBar autoHide={false} />
@@ -121,7 +121,7 @@ class Searchsingle extends Component{
                 }
                   
               </Col>
-              <Col md={4}  className="badgemain">
+              <Col lg={4}  className="badgemain">
 
               <h2>{"Related Keywords"}</h2>
               <span className="keyworsdiv">
@@ -152,8 +152,8 @@ class Searchsingle extends Component{
                    
               </Col>
 
-              <Col md={8} className="searhresultsinglecontent">
-              <h1>Description</h1>
+              <Col lg={12} md={12} className="searhresultsinglecontent">
+              
               <h2>{resource.resource.title}</h2>
                    <p>{resource.resource.description}</p>
                                  

@@ -1,5 +1,5 @@
 .slidermain{
-    background: url(../../../../assets/img/home.jpg) no-repeat center bottom;
+    background: url(../../../../assets/img/home-2.jpg) no-repeat center bottom;
     min-height: 100vh;
     padding: 130px 0;
     background-size: cover;
@@ -234,15 +234,20 @@ width: 100%;
    }
    .searhresultsec .card {
     position: relative;
-    margin-bottom: 30px;
-    
+    margin-bottom: 0px;
+    border-radius: 0px;
     overflow: hidden;
+    border: 0 !IMPORTANT;
+    border-color: transparent;
     
 }
 
 .searhresultsec .card img {
     height: 260px !important;
     height: 100%;
+    border-top-right-radius: 0 !IMPORTANT;
+    border-top-left-radius: 0 !IMPORTANT;
+    
 }
 
 
@@ -282,4 +287,15 @@ padding-left: inherit;
 
 .searchresulttopbar.formfirstcontent.col-md-8 {
     top: 100%;
+}
+
+.errormessage {
+    height: 100%;
+    min-height: 350px;
+}
+
+.errormessage p {
+    font-size: 78px;
+    font-weight: bolder;
+    color: #fec20f;
 }
