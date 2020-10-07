@@ -141,8 +141,7 @@ class Search extends Component{
            
           </Row>   
           { resources=='' && <Row><Col md={3}></Col><Col lg={6} className="errormessage"><h1>Sorry No Resource against keywords</h1> <p>404</p></Col><Col md={3}></Col></Row>}
-            
-          <Row>
+          { resources != '' && <Row>
               <Col md={2}></Col>
               <Col md={8} className="paginationcustome">
                  
@@ -152,8 +151,7 @@ class Search extends Component{
                     {/**
                      * { dynamic page number generetation inside pagination }
                      */}
-                    { pagess !== undefined && pagess.map((object,i) => {
-                                              
+                    { pagess !== undefined && pagess.map((object,i) => {               
                         return <Pagination.Item onClick={ () => this.handlePageChange(i)} active={activePage==i ? 'active' : null } key={i}>{i}</Pagination.Item>
                     })}
                     {/*<Pagination.Ellipsis />*/}
@@ -165,6 +163,7 @@ class Search extends Component{
               <Col md={2}></Col>  
 
           </Row>
+        }
       </span> 
     );
   }
