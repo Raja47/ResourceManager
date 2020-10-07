@@ -35,81 +35,92 @@ class Carouselslider extends Component {
                 
           ]
       };
-
+      const alreadyCalled = '';
 
   }
 
-  componentDidMount() {      
-      
-  }
 
+  /**
+   *   {when follwing props changes , set the New State Value}
+   *   Suggestions
+   *   Suggested Keywords
+   */
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props.suggestions !== prevProps.suggestions) {
       this.setState({suggestions:this.props.suggestions});
     }
-
     if (this.props.suggestedKeywords !== prevProps.suggestedKeywords) {
       this.setState({suggestedKeywords:this.props.suggestedKeywords});
     }
-  }
-
-
-  /**
-   * { search Input & select Type . Change }
-   */
-  handleEnterKey = (e) => {
-    
-     if(e.keyCode === 13){
-        const {searchKeywords } = this.state;
-        
-          if(searchKeywords !== "" ){
-              this.setState({redirect : "/search"}) 
-          }
-      }
   }
 
   handleChangeType = (e) => {
     this.setState({'selectedType':e})
   }
 
-  handleChangeKeywords = (e) => {
-      
-      this.setState({searchKeywords:e});
-      if(e.value !== "" || e.value !== undefined){
-          this.setState({redirect : "/search"})  
-      }
-      
-  }
-
-  handleTypedKeywords = (e) => {
-
+  handleTypedKeywords = (e,action) => {
+   
+    if( action.action == 'menu-close' || action.action == 'input-blur' ){
+      return '';
+    }
     if( e =="" || e == undefined){
         
          this.setState({suggestedKeywords:[]});
+         this.setState({searchKeywords:{label:e , value:e}});
     }else{
 
       var {selectedType } = this.state;
-      this.props.dispatch(suggestResourceAction(selectedType,e));
+      clearTimeout(this.alreadyCalled);
+      this.alreadyCalled = setTimeout( () => this.suggestions(selectedType,e) ,400 ); 
       this.setState({searchKeywords:{label:e , value:e}});  
     }
   }
-  
-  handleSearhClick = () => {
-    var {searchKeywords , selectedType } = this.state;
-    // console.log()
-    if(searchKeywords !== "" ){
-        useHistory.push({
-                  pathname: "/search",
-                  state: { keywords: searchKeywords.value , type: selectedType  }
-        });
-        // this.setState({redirect : "/search"}) 
-    } 
-  }
 
-  handleClick = (e) => {
-    this.inputElement.click();
+  suggestions = (type,keywords) => {
+     this.props.dispatch(suggestResourceAction(type,keywords));
   }
+/**
+ * { When Search button , enter in search , option is clicked }
+ */   
+      /**
+       * { search button clicked }
+       */
+      handleSearhClick = () => {
+        var {searchKeywords , selectedType } = this.state;
+        
+        if(searchKeywords.value !== "" ){
+            this.setState({redirect:"/search"});
+        } 
+      }
+
+      /**
+       * when any option selected form suggestions}
+       * @param  e  <type> Object {e is option selected } 
+       */
+      handleChangeKeywords = (e) => {
+          
+          this.setState({searchKeywords:e});
+          if(e.value !== "" || e.value !== undefined){
+              this.setState({redirect : "/search"})  
+          }
+          
+      }
+
+      /**
+      * { when enter (keycode=13) is clicked }
+      *
+      * @param {<type>}  e { e is keyPressed }
+      */
+      handleEnterKey = (e) => {
+       if(e.keyCode === 13){
+            const {searchKeywords } = this.state;
+            if(searchKeywords !== "" ){
+                this.setState({redirect : "/search"}) 
+            }
+        }
+      }
+
   /**
    * Renders the Component.
    *
@@ -117,16 +128,14 @@ class Carouselslider extends Component {
   */
   render() {
     
-    if (this.state.redirect) {
+    if( this.state.redirect ){
       var { searchKeywords , selectedType } = this.state;
       return <Redirect
               to={{
                   pathname: this.state.redirect,
                   state: { keywords: searchKeywords.value , type: selectedType  }
               }}
-             
               />
-
     }
 
     const {suggestions,suggestedKeywords} = this.state;
@@ -153,13 +162,14 @@ class Carouselslider extends Component {
             </Col>
             <Col md={9} className="searchmain-home"> 
               <SelectSearch 
-                onInputChange={e => {this.handleTypedKeywords(e)}}
+                onInputChange={(e,action) => {this.handleTypedKeywords(e,action)}}
                 onKeyDown={ e => {this.handleEnterKey(e)} }
                 onChange={  e  => {this.handleChangeKeywords(e)}} 
                 options={this.state.suggestedKeywords} 
                 placeholder="Type Your keywords" 
                 className="form-control"
                 value={this.state.searchKeywords}
+                isClearable={'false'}
               />
             </Col>
           </Row>
@@ -183,7 +193,7 @@ function mapStateToProps(state){
         suggestions: state.resourceReducer.suggestedResources,
         suggestedKeywords: state.resourceReducer.suggestedKeywords
     }
- }
+}
 
 
 export default connect(mapStateToProps)(Carouselslider)

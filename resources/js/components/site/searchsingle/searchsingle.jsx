@@ -8,6 +8,7 @@ import './../searchsingle/searchsingle.css';
 import searchresult from '../../assets/img/searchresult.jpg'; 
 import { Player , ControlBar } from 'video-react'
 import { getResourceAction, }  from "./../../../actions/resourceActions";
+import moment from "moment"
 
 // get our fontawesome imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -135,16 +136,16 @@ class Searchsingle extends Component{
                    
                 <hr/>
                 <span className="photodis"> 
-                  <p><strong>Largest Size: </strong>Lorem Ipsum is simply dummy text</p>
-                  <p><strong>Photo ID: </strong>Lorem Ipsum is simply dummy text</p>
-                  <p><strong>Updated Date: </strong>Lorem Ipsum is simply dummy text</p>
+                  {/*<p><strong>Largest Size: </strong>Lorem Ipsum is simply dummy text</p>*/}
+                  <p><strong>Photo ID: </strong>{'RM-100-'+resource.resource.id}</p>
+                  <p><strong>Created Date: </strong>{moment(resource.resource.created_at).format("dddd, MMMM Do YYYY")}</p>
                 </span>
 
                    <div className="numofdownloads"> 
-                    <p><FontAwesomeIcon icon={faDownload}/> <strong>{resource.resource.downloads}</strong></p>
+                    <p><FontAwesomeIcon icon={faDownload}/> <strong>{ resource.resource.downloads}</strong></p>
                    </div>
                    <div className="numofdownloads"> 
-                    <p><FontAwesomeIcon icon={faEye}/> <strong>{resource.resource.views}</strong></p>
+                    <p><FontAwesomeIcon icon={faEye}/> <strong>{ resource.resource.views}</strong></p>
                    </div>
                    { (resourceType == "image" && resource.images !=[] ) && <Button variant="primary" onClick={() => this.handleDownload(resourceType,resource.images[0].id)}>Download Now <FontAwesomeIcon icon={faDownload} /></Button> }
                    { resourceType != "image" && resource.files  !=[] && <Button variant="primary" onClick={() => this.handleDownload(resourceType,resource.files[0].id)}>Download Now <FontAwesomeIcon icon={faDownload} /></Button> }
