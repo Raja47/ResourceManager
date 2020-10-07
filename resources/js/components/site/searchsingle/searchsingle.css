@@ -43,9 +43,7 @@
     float: left;
     margin-top: -4px;
     letter-spacing: 3px;
-        position: absolute;
-    bottom: 0;
-    left: 22px;
+        
 }
 
 .badgemain h2 {
@@ -163,7 +161,9 @@
 
 .search-single-content-div .slidermain.toppppp.row {
      background: url(../../assets/img/resultbg.jpg) no-repeat center bottom;
-     margin-bottom: 25px;}
+     margin-bottom: 25px;
+     background-size: 100% 100%;
+    }
 
 .search-single-content-div .searchresulttopbar.formfirstcontent.col-md-8 {
     top: 0%;

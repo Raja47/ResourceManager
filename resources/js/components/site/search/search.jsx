@@ -140,7 +140,7 @@ class Search extends Component{
            
            
           </Row>   
-          { resources=='' && <Row><Col md={3}></Col><Col md={6}><h1>Sorry No Resource against keywords</h1></Col><Col md={3}></Col></Row>}
+          { resources=='' && <Row><Col md={3}></Col><Col lg={6} className="errormessage"><h1>Sorry No Resource against keywords</h1> <p>404</p></Col><Col md={3}></Col></Row>}
             
           <Row>
               <Col md={2}></Col>

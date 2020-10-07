@@ -146,7 +146,7 @@ class Searchbar extends Component {
         <Col md={8} className="formfirstcontent searchresulttopbar">
          
         <Row>
-          <Col md={3} className="selecttype4"> 
+          <Col lg={3} xs={12} md={12} className="selecttype4"> 
 
           <Select
             name="types" 
@@ -157,7 +157,7 @@ class Searchbar extends Component {
           />
           </Col>
 
-          <Col md={9} className="searchbarjsx searchmain-home"> 
+          <Col lg={9} xs={12} md={12} className="searchbarjsx searchmain-home"> 
               <SelectSearch
                 name="keywords"
                 onInputChange={e => {this.handleTypedKeywords(e)}}
@@ -170,10 +170,11 @@ class Searchbar extends Component {
                 backspaceRemovesValue={true}
                 closeMenuOnScroll={true}
             />
-
+              
           </Col>
+          <FontAwesomeIcon icon={faSearch}  onClick = {this.handleSearhClick} className="getbtn"/>
         </Row>
-              <FontAwesomeIcon icon={faSearch}  onClick = {this.handleSearhClick} className="getbtn"/>
+             
               
         </Col>
         <Col md={2}></Col>

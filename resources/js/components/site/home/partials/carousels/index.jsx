@@ -139,11 +139,11 @@ class Carouselslider extends Component {
          
         <Row>
         <Col md={2}></Col>
-        
+        {/* <p class="line-1 anim-typewriter">The internet’s source of freely-usable images.</p> */}
         <Col md={8} className="formfirstcontent">
-         
+       
           <Row>
-             <Col md={3} className="selecttype4"> 
+             <Col lg={3} xs={12} md={12} className="selecttype4"> 
               <Select
                 name="type" 
                 placeholder="Select Type" 
@@ -151,7 +151,7 @@ class Carouselslider extends Component {
                 onChange={ e => {this.handleChangeType(e)}}
               />
             </Col>
-            <Col md={9} className="searchmain-home"> 
+            <Col lg={9} xs={12} md={12} className="searchmain-home"> 
               <SelectSearch 
                 onInputChange={e => {this.handleTypedKeywords(e)}}
                 onKeyDown={ e => {this.handleEnterKey(e)} }
@@ -161,9 +161,11 @@ class Carouselslider extends Component {
                 className="form-control"
                 value={this.state.searchKeywords}
               />
-            </Col>
-          </Row>
               <FontAwesomeIcon icon={faSearch}  onClick = {this.handleSearhClick} className="getbtn"/>
+            </Col>
+            
+          </Row>
+              
           </Col>
 
           <Col md={2}></Col>

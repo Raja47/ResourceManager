@@ -9,6 +9,7 @@ import {
 import './header.css';
 
 import logo from '../../../assets/img/logo-new.png'; 
+import dash from '../../../assets/img/dash.png'; 
 // get our fontawesome imports
 import { faSearch ,faEye} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -48,8 +49,8 @@ function Header() {
   }
 
   return (
-    <Row className="header">
-        <Col sm={4}>
+    <Row className="header" >
+        <Col lg={4} sm={12} xs={12}>
           <Navbar bg="light" expand="lg">
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -59,7 +60,7 @@ function Header() {
                   <Nav.Link><Link to={videoLocation} >Videos</Link></Nav.Link>
                   <Nav.Link><Link to={pluginLocation}>Plugins</Link></Nav.Link>
                   <Nav.Link><Link to={themeLocation} >Themes</Link></Nav.Link>
-
+                  <Link target="_blank" to="/admin/login"> <img src={dash} /> DashBoard</Link>
                 {/*<NavDropdown title="Search" id="basic-nav-dropdown">
                     <NavDropdown.Item>Search</NavDropdown.Item>
                     <NavDropdown.Item><Link >Images</Link></NavDropdown.Item>
@@ -73,15 +74,15 @@ function Header() {
               </Navbar>
       </Col>
 
-      <Col sm={4} className="headermenu">
+      <Col lg={4}  sm={0} xs={0} className="headermenu">
            {/*<Link to="/"><img src={logo} /></Link>*/}
       </Col>
 
-      <Col sm={4} className="getbtnsection">
+      <Col md={4} className="getbtnsection" sm={12}>
         <Navbar bg="primary" variant="dark" className="menu-bg">
             <Navbar.Brand href="#home"></Navbar.Brand>
             <Nav className="mr-auto">
-              <Link target="_blank" to="/admin/login">DashBoard
+              <Link target="_blank" to="/admin/login"><img src={dash} /> DashBoard
               
               </Link>
             </Nav>

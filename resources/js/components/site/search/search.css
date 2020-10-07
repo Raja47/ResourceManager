@@ -58,6 +58,7 @@
     padding-top: initial;
     min-height: 200px !important;
         margin-bottom: 44px;
+        background-size: 100% 100%;
 }
 
 
@@ -112,7 +113,8 @@
 }
 .img5555.col-md-3 {
     padding-right: 0 !IMPORTANT;
-    padding-left: 8px;
+    padding-left: 0px;
+   
 }
 
 .paginationcustome ul.pagination {
