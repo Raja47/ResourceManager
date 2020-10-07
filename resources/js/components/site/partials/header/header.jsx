@@ -11,7 +11,7 @@ import './header.css';
 import logo from '../../../assets/img/logo-new.png'; 
 import dash from '../../../assets/img/dash.png'; 
 // get our fontawesome imports
-import { faSearch ,faEye} from "@fortawesome/free-solid-svg-icons";
+import { faSearch ,faEye , faHome ,faTachometerAlt} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
@@ -76,7 +76,7 @@ function Header() {
 
 
       <Col sm={4} className="headermenu">
-            <Link to="/">Home</Link> 
+            <Link to="/"><FontAwesomeIcon icon={faHome} /></Link> 
            {/*<Link to="/"><img src={logo} /></Link>*/}
       </Col>
 
@@ -84,8 +84,9 @@ function Header() {
         <Navbar bg="primary" variant="dark" className="menu-bg">
          
             <Nav className="mr-auto">
-
-              <Link target="_blank" to="/admin/login"><img src={dash} /> DashBoard
+            
+            
+              <Link target="_blank" to="/admin/login"><FontAwesomeIcon icon={faTachometerAlt} />  DashBoard
               
               </Link>
             </Nav>

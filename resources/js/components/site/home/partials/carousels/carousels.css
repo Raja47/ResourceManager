@@ -624,3 +624,18 @@ height: 70px;
 .header .navbar-collapse .mr-auto.navbar-nav a img {
     display: none;
 }
+
+.getbtnsection svg {
+    font-size: 25px;
+    color: #fec20f;
+    margin-right: 5px;
+    vertical-align: text-bottom;
+}
+
+.headermenu svg {
+    font-size: 25px;
+    color: #fec20f;
+    /* margin-right: 5px; */
+    vertical-align: text-bottom;
+    margin-top: 10px;
+}
