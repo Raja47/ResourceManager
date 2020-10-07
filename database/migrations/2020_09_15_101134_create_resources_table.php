@@ -20,6 +20,8 @@ class CreateResourcesTable extends Migration
             $table->string('title', 191);
             $table->text('description')->nullable(true);
             $table->longText('keywords')->nullable(true);
+            $table->tinyInteger('views')->default(0);
+            $table->tinyInteger('downloads')->default(0);
             $table->longText('notes')->nullable(true);        
             $table->tinyInteger('status')->default(1);            
             $table->timestamp('created_at')->useCurrent();

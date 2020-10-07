@@ -55,7 +55,7 @@ function Header() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="mr-auto">
-                  {/*<Nav.Link><Link to="/">Home</Link></Nav.Link>*/}
+                  
                   <Nav.Link><Link to={imageLocation} >Images</Link></Nav.Link>
                   <Nav.Link><Link to={videoLocation} >Videos</Link></Nav.Link>
                   <Nav.Link><Link to={pluginLocation}>Plugins</Link></Nav.Link>
@@ -74,14 +74,17 @@ function Header() {
               </Navbar>
       </Col>
 
-      <Col lg={4}  sm={0} xs={0} className="headermenu">
+
+      <Col sm={4} className="headermenu">
+            <Link to="/">Home</Link> 
            {/*<Link to="/"><img src={logo} /></Link>*/}
       </Col>
 
       <Col md={4} className="getbtnsection" sm={12}>
         <Navbar bg="primary" variant="dark" className="menu-bg">
-            <Navbar.Brand href="#home"></Navbar.Brand>
+         
             <Nav className="mr-auto">
+
               <Link target="_blank" to="/admin/login"><img src={dash} /> DashBoard
               
               </Link>
