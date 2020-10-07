@@ -5,7 +5,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link, 
+    useHistory,
 } from "react-router-dom";
 import Header from './site/partials/header/header';
 import Footer from './site/partials/footer/footer';

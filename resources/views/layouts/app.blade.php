@@ -10,10 +10,15 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css')  }}" rel="stylesheet" >
         <script>
-            const api_url = "http://localhost:8000/api";
-		function asset_url(){
+            
+            const api_url = "{{ config('app.url').'/api' }}";
+		    
+            const app_url = "{{ config('app.url') }}";
+            
+            function asset_url(){
                 return "{{ config('filesystems.disks.public.url') }}";
-            }  
+            }
+
         </script>
             
     </head>

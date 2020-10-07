@@ -40,9 +40,4 @@ interface ResourceContract
      */
     public function deleteResource($id);
 
-    /**
-     * @param $slug
-     * @return mixed
-     */
-    public function findResourceBySlug($slug);
 }

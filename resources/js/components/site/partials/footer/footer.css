@@ -1,15 +1,15 @@
 
 
 .FootermainRow{
-    background: #1f2741;
-    padding-bottom: 31px;
+        background: #000000;
+    padding-bottom: 0px;
 }
 .Footercontent {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .Footercontent p {
-    color: #48557e;
+        color: #b4b9b9 !important;
     font-size: 18px;
     font-weight: 300;
     line-height: 1.8;

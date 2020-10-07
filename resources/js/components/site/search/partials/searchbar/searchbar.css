@@ -7,6 +7,8 @@
     height: 100vh;
 }
 
+
+
 .slidermain h1{
     font-size: 15px;
     color: #afacab;
@@ -51,7 +53,7 @@
 }
 
 .formfirstcontent .form-control {
-    border: 2px solid #d8d8d8 !important;
+    border: 1px solid #d8d8d8 !important;
     /* padding: 38px 43px; */
     font-size: 16px;
     border: 0px;
@@ -62,24 +64,27 @@
     position: relative;
     max-width: 100%;
     height: 70px;
-    text-indent: 70px;
+    text-indent: 5px;
     position: relative;
+    border-radius: 0;
+    
 }
 
 
 .formfirstcontent .getbtn{
     display: inline-block;
     padding: 15px 47px;
-    background-color: #fec20e;
-    color: black;
+    background-color: transparent;
+    color: #6e6e6e;
     border-radius: 6px;
     border: 0px;
     font-weight: 500;
     font-size: 20px;
     text-transform: uppercase;
     position: absolute;
-    top: 4px;
-    right: 21px;
+    top: 23px;
+    right: 37px;
+    cursor: pointer;
 }
 .formfirstcontent>img {
     position: absolute;
@@ -132,7 +137,7 @@
     right: 0;
     /* transform: translate(-35px, -35px); */
     margin: 0 auto;
-    top: 35%;
+    top: 50%;
 }
 
 
@@ -185,7 +190,7 @@ width: 100%;
 }
 
 .formfirstcontent svg.svg-inline--fa.fa-search.fa-w-16 {
-    font-size: 18px;
+    font-size: 28px;
 }
 
 .formfirstcontent .css-yk16xz-control ,
@@ -194,6 +199,8 @@ width: 100%;
     outline: 0 !IMPORTANT;
     box-shadow: unset !important;
         height: 100%;
+        max-width: 512px;
+        width: 100%;
 }
 
 .formfirstcontent .select-search {
@@ -205,18 +212,74 @@ width: 100%;
 }
 
 .formfirstcontent input.select-search__input {
-    border: 0 !IMPORTANT;
-    /* outline: 0; */
-    /* border-left: 0; */
-    /* border-bottom: 0; */
-    border: 3px solid black !IMPORTANT;
     height: 70px;
-    text-indent: 18px;
+    text-indent: 5px;
+    border-radius: 0;
+        border: 1px solid rgba(12,18,28,.12);
+        text-transform: capitalize;
+    font-weight: 500;
+    font-size: 18px;
+    border-right: 0;
+        box-shadow: 0 0 black;
+    
 }
 
-.formfirstcontent .css-1wa3eu0-placeholder {
-    left: 14%;
-}
+
 .formfirstcontent  input#react-select-2-input {
-    text-indent: 40px;
+    text-indent: 5px;
+}
+
+.selecttype4{
+        max-width: 100% !IMPORTANT;
+   }
+   .searhresultsec .card {
+    position: relative;
+    margin-bottom: 30px;
+    
+    overflow: hidden;
+    
+}
+
+.searhresultsec .card img {
+    height: 260px !important;
+    height: 100%;
+}
+
+
+.searhresultsec.row {
+padding-left: inherit;
+       margin-bottom: 100px;
+}
+
+
+.searchresulttopbar.formfirstcontent input.select-search__input,
+.searchresulttopbar.formfirstcontent .form-control{
+    height: 50px;}
+
+.searchresulttopbar .searchmain-home:after {width: 44px;
+    height: 44px;
+    right: 18px;
+    top: 3px;}
+
+.searchresulttopbar.formfirstcontent svg.svg-inline--fa.fa-search.fa-w-16 {
+    font-size: 23px;
+    top: 14px;
+    right: 27px;
+}
+
+.searchresulttopbar.formfirstcontent .select-search__select ,
+.searchresulttopbar.formfirstcontent .select-search__select ul{
+    margin-top: 6px !IMPORTANT;
+}
+
+ .keyworsbar{
+    text-align: left;
+    color: white;
+    margin-top: 12px;
+    display: block;
+    letter-spacing: 2px;
+}
+
+.searchresulttopbar.formfirstcontent.col-md-8 {
+    top: 100%;
 }

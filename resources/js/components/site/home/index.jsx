@@ -1,5 +1,6 @@
 import React ,{ Component , Fragmnent} from 'react'
 import {Button, Carousel ,Container ,Row,Col,Card} from 'react-bootstrap';
+import {useHistory} from "react-router-dom"
 import { connect } from 'react-redux'
 
 import Carouselslider from './partials/carousels';

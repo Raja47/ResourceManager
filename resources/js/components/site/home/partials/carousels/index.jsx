@@ -1,7 +1,8 @@
 import React ,{Component, Fragment} from 'react';
-import { Link, Redirect} from "react-router-dom";
+import { Link, Redirect,useHistory} from "react-router-dom";
 import {Button, Carousel ,Container ,Row,Col,Card,Tabs,Tab,Sonnet,Form, Navbar,Nav,NavDropdown} from 'react-bootstrap';
 import './carousels.css';
+
 import { connect } from 'react-redux'
 import icon from '../../../../assets/img/icon.png'; 
 import Select from "react-select-search";
@@ -26,6 +27,7 @@ class Carouselslider extends Component {
           suggestions : [],
           suggestedKeywords: [],
           options:[
+             { value: '0',  name:'All'  }, 
              { value: '1',  name:'Image'  },
              { value: '2',  name:'Video'  },
              { value: '3',  name:'Plugin' },
@@ -33,6 +35,7 @@ class Carouselslider extends Component {
                 
           ]
       };
+
 
   }
 
@@ -55,19 +58,34 @@ class Carouselslider extends Component {
   /**
    * { search Input & select Type . Change }
    */
-  
+  handleEnterKey = (e) => {
+    
+     if(e.keyCode === 13){
+        const {searchKeywords } = this.state;
+        
+          if(searchKeywords !== "" ){
+              this.setState({redirect : "/search"}) 
+          }
+      }
+  }
+
   handleChangeType = (e) => {
     this.setState({'selectedType':e})
   }
 
   handleChangeKeywords = (e) => {
-    this.setState({searchKeywords:e});
-    
+      
+      this.setState({searchKeywords:e});
+      if(e.value !== "" || e.value !== undefined){
+          this.setState({redirect : "/search"})  
+      }
+      
   }
 
   handleTypedKeywords = (e) => {
 
     if( e =="" || e == undefined){
+        
          this.setState({suggestedKeywords:[]});
     }else{
 
@@ -79,12 +97,19 @@ class Carouselslider extends Component {
   
   handleSearhClick = () => {
     var {searchKeywords , selectedType } = this.state;
+    // console.log()
     if(searchKeywords !== "" ){
-        this.setState({redirect : "/search"}) 
+        useHistory.push({
+                  pathname: "/search",
+                  state: { keywords: searchKeywords.value , type: selectedType  }
+        });
+        // this.setState({redirect : "/search"}) 
     } 
   }
 
-
+  handleClick = (e) => {
+    this.inputElement.click();
+  }
   /**
    * Renders the Component.
    *
@@ -93,13 +118,15 @@ class Carouselslider extends Component {
   render() {
     
     if (this.state.redirect) {
-      var {searchKeywords , selectedType } = this.state;
-      return <Redirect 
+      var { searchKeywords , selectedType } = this.state;
+      return <Redirect
               to={{
                   pathname: this.state.redirect,
                   state: { keywords: searchKeywords.value , type: selectedType  }
               }}
+             
               />
+
     }
 
     const {suggestions,suggestedKeywords} = this.state;
@@ -110,63 +137,37 @@ class Carouselslider extends Component {
         
         <Col md={12}>
          
-{/*         <Row>
-            <SelectSearch onKeyDown={e => {this.handleChangeKeywords(e)}} options={this.state.suggestedKeywords}  placeholder="Choose your language" />
-         </Row>*/}
-        
         <Row>
-        <Col md={2}> <img src={icon} /> </Col>
+        <Col md={2}></Col>
+        
         <Col md={8} className="formfirstcontent">
          
+          <Row>
+             <Col md={3} className="selecttype4"> 
+              <Select
+                name="type" 
+                placeholder="Select Type" 
+                options={this.state.options}
+                onChange={ e => {this.handleChangeType(e)}}
+              />
+            </Col>
+            <Col md={9} className="searchmain-home"> 
+              <SelectSearch 
+                onInputChange={e => {this.handleTypedKeywords(e)}}
+                onKeyDown={ e => {this.handleEnterKey(e)} }
+                onChange={  e  => {this.handleChangeKeywords(e)}} 
+                options={this.state.suggestedKeywords} 
+                placeholder="Type Your keywords" 
+                className="form-control"
+                value={this.state.searchKeywords}
+              />
+            </Col>
+          </Row>
+              <FontAwesomeIcon icon={faSearch}  onClick = {this.handleSearhClick} className="getbtn"/>
+          </Col>
 
-          {/*<Form.Control 
-            name="searchKeywords"
-            type="text" 
-            onChange={ e => {this.handleChangeKeywords(e)}}
-            value={this.state.searchKeywords}
-            placeholder="Find the perfect eWorldTrade photos, Videos and More..." 
-            autoComplete="off"
-          />*/}
-          <Select
-            name="type" 
-            placeholder="Select Type" 
-            options={this.state.options}
-            onChange={ e => {this.handleChangeType(e)}}
-          />
-          
-          <SelectSearch 
-            onInputChange={e => {this.handleTypedKeywords(e)}}
-            onChange={e  =>  {this.handleChangeKeywords(e)}} 
-            options={this.state.suggestedKeywords} 
-            placeholder="Type Your keywords" 
-            className="form-control"
-            value={this.state.searchKeywords}
-          />
+          <Col md={2}></Col>
 
-          {/*<span className="searchsugggestions">
-           
-                
-                {suggestedKeywords.map((object , i) => {
-                     return   <li type="none" >{ object.name }</li>
-                })}
-
-            <FontAwesomeIcon icon={faSearch} />
-            <strong className="Search-tip">Search tip</strong>
-            <span className="Search-tip-span">Try the <strong>Fresh content</strong> sort for our newest images.</span>
-          </span>*/}
-
-
-
-            
-
-          <Button 
-            className="getbtn"
-            variant="warning"
-            onClick = {this.handleSearhClick}  
-          >SEARCH</Button>
-
-        </Col>
-        <Col md={2}></Col>
         </Row>
          
         </Col>

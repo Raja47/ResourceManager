@@ -75,15 +75,15 @@ function Footer() {
 
   </Row> */}
 <Row className="copyright">
-      <Col md={2} className="Footercontent"></Col>
-        <Col md={8} className="Footercontent">
-          <img src={logo} />
+     
+        <Col md={12} className="Footercontent">
+         
           
         <p>
         Copyright© 2020. All Rights Reserved. | Powered By eWorldtrade
         </p>
         </Col>
-      <Col md={2} className="Footercontent"></Col>
+      
         
 </Row>
 </Container>

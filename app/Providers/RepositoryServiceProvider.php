@@ -1,20 +1,18 @@
 <?php
-
 namespace App\Providers;
-use Illuminate\Support\ServiceProvider;
+
+
 use App\Contracts\CategoryContract;
 use App\Contracts\ResourceContract;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ResourceRepository;
-
-
+use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
     protected $repositories = [
         CategoryContract::class   =>  CategoryRepository::class,
         ResourceContract::class   =>  ResourceRepository::class,
-        
     ];
 
     /**
@@ -30,3 +28,4 @@ class RepositoryServiceProvider extends ServiceProvider
         }
     }
 }
+

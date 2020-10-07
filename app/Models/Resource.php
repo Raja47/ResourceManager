@@ -19,7 +19,7 @@ class Resource extends Model implements Searchable
      * @var array
      */
     protected $fillable = [
-       'title' , 'description','keywords' , 'notes' ,'status' , 'resource_category_id' 
+       'title' , 'description','keywords' , 'notes' ,'views','downloads','status' , 'resource_category_id' 
     ];
 
     /**
@@ -79,6 +79,9 @@ class Resource extends Model implements Searchable
      */
     public function scopeType($query,$type)
     {
+        if( $type == '0' ){
+            return $query;
+        }   
         return $query->where('resource_category_id', $type);
     }
 

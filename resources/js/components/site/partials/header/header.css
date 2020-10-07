@@ -16,11 +16,11 @@
 
 .header .mr-auto.navbar-nav{ margin: 0 auto;}
 .header .mr-auto.navbar-nav a{     
-    color: white !important;
-    font-size: 18px;
-    font-weight: 300;
+    color: #b4b9b9 !important;
+    font-size: 17px;
+    font-weight: 500;
     padding: 0;
-    margin-right: 28px;
+    margin-right: 13px;
     margin-top: 4px;}
 
 .header .getbtn{

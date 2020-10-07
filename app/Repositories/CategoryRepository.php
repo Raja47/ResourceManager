@@ -9,7 +9,7 @@ use App\Contracts\CategoryContract;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
-
+use App\Repositories\BaseRepository;
 /**
  * Class CategoryRepository
  *

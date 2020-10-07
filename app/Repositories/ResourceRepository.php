@@ -9,7 +9,7 @@ use App\Contracts\ResourceContract;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
-use ImageInt;
+use App\Repositories\BaseRepository; 
 /**
  * Class ResourceRepository
  *
@@ -63,11 +63,13 @@ class ResourceRepository extends BaseRepository implements ResourceContract
     public function createResource(array $params)
     {
         try {
-            $collection = collect($params);
+            
+            $params['keywords'][] = "All";
 
+            $collection = collect($params);
            
             $status = $collection->has('status') ? 1 : 0;
-
+           
             $merge = $collection->merge(compact('status'));
 
             $resource = new Resource($merge->all());
@@ -89,7 +91,9 @@ class ResourceRepository extends BaseRepository implements ResourceContract
      * @return mixed
      */
     public function updateResource(array $params)
-    {
+    {   
+        $params['keywords'][] = "All";
+        
         $resource = $this->findResourceById($params['resource_id']);
 
         $collection = collect($params)->except('_token');
@@ -121,14 +125,5 @@ class ResourceRepository extends BaseRepository implements ResourceContract
         return $resource;
     }
 
-    /**
-     * @param $slug
-     * @return mixed
-     */
-    public function findResourceBySlug($slug)
-    {
-        $resource = Resource::where('slug', $slug)->first();
-
-        return $resource;
-    }
+    
 }

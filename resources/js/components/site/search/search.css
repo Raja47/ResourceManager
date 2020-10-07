@@ -24,11 +24,11 @@
 
 .searhresultsec .card:hover .card-body {
     opacity: 1;
-    -webkit-transition: opacity 1s ease-in-out;
-    -moz-transition: opacity 1s ease-in-out;
-    -ms-transition: opacity 1s ease-in-out;
-    -o-transition: opacity 1s ease-in-out;
-    transition: opacity 1s ease-in-out;
+    -webkit-transition: opacity .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out;
+    -ms-transition: opacity .5s ease-in-out;
+    -o-transition: opacity .5s ease-in-out;
+    transition: opacity .5s ease-in-out;
 }
 
 .searhresultsec .card-body {
@@ -52,11 +52,12 @@
 }
 
 .searhresultsec .slidermain.row {
-    background: white !important;
+     background: url(../../assets/img/searchbg.jpg) no-repeat center bottom;
     width: 100%;
     height: auto !important;
     padding-top: initial;
-    min-height: 400px !important;
+    min-height: 200px !important;
+        margin-bottom: 44px;
 }
 
 
@@ -68,7 +69,7 @@
 .searhresultsec .card-title.h5 {
     position: absolute;
     top: 13px;
-    left: 11px;
+    left: 30px;
     text-align: left;
     text-overflow: ellipsis;
     width: 271px;
@@ -77,12 +78,45 @@
     text-overflow: visible;
     color: white;
     font-size: 18px;
+        text-transform: capitalize;
+    font-weight: 600;
 }
 
 .searhresultsec .svg-inline--fa.fa-eye {
     font-size: 27px; 
     position: absolute;
     top: 11px;
-    right: 15px;
+    right: 30px;
     
 }
+
+.resultsearchmaindiv.row {
+    padding: 0px 45px;
+}
+
+.resultsearchmaindiv .col-md-3 {
+    padding-right: 0 !important;
+    padding-left: 8px !IMPORTANT;
+}
+
+.searhresultsec.row .video-react .video-react-big-play-button ,
+.searhresultsingleimg .video-react .video-react-big-play-button{ 
+    top: 50% !IMPORTANT;
+    left: 0px !IMPORTANT;
+    right: 0 !IMPORTANT;
+    margin: 0 auto !IMPORTANT;
+}
+
+.searhresultsec.row .video-react-controls-enabled {
+    height: 260px !IMPORTANT;
+}
+.img5555.col-md-3 {
+    padding-right: 0 !IMPORTANT;
+    padding-left: 8px;
+}
+
+.paginationcustome ul.pagination {
+    align-items: center;
+    justify-content: center;
+}
+

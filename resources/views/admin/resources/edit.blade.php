@@ -74,6 +74,11 @@
                                             <select type="hidden" name="keywords[]" id="keywords" class="form-control" multiple>
                                                 @if($resource->keywords)
                                                     @foreach($resource->keywords as $keyword)
+                                                    @if( $keyword == "All" ) 
+                                                        <?php
+                                                        continue
+                                                        ?>
+                                                    @endif
                                                         <option value="{{ $keyword }}" selected="selected"> {{ $keyword}} <option>
                                                     @endforeach
                                                 @endif

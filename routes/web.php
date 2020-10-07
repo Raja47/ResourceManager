@@ -3,18 +3,20 @@
 use Illuminate\Support\Facades\Route;
 
 
+Route::group(['prefix'  =>  'site'], function (){
+    Route::get('/file/download/{type}/{id}' , 'Site\ResourceController@download')->name('site.file.download');
+});
+
 
 Route::group(['prefix'  =>  'admin'], function (){
-    
+    Route::get('/', 'Cms\LoginController@showLoginForm')->name('admin.login');
     Route::get('login', 'Cms\LoginController@showLoginForm')->name('admin.login');
     Route::post('login', 'Cms\LoginController@login')->name('admin.login.post');
     Route::get('logout', 'Cms\LoginController@logout')->name('admin.logout');
 
     Route::group(['middleware' => ['auth:admin']], function () {
 
-        Route::get('/', function () {
-            return view('admin.dashboard.index');
-        })->name('admin.dashboard');
+        Route::get('/','Cms\HomeController@index' )->name('admin.dashboard');
        
         Route::group(['prefix' => 'resources'], function () {
 
@@ -34,7 +36,6 @@ Route::group(['prefix'  =>  'admin'], function (){
            Route::get('files/{id}/delete', 'Cms\FileController@delete')->name('admin.resources.files.delete');
            Route::get('files/show', 'Cms\FileController@show')->name('admin.resources.files.show');
          
-
         });
 
     });
