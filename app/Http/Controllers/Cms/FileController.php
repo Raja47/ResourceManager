@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Contracts\ResourceContract;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use FFMpeg;
+use App\Models\Image;
 
 class FileController extends Controller
 {
@@ -39,6 +41,32 @@ class FileController extends Controller
             ]);
         
             $resource->files()->save($resourceFile);
+            
+            $videoFormats = ['webm','mpg','mp2','mpeg','mpe','mpv','ogg','mp4','m4p','m4v','avi','wmv','mov','qt','flv','swf','avchd'];
+            if( in_array( strtolower($request->file->getClientOriginalExtension()) , $videoFormats ) ){
+                
+                FFMpeg::fromDisk('public')
+                    ->open('resources/files/'.$file)
+                    ->getFrameFromSeconds(10)
+                    ->export()
+                    ->toDisk('public')
+                    ->save('resources/images/original/'.$fileName.'.'.'png');
+
+                FFMpeg::fromDisk('public')
+                        ->open('resources/files/'.$file)
+                        ->getFrameFromSeconds(10)
+                        ->export()
+                        ->toDisk('public')
+                        ->save('resources/images/small/'.$fileName.'.'.'png');
+                        
+                $resourceImage = new Image([  
+                 'url'           =>  $fileName.'.'.'png' ,
+                'imageable_type' => 'App\Models\Resource',
+                'imageable_id'   =>  $resource->id
+                ]);
+                $resource->images()->save($resourceImage);
+            }
+            
         }
 
         return response()->json(['status' => 'Success']);
