@@ -17,6 +17,7 @@
         "laravel/passport": "8.*",
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.0",
+        "pbmedia/laravel-ffmpeg": "^7.2",
         "spatie/laravel-searchable": "^1.7"
     },
     "require-dev": {
