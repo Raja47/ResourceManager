@@ -22,7 +22,7 @@ class App extends Component {
           <div className="App">
             <Container className="MainAppFluid" fluid>
               
-            <Router>
+            <Router basename={"demo/search"}>
               <Header/>
               <Switch>
 

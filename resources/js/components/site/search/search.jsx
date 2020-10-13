@@ -7,7 +7,7 @@ import Searchimg from './../../assets/img/searchimg.jpg';
 import { connect } from 'react-redux'
 import Resource from "./partials/resource";
 import { searchResourceAction ,}  from "./../../../actions/resourceActions";
-import Searchbar from './partials/Searchbar/';
+import Searchbar from './partials/searchbar/';
 
 // get our fontawesome imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,8 +27,6 @@ class Search extends Component{
         pages:[],
         redirect: null,
         paginationResults: 16,
-        
-       
       };
      
       this.handler = this.handler.bind(this);  
@@ -144,7 +142,7 @@ class Search extends Component{
           { resources != '' && <Row>
               <Col md={2}></Col>
               <Col md={8} className="paginationcustome">
-                 
+                { pageCount != '1' &&                       
                   <Pagination>
                     <Pagination.First onClick={this.handleFirst}/>
                     <Pagination.Prev  onClick={this.handlePrevious} />  
@@ -158,7 +156,7 @@ class Search extends Component{
                     <Pagination.Next onClick={this.handleNext}/>
                     <Pagination.Last onClick={this.handleLast}/>
                   </Pagination>
-                
+                }
               </Col>
               <Col md={2}></Col>  
 

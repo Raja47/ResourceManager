@@ -1,9 +1,9 @@
 import axios from "axios"
 
 
-export const searchResourceAction = (type, keywords) => dispatch => {
+export const searchResourceAction =  (type, keywords) => dispatch => {
    
-  axios.get(api_url+`/site/resource/search/${type}/${keywords}`)
+   axios.get(api_url+`/site/resource/search/${type}/${keywords}`)
   .then((response) => {
     
     if(response.data){
@@ -24,7 +24,7 @@ export const searchResourceAction = (type, keywords) => dispatch => {
 
 
 
-export const suggestResourceAction = (type, keywords) => dispatch => {
+export const suggestResourceAction =  (type, keywords) =>  dispatch => {
    
   axios.get(api_url+`/site/resource/suggest/${type}/${keywords}`)
   .then((response) => {

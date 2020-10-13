@@ -229,9 +229,11 @@
             let myDropzone = new Dropzone("#dropzone", {
                 paramName: "image",
                 addRemoveLinks: false,
-                maxFilesize: 4,
-                parallelUploads: 6,
+                maxFilesize: 100,
+                acceptedFiles:'image/*',
+                parallelUploads: 1,
                 uploadMultiple: false,
+                timeout:30000,
                 url: "{{ route('admin.resources.images.upload') }}",
                 autoProcessQueue: false,
                 init: function () {
@@ -275,11 +277,15 @@
             let fileDropzone = new Dropzone("#filedropzone", {
                 paramName: "file",
                 addRemoveLinks: false,
-                maxFilesize: 4,
-                parallelUploads: 6,
+                maxFilesize: 1000,
+                parallelUploads: 1,
                 uploadMultiple: false,
                 url: "{{ route('admin.resources.files.upload') }}",
+                // chunking:true,
+                // chunkSize:10000000, // Bytes
+                // retryChunck:true,
                 autoProcessQueue: false,
+                timeout:0,
                 init: function () {
                   this.on("success", function (file, responseText) {
                     console.log(responseText.img);

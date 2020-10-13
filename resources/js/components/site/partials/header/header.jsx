@@ -11,7 +11,7 @@ import './header.css';
 import logo from '../../../assets/img/logo-new.png'; 
 import dash from '../../../assets/img/dash.png'; 
 // get our fontawesome imports
-import { faSearch ,faEye , faHome ,faTachometerAlt} from "@fortawesome/free-solid-svg-icons";
+import { faSearch ,faEye , faHome ,faTachometerAlt,faUser} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
@@ -60,7 +60,7 @@ function Header() {
                   <Nav.Link><Link to={videoLocation} >Videos</Link></Nav.Link>
                   <Nav.Link><Link to={pluginLocation}>Plugins</Link></Nav.Link>
                   <Nav.Link><Link to={themeLocation} >Themes</Link></Nav.Link>
-                  <Link target="_blank" to="/admin/login"> <img src={dash} /> DashBoard</Link>
+                  <Link target="_blank" to="/admin/login"> <img src={dash} />  DashBoard</Link>
                 {/*<NavDropdown title="Search" id="basic-nav-dropdown">
                     <NavDropdown.Item>Search</NavDropdown.Item>
                     <NavDropdown.Item><Link >Images</Link></NavDropdown.Item>
@@ -86,7 +86,7 @@ function Header() {
             <Nav className="mr-auto">
             
             
-              <Link target="_blank" to="/admin/login"><FontAwesomeIcon icon={faTachometerAlt} />  DashBoard
+              <Link target="_blank" to="/admin/login"><FontAwesomeIcon icon={faUser} />  DashBoard
               
               </Link>
             </Nav>

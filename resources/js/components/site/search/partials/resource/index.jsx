@@ -59,7 +59,7 @@ class Resource extends Component{
     const playVideo= this.state.playVideo;
     
     if( this.state.redirect != null ){
-      return <Redirect to={this.state.redirect} />
+      return <Redirect to={this.state.redirect} push />
     }
     if(playVideo){
 

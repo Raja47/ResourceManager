@@ -101,7 +101,9 @@ class Searchbar extends Component {
       }
       
 
-  
+     handleOnFocus = (e) => {
+          this.setState({searchKeywords:null});
+      }
   
   
 /**
@@ -182,8 +184,7 @@ class Searchbar extends Component {
                 placeholder="Type Keywords" 
                 className="form-control"
                 value={this.state.searchKeywords} 
-                backspaceRemovesValue={true}
-                closeMenuOnScroll={true}
+                onFocus = {e => this.handleOnFocus(e) }
             />
               
           </Col>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <title>@yield('title') - {{ config('app.name') }}</title>
@@ -7,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/main.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/fontawesome-free/css/all.min.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/sb-admin-2.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('/backend/css/main.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('/backend/css/fontawesome-free/css/all.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/backend/css/sb-admin-2.min.css') }}" />
     <link rel="shortcut icon" href="{{  asset('storage/'.config('settings.site_favicon') ) }}" />
     @yield('styles')
 </head>
@@ -47,11 +48,11 @@
 
   </div>
 
-    <script src="{{ asset('backend/js/jquery-3.2.1.min.js') }}"></script>
-    <script src="{{ asset('backend/js/popper.min.js') }}"></script>
-    <script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('backend/js/main.js') }}"></script>
-    <script src="{{ asset('backend/js/plugins/pace.min.js') }}"></script>
+    <script src="{{ asset('/backend/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('/backend/js/popper.min.js') }}"></script>
+    <script src="{{ asset('/backend/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('/backend/js/main.js') }}"></script>
+    <script src="{{ asset('/backend/js/plugins/pace.min.js') }}"></script>
     @stack('scripts')
 
   

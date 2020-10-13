@@ -13,7 +13,7 @@ import moment from "moment"
 // get our fontawesome imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faHome , faDownload } from "@fortawesome/free-solid-svg-icons";
-import Searchbar from '../search/partials/Searchbar/';
+import Searchbar from '../search/partials/searchbar/';
 
 
 class Searchsingle extends Component{
@@ -86,7 +86,7 @@ class Searchsingle extends Component{
   render () {
 
     if(this.state.redirect){
-      return <Redirect to={this.state.redirect}/>
+      return <Redirect push to={this.state.redirect}/>
     }
 
     const resource = this.state.resource;

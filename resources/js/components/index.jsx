@@ -16,12 +16,11 @@ import App from './App.jsx'
 	const store = createStore(
 		reducer,
 		/* preloadedState, */
-		
-		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() && applyMiddleware(...middleware) ,
-
+		 applyMiddleware(...middleware) ,
 	);
 
 // store.dispatch(getAllProducts())
+// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() &&
 
 render(
   <Provider store={store}>
