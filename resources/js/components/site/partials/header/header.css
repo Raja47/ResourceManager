@@ -35,6 +35,12 @@
         margin-top: 7px;
 }
 
+.getbtnsection svg {
+    font-size: 19px !important; 
+    margin-right: 5px;
+    vertical-align: text-bottom;
+}
+
 .header .show.dropdown.nav-item .dropdown-menu.show a {
     color: black !important;
     padding-left: 12px;
