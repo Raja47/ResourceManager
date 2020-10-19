@@ -16,7 +16,11 @@ class FileController extends Controller
     use UploadAble;
 
     protected $resourceRepository;
-
+    /**
+     * Constructs a new instance.
+     *
+     * @param      \App\Contracts\ResourceContract  $resourceRepository  The resource repository
+     */
     public function __construct(ResourceContract $resourceRepository)
     {
         $this->resourceRepository = $resourceRepository;

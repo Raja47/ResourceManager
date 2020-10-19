@@ -8,6 +8,23 @@
     </div>
     @include('admin.partials.flash')
     <div class="row user">
+          <div class="col-md-3">
+                
+          </div>
+          <div class="col-md-6">
+                <select class="form-control">
+                    <option value="">Select Source</option>
+                    <option  value="themeforest">ThemeForest</option>
+                    <option  value="shutterstock">ShutterStock</option>
+                    <option value="istock" >iStock</option>
+                </select>
+                <input class="form-control" type="text"  placeholder="enter source url">
+          </div>
+          <div class="col-md-3">
+                <input class="form-control" type="button" value="Scrap">
+          </div>
+    </div>    
+    <div class="row user">
         <div class="col-md-3">
             <div class="tile p-0">
                 <ul class="nav flex-column nav-tabs user-tabs">
