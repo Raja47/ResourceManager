@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use ImageLib;
 use Illuminate\Support\Str;
 
-class ImageController extends Controller
+class ScrapController extends Controller
 {
     use UploadAble;
 

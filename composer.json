@@ -18,7 +18,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.0",
         "pbmedia/laravel-ffmpeg": "^7.2",
-        "spatie/laravel-searchable": "^1.7"
+        "spatie/laravel-searchable": "^1.7",
+        "weidner/goutte": "1.4.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
