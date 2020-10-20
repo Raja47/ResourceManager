@@ -127,7 +127,10 @@ class Searchsingle extends Component{
               <span className="keyworsdiv">
               <hr/>
                    { resource.resource.keywords != undefined  && 
-                        resource.resource.keywords.map(keyword => {
+                        resource.resource.keywords.map((keyword,i) => {
+                             if(i >= 10){
+                                 return ""
+                             }    
                              return <Link to={() => this.redirectToSearch(keyword) } key={keyword}>
                               <span className="badge label-info"  ><h3><Badge variant="secondary">{keyword}</Badge></h3>  </span></Link>
                         })
@@ -154,10 +157,9 @@ class Searchsingle extends Component{
 
               <Col lg={12} md={12} className="searhresultsinglecontent">
               
-              <h2>{resource.resource.title}</h2>
-                   <p>{resource.resource.description}</p>
+                    <h2>{resource.resource.title}</h2>
+                    <p>{resource.resource.description}</p>
                                  
-                  
               </Col>
 
 

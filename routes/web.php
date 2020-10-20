@@ -13,7 +13,9 @@ Route::group(['prefix'  =>  'admin'], function (){
     Route::get('login', 'Cms\LoginController@showLoginForm')->name('admin.login');
     Route::post('login', 'Cms\LoginController@login')->name('admin.login.post');
     Route::get('logout', 'Cms\LoginController@logout')->name('admin.logout');
-
+    
+    Route::post('/scrap' , 'Cms\ScrapController@scrap')->name('admin.scrapper.scrap');
+    
     Route::group(['middleware' => ['auth:admin']], function () {
 
         Route::get('/','Cms\HomeController@index' )->name('admin.dashboard');
@@ -50,25 +52,4 @@ Route::view('/{path?}', 'layouts/app');
 
 
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
-
-
-
-/// Cms Routes
-
-
- // Route::group(['prefix'  =>   'categories'], function() {
-
-        //     Route::get('/', 'Cms\CategoryController@index')->name('admin.categories.index');
-        //     Route::get('/create', 'Cms\CategoryController@create')->name('admin.categories.create');
-        //     Route::post('/store', 'Cms\CategoryController@store')->name('admin.categories.store');
-        //     Route::get('/{id}/edit', 'Cms\CategoryController@edit')->name('admin.categories.edit');
-        //     Route::post('/update', 'Cms\CategoryController@update')->name('admin.categories.update');
-        //     Route::get('/{id}/delete', 'Cms\CategoryController@delete')->name('admin.categories.delete');
-
-        //     Route::post('banners/upload', 'Cms\CategoryBannerController@upload')->name('admin.categories.banners.upload');
-        //     Route::get('banners/{id}/delete', 'Cms\CategoryBannerController@delete')->name('admin.categories.banners.delete');
-
-        // });
 

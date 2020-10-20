@@ -29,6 +29,7 @@
     -ms-transition: opacity .5s ease-in-out;
     -o-transition: opacity .5s ease-in-out;
     transition: opacity .5s ease-in-out;
+    cursor: pointer;
 }
 
 .searhresultsec .card-body {
@@ -42,6 +43,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    cursor: pointer;
 }
 
 

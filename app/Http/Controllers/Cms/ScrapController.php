@@ -9,7 +9,7 @@ use App\Contracts\ResourceContract;
 use App\Http\Controllers\Controller;
 use ImageLib;
 use Illuminate\Support\Str;
-use Goutte;
+use \Goutte as Goutte;
 
 class ScrapController extends Controller
 {
@@ -22,11 +22,11 @@ class ScrapController extends Controller
         $this->resourceRepository = $resourceRepository;
     }
 
-    public function scraps(Request $request){
-        if($request->site == "themeforest"){
+    public function scrap(Request $request){
+        if($request->source == "themeforest"){
             
             $resource= [];
-            $crawler = Goutte::request('GET', 'https://themeforest.net/item/bizzark-multipurpose-business-crm-saas-admin/27856652');
+            $crawler = Goutte::request('GET', $request->url);
             
             $crawler->filter('h1.t-heading.-size-l')->each(function ($node) use(&$resource) {
                $resource['name'] = $node->text();
@@ -41,29 +41,26 @@ class ScrapController extends Controller
             $crawler->filter('.item-preview > a')->each(function ($node) use(&$resource) {
                 $resource['img'] = $node->children('img')->extract(['src'])[0];
             });
-
+            
             $desc = ""; 
             $crawler->filter('div.user-html')->each(function ($node) use(&$desc) {
                 $desc = $node->text();
             });
 
             $resource['desc'] = $desc;
+            $resource['category'] = "theme";
+            return response()->json(["status"=> true , 'resource' => $resource]);
 
-            mb_convert_encoding($resource['desc'], 'UTF-8', 'UTF-8');
-            return response()->json($resource);
-
-        }elseif($request->site == 'shutterstock' ){
+        }elseif($request->source == 'shutterstock' ){
             
             $resource= []; 
-            $crawler = Goutte::request('GET', 'https://www.shutterstock.com/image-photo/three-portrait-young-happy-women-red-1826431412');
+            $crawler = Goutte::request('GET', $request->url);
             
             $crawler->filter('h1.font-headline-base')->each(function ($node) use(&$resource) {
                $resource['name'] = $node->text();  
             });
             if( !isset($resource['name']) ){
-            
                 $crawler->filter('h1.font-headline-responsive-sm')->each(function ($node) use(&$resource) {
-                 
                    $resource['name'] = $node->text();  
                 });
             }  
@@ -72,20 +69,27 @@ class ScrapController extends Controller
             $crawler->filter('div.C_a_03061 a')->each(function ($node) use(&$tags) {
                 $tags .= $node->text().",";
             });
+            $tags = substr($tags,0,-1);
             $resource['tags'] = $tags;
+            
+            $resource['desc'] = $resource['name']; 
+            
+            $imageKeywordExists = strpos($request->url , "/image-photo/");
+            $videoKeywordExists = strpos($request->url , "/video/");
+            if($imageKeywordExists){
+                $resource["category"] = "image";
+            }elseif($videoKeywordExists){
+                $resource["category"] = "video";
+            }
+            
+            return response()->json(["status"=> true , 'resource' => $resource]);
 
-            $crawler->filter('.m_l_c4504')->each(function ($node) use(&$resource) {
-                $resource['img'] = $node->extract(['src'])[0];
-            });
-            return response()->json($resource);
-
-        }elseif($request->site == 'istock'){
+        }elseif($request->source == 'istock'){
             
             $resource= []; 
-            $crawler = Goutte::request('GET', 'https://www.istockphoto.com/video/dispersed-corona-viruses-with-blue-liquid-background-3d-rendering-gm1204304329-346470601');
+            $crawler = Goutte::request('GET',$request->url );
             
             $crawler->filter('.image_title h1')->each(function ($node) use(&$resource) {
-             
                $resource['name'] = $node->text();  
             });
             
@@ -99,66 +103,28 @@ class ScrapController extends Controller
             $crawler->filter('section.description p')->each(function ($node) use(&$desc) {
                 $desc = $node->text();
             });
-            $resource['desc'] = $desc;
-
-            return response()->json($resource);
+            if($desc != ""){
+                $resource['desc'] = $desc;
+            }else{
+                $resource['desc'] = $resource['name'];
+            }
+            
+            $imageKeywordExists = strpos($request->url , "/photo/");
+            $videoKeywordExists = strpos($request->url , "/video/");
+            if($imageKeywordExists){
+                $resource["category"] = "image";
+            }elseif($videoKeywordExists){
+                $resource["category"] = "video";
+            }
+            
+            return response()->json(["status"=> true , 'resource' => $resource]);
 
         }else{
-            
+           return response()->json(["status"=> false]);
         }
     }
 
 
-
-    public function scraps(Request $request){
-            
-        
-    }
-
-
-    public function shutterScrap(){
-        
     
-    }
-
-     public function istockScrap(){
-        
-    
-    }
-
-
-    
-
-
-    public function upload(Request $request)
-    {
-        $resource = $this->resourceRepository->findResourceById($request->resource_id);
-
-        if ( $request->has('image')) {
-            
-            $fileName = Str::random(3).'-'.$resource->id;
-            $file  = $fileName.'.'.$request->image->getClientOriginalExtension();
-
-            $originalImage = ImageLib::make($request->image);
-            // $originalImage->insert($water_mark_original,'center');
-            $originalImage->encode($request->image->getClientOriginalExtension() ,100);
-            \Storage::disk('public')->put( 'resources/images/original/'.$file , $originalImage );
-
-            $smallImage = ImageLib::make($request->image)->resize(300,200, function ($constraint) { $constraint->aspectRatio(); } )
-              ->encode($request->image->getClientOriginalExtension() , 80);
-            \Storage::disk('public')->put( 'resources/images/small/'.$file , $smallImage );
-
-
-            $resourceImage = new Image([  
-                'url'      =>  $file ,
-                'imageable_type' => 'App\Models\Resource',
-                'imageable_id'   => $resource->id
-            ]);
-        
-            $resource->images()->save($resourceImage);
-        }
-
-        return response()->json(['status' => 'Success']);
-    }
 
 }

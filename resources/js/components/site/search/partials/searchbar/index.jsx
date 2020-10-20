@@ -72,7 +72,12 @@ class Searchbar extends Component {
        * @param      {<type>}  e       { parameter_description }
        */
       handleChangeType = (e) => {
-        this.setState({'selectedType':e})
+          
+        this.setState({'selectedType':e});
+        const keywords = this.state.searchKeywords; 
+        if(keywords != "" && keywords != undefined ){
+            this.props.handler(e,keywords.value);
+        }
       }
       
 
