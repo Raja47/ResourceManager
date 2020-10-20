@@ -164,7 +164,7 @@ return [
         
         Intervention\Image\ImageServiceProvider::class,
         ProtoneMedia\LaravelFFMpeg\Support\ServiceProvider::class,
-
+        Weidner\Goutte\GoutteServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -234,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'ImageLib' => Intervention\Image\Facades\Image::class,
         'FFMpeg' => ProtoneMedia\LaravelFFMpeg\Support\FFMpeg::class,
+        'Goutte' => Weidner\Goutte\GoutteFacade::class,
 
 
     ],
