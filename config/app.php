@@ -165,6 +165,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         ProtoneMedia\LaravelFFMpeg\Support\ServiceProvider::class,
         Weidner\Goutte\GoutteServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -178,6 +179,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
+        
         
        
 
@@ -235,6 +237,7 @@ return [
         'ImageLib' => Intervention\Image\Facades\Image::class,
         'FFMpeg' => ProtoneMedia\LaravelFFMpeg\Support\FFMpeg::class,
         'Goutte' => Weidner\Goutte\GoutteFacade::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
 
     ],
