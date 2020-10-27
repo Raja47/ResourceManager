@@ -166,6 +166,9 @@ return [
         ProtoneMedia\LaravelFFMpeg\Support\ServiceProvider::class,
         Weidner\Goutte\GoutteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Yajra\DataTables\HtmlServiceProvider::class,
+        
+        
         /*
          * Package Service Providers...
          */

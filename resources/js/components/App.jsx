@@ -13,7 +13,7 @@ import Footer from './site/partials/footer/footer';
 import Search from './site/search/search.jsx';
 import Searchsingle from './site/searchsingle/searchsingle';
 import Home from './site/home';
-
+import Feedback from './site/feedback/feedback.jsx';
 
 class App extends Component {
     render() {
@@ -33,6 +33,8 @@ class App extends Component {
                     <Route path="/searchsingle" component={Searchsingle} />
                     
                     <Route path="/resource" component={Searchsingle} />  
+                    
+                     <Route path="/feedback" component={Feedback} />  
                 </Switch>
                <Footer/>
             </Router>

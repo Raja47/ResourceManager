@@ -14,6 +14,8 @@ Route::group(['prefix'  =>  'admin'], function (){
     Route::post('login', 'Cms\LoginController@login')->name('admin.login.post');
     Route::get('logout', 'Cms\LoginController@logout')->name('admin.logout');
     
+    Route::get('resource', 'Cms\ResourceController@index')->name('admin.resources.list');
+    
     Route::post('/scrap' , 'Cms\ScrapController@scrap')->name('admin.scrapper.scrap');
     Route::get('/scraps' , 'Cms\ScrapController@scraps')->name('admin.scrapper.scraps');
     Route::get('/scrap-download' , 'Cms\ScrapController@scrapDownload')->name('admin.scrapper.scrapDownload');

@@ -150,11 +150,21 @@
 
 .loader-results .css-1vfkbnf {
     
-    position: absolute;
-    left: 0;
-    right: 0;
     margin: 0 auto;
-    top: auto;
+   
+    margin-bottom: 800px;
+    
 }
+
+.loader-results .css-1vfkbnf .css-1vcocnp {
+    
+    border: 21.428571428571427px solid #fec20f;
+    opacity: 1.1;
+    
+}
+.feedback svg {
+    right: 150px;
+}
+
 
 
