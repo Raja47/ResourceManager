@@ -20,6 +20,7 @@
         "pbmedia/laravel-ffmpeg": "^7.2",
         "spatie/laravel-searchable": "^1.7",
         "weidner/goutte": "1.4.0",
+        "yajra/laravel-datatables": "1.5",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
