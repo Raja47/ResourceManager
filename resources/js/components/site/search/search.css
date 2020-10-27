@@ -19,7 +19,10 @@
 }
 .searhresultsec .card {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: -30px !important;
+        background: transparent;
+    max-width: 705px;
+    width: 100%;
 }
 
 .searhresultsec .card:hover .card-body {
@@ -44,6 +47,7 @@
     justify-content: center;
     flex-direction: column;
     cursor: pointer;
+        top: 34px;
 }
 
 
@@ -75,7 +79,7 @@
     left: 30px;
     text-align: left;
     text-overflow: ellipsis;
-    width: 271px;
+    width: 78%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: visible;
@@ -83,13 +87,14 @@
     font-size: 18px;
         text-transform: capitalize;
     font-weight: 600;
+    max-width: 90%;
 }
 
 .searhresultsec .svg-inline--fa.fa-eye {
-    font-size: 27px; 
+    font-size: 27px;
     position: absolute;
-    top: 11px;
-    right: 30px;
+    bottom: 45px;
+    right: 20px;
     
 }
 
@@ -116,11 +121,40 @@
 .img5555.col-md-3 {
     padding-right: 0 !IMPORTANT;
     padding-left: 0px;
+    
    
+}
+
+.img5555.col-md-auto {
+    flex: auto;
+     transition: all 1s ease-out;
+    padding: 0px 2px !important;
 }
 
 .paginationcustome ul.pagination {
     align-items: center;
     justify-content: center;
 }
+
+.loader-results {
+        padding-top: initial;
+    padding-bottom: initial;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: auto;
+    position: relative;
+    background: #f8fafc;
+    z-index: 9;
+}
+
+.loader-results .css-1vfkbnf {
+    
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: auto;
+}
+
 

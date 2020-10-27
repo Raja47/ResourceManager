@@ -6,11 +6,13 @@ import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
 import reducer from './../reducers/index.js'
 // import { getAllProducts } from './actions'
+import { loadingBarMiddleware } from 'react-redux-loading-bar'
 import App from './App.jsx'
 
 	const middleware = [ thunk ];
 	if (process.env.NODE_ENV !== 'production') {
 	  middleware.push(createLogger());
+	  middleware.push(loadingBarMiddleware());
 	}
 
 	const store = createStore(

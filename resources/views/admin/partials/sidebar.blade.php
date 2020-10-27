@@ -29,6 +29,12 @@
           <span>Resources</span></a>
       </li>
 
+    
+      <li class="nav-item {{ Route::currentRouteName() == 'admin.resources.create' ? 'active' : '' }}" >
+        <a class="nav-link" href="{{ route('admin.resources.create') }}" >
+          <i class="fas fa-shopping-bag"></i>
+          <span>Add Resource</span></a>
+      </li>    
       
       
      

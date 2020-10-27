@@ -19,7 +19,7 @@ class Resource extends Model implements Searchable
      * @var array
      */
     protected $fillable = [
-       'title' , 'description','keywords' , 'notes' ,'views','downloads','status' , 'resource_category_id' 
+       'title' , 'description' , 'keywords' , 'notes' , 'views' , 'downloads' , 'status' , 'resource_category_id' , 'image', 'sourceable_id' , 'sourcable_type' , 'sourcable_link' , 'sourceable_download_link', 
     ];
 
     /**
@@ -80,7 +80,7 @@ class Resource extends Model implements Searchable
     public function scopeType($query,$type)
     {
         if( $type == '0' ){
-            return $query;
+            return $query->whereIn('resource_category_id', ['1','5','6']); // photos,vector,illustration vice versa 1,5 ,6
         }   
         return $query->where('resource_category_id', $type);
     }

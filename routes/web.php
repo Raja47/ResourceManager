@@ -15,7 +15,8 @@ Route::group(['prefix'  =>  'admin'], function (){
     Route::get('logout', 'Cms\LoginController@logout')->name('admin.logout');
     
     Route::post('/scrap' , 'Cms\ScrapController@scrap')->name('admin.scrapper.scrap');
-    
+    Route::get('/scraps' , 'Cms\ScrapController@scraps')->name('admin.scrapper.scraps');
+    Route::get('/scrap-download' , 'Cms\ScrapController@scrapDownload')->name('admin.scrapper.scrapDownload');
     Route::group(['middleware' => ['auth:admin']], function () {
 
         Route::get('/','Cms\HomeController@index' )->name('admin.dashboard');

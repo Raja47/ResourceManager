@@ -170,7 +170,6 @@ class ResourceController extends Controller
                 ->addSearchableAttribute('keywords') // return results for partial matches on usernames
                 // ->addExactSearchableAttribute('email') // only return results that exactly e.g email
                 ->type($type)  // resourceCategoryId image 1 video 2 
-                // ->has('posts')
                 ->with(['category','images','files']);
             })->search($keywords);
        return response()->json(["data" =>$searchResults,"status" => true ,"searchedFor" => ["type" => $type, "keywords" => $keywords ]]);
@@ -199,7 +198,5 @@ class ResourceController extends Controller
             }
 
             return Storage::disk('public')->download("/resources/files/".$url);
-       
-        
     }
 }

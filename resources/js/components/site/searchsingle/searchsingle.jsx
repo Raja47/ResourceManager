@@ -18,7 +18,6 @@ import Searchbar from '../search/partials/searchbar/';
 
 class Searchsingle extends Component{
 
-
   constructor(props) {
         
         super(props);
@@ -37,6 +36,7 @@ class Searchsingle extends Component{
 
 
   componentDidMount() {
+      
   }
 
   redirectToSearch = (keywords) => {
@@ -61,14 +61,26 @@ class Searchsingle extends Component{
 
    
 
-  handleDownload = (downloadableType,downloadableId) => {
-      window.open(app_url+"/site/file/download/"+downloadableType+"/"+downloadableId);
-      var resource = this.state.resource
+  handleDownload = (resource) => {
+      //window.open(app_url+"/site/file/download/"+downloadableType+"/"+downloadableId);
+      console.log(resource);
+      var resourceType = resource.category?.title;
+      var url=""; 
+      if(resourceType == 'image-photo' || resourceType == 'image-vector' || resourceType == 'image-illustration' ){
+        var downloadable_type  = "image";
+        if(resource.resource.sourceable_downlaod_link != "" ){
+            url = resource.resource.sourceable_download_link;
+        }else{ 
+            url = app_url+"/site/file/download/"+downloadableType+"/"+resource.resource.images[0].id;
+        }
+      }
+      
       if( resource.resource?.downloads){
         resource.resource.downloads = resource.resource.downloads+1;
         this.setState({resource:resource});
-      } 
-       
+      }
+      
+      window.open(url);
   } 
   
   handler = (types ,keywordss) => {
@@ -116,7 +128,7 @@ class Searchsingle extends Component{
                     </Player>
                 }  
                 { (resourceType != "video" && resourceType != "Video")  &&  
-                  <Image src={asset_url()+"/resources/images/small/"+ (resource.resource.images?.[0]?.url ?? "not-found.png" )} rounded />
+                  <Image src={ resource.resource.image == "" ? (asset_url()+"/resources/images/small/"+ ( resource.resource.images?.[0]?.url ??  "not-found.png")) : resource.resource.image} rounded />
                   
                 }
                   
@@ -140,7 +152,7 @@ class Searchsingle extends Component{
                 <hr/>
                 <span className="photodis"> 
                   {/*<p><strong>Largest Size: </strong>Lorem Ipsum is simply dummy text</p>*/}
-                  <p><strong>Photo ID: </strong>{'RM-100-'+resource.resource.id}</p>
+                  <p><strong>Photo ID: </strong>{'RS-100-'+resource.resource.id}</p>
                   <p><strong>Created Date: </strong>{moment(resource.resource.created_at).format("dddd, MMMM Do YYYY")}</p>
                 </span>
 
@@ -150,12 +162,12 @@ class Searchsingle extends Component{
                    <div className="numofdownloads"> 
                     <p><FontAwesomeIcon icon={faEye}/> <strong>{ resource.resource.views}</strong></p>
                    </div>
-                   { (resourceType == "image" && resource.images !=[] ) && <Button variant="primary" onClick={() => this.handleDownload(resourceType,resource.images[0].id)}>Download Now <FontAwesomeIcon icon={faDownload} /></Button> }
-                   { resourceType != "image" && resource.files  !=[] && <Button variant="primary" onClick={() => this.handleDownload(resourceType,resource.files[0].id)}>Download Now <FontAwesomeIcon icon={faDownload} /></Button> }
+                   { ( (resourceType == "image-photo" || resourceType == "image-vector" || resourceType == "image-illustration")  && resource.images !=[] ) && <Button variant="primary" onClick={() => this.handleDownload(resource)}>Download Now <FontAwesomeIcon icon={faDownload} /></Button> }
+                   { ( (resourceType != "image-photo" && resourceType != "image-vector" && resourceType != "image-illustration") && resource.files   !=[] ) && <Button variant="primary" onClick={() => this.handleDownload(resource)}  >Download Now <FontAwesomeIcon icon={faDownload} /></Button> }
                    
               </Col>
 
-              <Col lg={12} md={12} className="searhresultsinglecontent">
+              <Col lg={8} md={8} className="searhresultsinglecontent">
               
                     <h2>{resource.resource.title}</h2>
                     <p>{resource.resource.description}</p>

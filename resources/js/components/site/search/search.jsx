@@ -12,6 +12,11 @@ import Searchbar from './partials/searchbar/';
 // get our fontawesome imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faHome , faDownload } from "@fortawesome/free-solid-svg-icons";
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
+import {MoonLoader} from "react-spinners";
+import { css } from "@emotion/core";
+
+
 
 
 class Search extends Component{
@@ -26,11 +31,13 @@ class Search extends Component{
         activePage:1,
         pages:[],
         redirect: null,
-        paginationResults: 16,
-      };
+        paginationResults: 28,
+        loading:true,
+    };
      
       this.handler = this.handler.bind(this);  
       var pages=[];  
+     
     }
 
     componentDidMount() {
@@ -38,11 +45,17 @@ class Search extends Component{
         if(this.props.location.state != undefined){
           const {keywords , type } = this.props.location.state;
           this.props.dispatch(searchResourceAction(type,keywords));
+          this.props.dispatch(showLoading());
+          
+          
         }
+        
+
     }
 
     componentDidUpdate(prevProps) {
       // Typical usage (don't forget to compare props):
+      
       if (this.props.resources !== prevProps.resources) {
         
         if(this.props.resources.length != undefined){ 
@@ -55,12 +68,18 @@ class Search extends Component{
           
         }else{
           this.setState({ resources:this.props.resources});
-        } 
+        }
+        this.props.dispatch(hideLoading());
+        this.setState({loading:false});
+        
+        
       }
       
       if(this.props.location.state !== prevProps.location.state ){
          this.handler(this.props.location.state.type,this.props.location.state.keywords);
+         
       }
+      
     }
 
     /**
@@ -68,7 +87,8 @@ class Search extends Component{
     */
     handler = (type ,keywords) => {
         
-        this.props.dispatch(searchResourceAction(type,keywords));   
+        this.props.dispatch(searchResourceAction(type,keywords));
+        this.props.dispatch(showLoading());
     }
 
 
@@ -77,19 +97,25 @@ class Search extends Component{
      * {All pagination handling Functions  }
      */
     handleFirst = () => {
-        this.setState({activePage : '1'})
+        this.setState({activePage : '1'});
+        this.props.dispatch(showLoading());
+        setTimeout( () =>{this.props.dispatch(hideLoading()) }, 2000);
     }
 
     handlePrevious = () => {
       let { activePage } = this.state;
       
       if(activePage !== 1 ){
-          this.setState({activePage:activePage-1 })
+          this.setState({activePage:activePage-1 });
+          this.props.dispatch(showLoading());
+          setTimeout( () =>{this.props.dispatch(hideLoading()) }, 2000);
       }
     }
 
     handleLast = () => {
-      this.setState({activePage: this.state.pageCount })
+      this.setState({activePage: this.state.pageCount });
+      this.props.dispatch(showLoading());
+      setTimeout( () =>{ this.props.dispatch(hideLoading())} , 2000);
     }
 
     handleNext = () => {
@@ -97,12 +123,16 @@ class Search extends Component{
       if(pageCount == activePage){
 
       }else{
-        this.setState({activePage:activePage+1 }) 
+        this.setState({activePage:activePage+1 }) ;
+        this.props.dispatch(showLoading());
+        setTimeout( () =>{this.props.dispatch(hideLoading())} , 2000);
       }
     }
 
     handlePageChange = (i) => {
-      this.setState({activePage:i})
+      this.setState({activePage:i});
+      this.props.dispatch(showLoading());
+      setTimeout( () =>{this.props.dispatch(hideLoading())} , 2000);
     }
     
 
@@ -120,11 +150,20 @@ class Search extends Component{
     
     return (
       <span> 
+           
             <Row className="searhresultsec">
-             
              <Col md={12}> 
                <Searchbar handler={this.handler}  /><br/>
              </Col>
+            <div className="loader-results">
+                 <MoonLoader
+                  
+                  size={150}
+                  color={"#123abc"}
+                  loading={this.state.loading}
+                />
+            </div>
+            
              {/**
              * { filtering results belonging to activePage only}
              */}
@@ -139,7 +178,8 @@ class Search extends Component{
            
           </Row>   
           { resources=='' && <Row><Col md={3}></Col><Col lg={6} className="errormessage"><h1>Sorry No Resource against keywords</h1> <p>404</p></Col><Col md={3}></Col></Row>}
-          { resources != '' && <Row>
+          { resources != '' && resources != undefined && resources != [] && <Row>
+              
               <Col md={2}></Col>
               <Col md={8} className="paginationcustome">
                 { pageCount != '1' &&                       
@@ -149,15 +189,22 @@ class Search extends Component{
                     {/**
                      * { dynamic page number generetation inside pagination }
                      */}
-                    { pagess !== undefined && pagess.map((object,i) => {               
-                        return <Pagination.Item onClick={ () => this.handlePageChange(i)} active={activePage==i ? 'active' : null } key={i}>{i}</Pagination.Item>
+                     
+                    
+                    { pagess !== undefined && pagess.map((object,i) => { 
+                        if( (i > (activePage-5) &&  i < (activePage+5))){
+                            return <Pagination.Item onClick={ () => this.handlePageChange(i)} active={activePage==i ? 'active' : null } key={i}>{i}</Pagination.Item> 
+                        }                
                     })}
-                    {/*<Pagination.Ellipsis />*/}
+                   
                     <Pagination.Next onClick={this.handleNext}/>
-                    <Pagination.Last onClick={this.handleLast}/>
+                    <Pagination.Last onClick={this.handleLast}/><span className="pageCount">of { pageCount }</span>
                   </Pagination>
+                 
                 }
+                
               </Col>
+              
               <Col md={2}></Col>  
 
           </Row>

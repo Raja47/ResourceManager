@@ -525,9 +525,13 @@ height: 70px;
     padding-left: 0;
     padding-left: 20px;
 }
+
 .select-search__select ul li {
     margin-left: 0 !IMPORTANT;
 }
+
+
+
 .select-search__select {
     margin-top: 25px !IMPORTANT;
 }
@@ -616,6 +620,14 @@ height: 70px;
   to{border-right-color: transparent;}
 }
 
+
+
+
+.select-search__select ul li:nth-child(2),
+.select-search__select ul li:nth-child(3),
+.select-search__select ul li:nth-child(4){
+    padding-left: 20px !important;
+}
 .getbtnsection img {
     width: 10%;
     margin-right: 8px;

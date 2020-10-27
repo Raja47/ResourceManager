@@ -13,6 +13,8 @@ import dash from '../../../assets/img/dash.png';
 // get our fontawesome imports
 import { faSearch ,faEye , faHome ,faTachometerAlt,faUser} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import LoadingBar from 'react-redux-loading-bar'
+
 
 
 function Header() {
@@ -49,7 +51,9 @@ function Header() {
   }
 
   return (
+      
     <Row className="header" >
+        <LoadingBar />
         <Col lg={4} sm={12} xs={12}>
           <Navbar bg="light" expand="lg">
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -86,7 +90,7 @@ function Header() {
             <Nav className="mr-auto">
             
             
-              <Link target="_blank" to="/admin/login"><FontAwesomeIcon icon={faUser} />  DashBoard
+              <Link target="_blank" to="/admin/login"><FontAwesomeIcon icon={faUser} />  Dashboard
               
               </Link>
             </Nav>

@@ -92,7 +92,21 @@
                                     </div>
                                 </div>
                                     
-                               
+                               <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="image">Display Image Url</label>
+                                            <input
+                                                class="form-control @error('image') is-invalid @enderror"
+                                                type="text"
+                                                placeholder="Enter Resource Title"
+                                                id="image"
+                                                name="image"
+                                                value="{{ old('image') }}"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
                                 
                                 
                                 <div class="row">
@@ -166,9 +180,11 @@
                      headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                      data: {'source': source , 'url': url},
                      success:function(data){
+                         
                         if(data.status != true){
                             alert('unable to scrap source');
                         }else{
+                            
                             if(data.resource){
                                 if(data.resource.name){
                                     $("#title").val(data.resource.name);
@@ -192,6 +208,12 @@
                                     var id = "";
                                     if(data.resource.category == "image"){
                                         id = "1";
+                                    }else if(data.resource.category == "image-photo"){
+                                        id = "1";
+                                    }else if(data.resource.category == "image-vector"){
+                                        id = "5";
+                                    }else if(data.resource.category == "image-illustration"){
+                                        id = "6";
                                     }else if(data.resource.category == "video"){
                                         id = "2";
                                     }else if(data.resource.category == "theme"){
@@ -199,11 +221,15 @@
                                     }else if(data.resource.category == "plugin"){
                                         id = "3";
                                     } 
-                                    $("#categories").val(id)
+                                    $("#categories").val(id);
                                 }
-                            }    
+                                
+                                if(data.resource.image != ""){
+                                    $("#image").val(data.resource.image);
+                                }    
                             
                         }
+                    }
                     },
                     error: function (request, status, error) {
                         alert('unable to scrap Resource due to '+request.responseText);

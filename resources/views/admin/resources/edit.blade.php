@@ -281,22 +281,20 @@
                 parallelUploads: 1,
                 uploadMultiple: false,
                 url: "{{ route('admin.resources.files.upload') }}",
-                // chunking:true,
-                // chunkSize:10000000, // Bytes
-                // retryChunck:true,
                 autoProcessQueue: false,
                 timeout:0,
                 init: function () {
                   this.on("success", function (file, responseText) {
+                    showNotification('Completed', 'All product Files uploaded', 'success', 'fa-check');  
                     console.log(responseText.img);
                   });
                 }
             });
             fileDropzone.on("queuecomplete", function (file) {
                 // window.location.reload();
-                showNotification('Completed', 'All product Files uploaded', 'success', 'fa-check');
                 
-                setTimeout(function(){ location.reload(); }, 3000);
+                
+                setTimeout(function(){ location.reload(); }, 1500);
                 
             });
             $('#uploadFileButton').click(function(){

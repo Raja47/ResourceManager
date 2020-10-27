@@ -24,15 +24,18 @@ class Carouselslider extends Component {
           resources:[],
           type: 'group',
           searchKeywords:"",
-          selectedType : '1',
+          selectedType : '0',
           suggestions : [],
           suggestedKeywords: [],
           options:[
-             { value: '1',  name:'Image'  },
+            { value: '0',  name:'All Images'  }, 
+                { value: '1',  name:' Image Photo'  },
+                { value: '5',  name:' Image Vector'  },
+                { value: '6',  name:' Image Illustration'  },
              { value: '2',  name:'Video'  },
              { value: '3',  name:'Plugin' },
              { value: '4',  name:'Theme' },
-             { value: '0',  name:'All'  }    
+            //  { value: '0',  name:'All'  }    
           ]
       };
       const alreadyCalled = '';
@@ -72,7 +75,7 @@ class Carouselslider extends Component {
 
       var {selectedType } = this.state;
       clearTimeout(this.alreadyCalled);
-      this.alreadyCalled = setTimeout( () => this.suggestions(selectedType,e) ,400 ); 
+      this.alreadyCalled = setTimeout( () => this.suggestions(selectedType,e) ,230 ); 
       this.setState({searchKeywords:{label:e , value:e}});  
     }
   }

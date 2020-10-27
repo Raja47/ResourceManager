@@ -66,7 +66,7 @@ class Resource extends Component{
     
     return (
                  
-            <Col md={3} className="img5555" onClick={() => this.handleRedirectToProduct(resource.url)} onMouseLeave={() => this.handleStopIfVideo(resource.searchable?.category?.title)}>
+            <Col md="auto" className="img5555" onClick={() => this.handleRedirectToProduct(resource.url)} onMouseLeave={() => this.handleStopIfVideo(resource.searchable?.category?.title)}>
             <Card>
               <Player  autoPlay={true} poster={asset_url()+"/resources/images/small/"+ ( resource.searchable.images?.[0]?.url ??  "not-found.png")}>
                 <source src={asset_url()+"/resources/files/"+(resource.searchable.files?.[0]?.url)} />
@@ -81,10 +81,10 @@ class Resource extends Component{
        return (
 
                
-                <Col md={3} className="img5555" onMouseEnter={() => this.handlePlayIfVideo(resource.searchable?.category?.title)} >  
+                <Col md="auto" className="img5555" onMouseEnter={() => this.handlePlayIfVideo(resource.searchable?.category?.title)} >  
                     <Card  onClick={() => this.handleRedirectToProduct(resource.url)}  >
                       
-                      <Card.Img variant="top" src={ asset_url()+"/resources/images/small/"+ ( resource.searchable.images?.[0]?.url ??  "not-found.png")} />
+                      <Image variant="top" thumbnail  src={ resource.searchable.image == "" ? (asset_url()+"/resources/images/small/"+ ( resource.searchable.images?.[0]?.url ??  "not-found.png")) : resource.searchable.image } />
                       
                       <Card.Body >
                         <Card.Title> { resource.title} </Card.Title>

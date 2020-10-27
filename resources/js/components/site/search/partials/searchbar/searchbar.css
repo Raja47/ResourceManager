@@ -199,7 +199,7 @@ width: 100%;
     outline: 0 !IMPORTANT;
     box-shadow: unset !important;
         height: 100%;
-        max-width: 512px;
+        max-width: 100%;
         width: 100%;
 }
 
@@ -234,7 +234,7 @@ width: 100%;
    }
    .searhresultsec .card {
     position: relative;
-    margin-bottom: 0px;
+    margin-bottom: -30px !important;
     border-radius: 0px;
     overflow: hidden;
     border: 0 !IMPORTANT;
@@ -243,10 +243,10 @@ width: 100%;
 }
 
 .searhresultsec .card img {
-    height: 260px !important;
     height: 100%;
     border-top-right-radius: 0 !IMPORTANT;
     border-top-left-radius: 0 !IMPORTANT;
+    transform: translateY(34px);
     
 }
 
@@ -299,3 +299,24 @@ padding-left: inherit;
     font-weight: bolder;
     color: #fec20f;
 }
+
+span.pageCount {
+    margin-left: 9px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.img5555 .img-thumbnail {
+    padding: 0px !important;
+    
+}
+
+
+
+
+
+
+
+
+
+

@@ -30,8 +30,10 @@ class Searchbar extends Component {
           suggestions : [],
           suggestedKeywords: [],
           options: [
-             { value: '0',  name:'All'  },
-             { value: '1',  name:'Image'  },
+            { value: '0',  name:'All Images'  },
+                { value: '1',  name:' Image Photo'  },
+                { value: '5',  name:' Image Vector'  },
+                { value: '6',  name:' Image Illustration'  },
              { value: '2',  name:'Video'  },
              { value: '3',  name:'plugin' },
              { value: '4',  name:'Theme' },
