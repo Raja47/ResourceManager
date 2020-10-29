@@ -101,8 +101,9 @@ class Searchsingle extends Component{
       return <Redirect push to={this.state.redirect}/>
     }
 
-    const resource = this.state.resource;
-    if( resource == ''){
+    const resource = this.state.resource?.resource;
+    console.log(resource);
+    if( resource == '' || resource == undefined){
       return "";
     }else{
 
@@ -122,13 +123,13 @@ class Searchsingle extends Component{
           <Row className="searhresultsingle">
              
               <Col lg={8} className="searhresultsingleimg">
-                { (resourceType == "video" || resourceType == "Video")  && <Player  autoPlay={true} poster={asset_url()+"/resources/images/small/"+ ( resource.images?.[0]?.url ??  "not-found.jpg")}>
-                      <source src={asset_url()+"/resources/files/"+(resource.files?.[0]?.url)} />
+                { (resourceType == "video" || resourceType == "Video")  && <Player  autoPlay={true} poster={resource.images?.[0]?.url  ?  (asset_url()+"/resources/images/small/"+ ( resource.images?.[0]?.url))  : resource.image }>
+                      <source src={ resource.files?.[0]?.url ?  (asset_url()+"/resources/files/"+(resource.files?.[0]?.url) ) : resource.preview_video_url } />
                       <ControlBar autoHide={false} />
                     </Player>
                 }  
                 { (resourceType != "video" && resourceType != "Video")  &&  
-                  <Image src={ resource.resource.image == "" ? (asset_url()+"/resources/images/small/"+ ( resource.resource.images?.[0]?.url ??  "not-found.png")) : resource.resource.image} rounded />
+                  <Image src={ resource.images?.[0]?.url  ?  (asset_url()+"/resources/images/small/"+ ( resource.images?.[0]?.url))  :   ( resource.image ??    (asset_url()+"/resources/images/small/"+"not-found.png"  ))} rounded />
                   
                 }
                   
@@ -138,8 +139,8 @@ class Searchsingle extends Component{
               <h2>{"Related Keywords"}</h2>
               <span className="keyworsdiv">
               <hr/>
-                   { resource.resource.keywords != undefined  && 
-                        resource.resource.keywords.map((keyword,i) => {
+                   { resource.keywords != undefined  && 
+                        resource.keywords.map((keyword,i) => {
                              if(i >= 10){
                                  return ""
                              }    
@@ -152,15 +153,15 @@ class Searchsingle extends Component{
                 <hr/>
                 <span className="photodis"> 
                   {/*<p><strong>Largest Size: </strong>Lorem Ipsum is simply dummy text</p>*/}
-                  <p><strong>Photo ID: </strong>{'RS-100-'+resource.resource.id}</p>
-                  <p><strong>Created Date: </strong>{moment(resource.resource.created_at).format("dddd, MMMM Do YYYY")}</p>
+                  <p><strong>Photo ID: </strong>{'RS-100-'+resource.id}</p>
+                  <p><strong>Created Date: </strong>{moment(resource.created_at).format("dddd, MMMM Do YYYY")}</p>
                 </span>
 
                    <div className="numofdownloads"> 
-                    <p><FontAwesomeIcon icon={faDownload}/> <strong>{ resource.resource.downloads}</strong></p>
+                    <p><FontAwesomeIcon icon={faDownload}/> <strong>{ resource.downloads}</strong></p>
                    </div>
                    <div className="numofdownloads"> 
-                    <p><FontAwesomeIcon icon={faEye}/> <strong>{ resource.resource.views}</strong></p>
+                    <p><FontAwesomeIcon icon={faEye}/> <strong>{ resource.views}</strong></p>
                    </div>
                    { ( (resourceType == "image-photo" || resourceType == "image-vector" || resourceType == "image-illustration")  && resource.images !=[] ) && <Button variant="primary" onClick={() => this.handleDownload(resource)}>Download Now <FontAwesomeIcon icon={faDownload} /></Button> }
                    { ( (resourceType != "image-photo" && resourceType != "image-vector" && resourceType != "image-illustration") && resource.files   !=[] ) && <Button variant="primary" onClick={() => this.handleDownload(resource)}  >Download Now <FontAwesomeIcon icon={faDownload} /></Button> }
@@ -169,8 +170,8 @@ class Searchsingle extends Component{
 
               <Col lg={8} md={8} className="searhresultsinglecontent">
               
-                    <h2>{resource.resource.title}</h2>
-                    <p>{resource.resource.description}</p>
+                    <h2>{resource.title}</h2>
+                    <p>{resource.description}</p>
                                  
               </Col>
 

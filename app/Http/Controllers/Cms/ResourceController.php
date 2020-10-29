@@ -37,13 +37,30 @@ class ResourceController extends BaseController
             $data = Resource::select(['id', 'title','resource_category_id'])->latest()->get();
             return Datatables::of($data)
                 ->addColumn('action', function($row){
-                    $btn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    $btn = '<a href="'.route("admin.resources.edit" , $row->id ).'" class="edit btn btn-success btn-sm">Edit</a> <a href="'.route("admin.resources.delete" , $row->id ).'" class="delete btn btn-danger btn-sm">Delete</a>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('categories', function($row){
+                    $value="";
+                    if($row->resource_category_id == 1){
+                        $value = "image-photo";
+                    }elseif($row->resource_category_id == 2){
+                        $value = "video";
+                    }elseif($row->resource_category_id == 3){
+                        $value = "plugin";
+                    }elseif($row->resource_category_id == 4){
+                        $value = "theme";
+                    }elseif($row->resource_category_id == 5){
+                        $value = "image-vector";
+                    }elseif($row->resource_category_id == 6){
+                        $value = "image-illustraion";
+                    }
+                    
+                    return $value;
+                })
+                ->rawColumns(['action', 'categories'])
                 ->make(true);
         }
-      
         return view('admin.resources.list');
     }
     
@@ -95,7 +112,7 @@ class ResourceController extends BaseController
         if (!$resource) {
             return $this->responseRedirectBack('Error occurred while updating resource.', 'error', true, true);
         }
-        return $this->responseRedirect( 'admin.resources.index' , 'Resource updated successfully' ,'success',false, false);
+        return $this->responseRedirectBack( 'Resource updated successfully.' ,'success',false, false);
     }
     
     public function delete($id){

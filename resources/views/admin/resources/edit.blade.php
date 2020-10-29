@@ -140,6 +140,8 @@
                             </div>
                             @if ($resource->images)
                                 <hr>
+                                <h6>Uploaded Images </h4>
+                                
                                 <div class="row">
                                     @foreach($resource->images as $image)
                                         <div class="col-md-3">
@@ -153,6 +155,22 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                    
+                                </div>
+                                <p><small>Note* Custom Uploaded Images will get first priority while displaying and downloading</small></p>
+                            @endif
+                            @if($resource->image)
+                                <hr>
+                                <h6>Scrapped Image</h4>
+                                
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <img src="{{ $resource->image }}" id="brandLogo" class="img-fluid" alt="img">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             @endif
                         </div>

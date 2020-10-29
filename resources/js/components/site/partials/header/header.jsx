@@ -53,7 +53,7 @@ function Header() {
   return (
       
     <Row className="header" >
-        <LoadingBar />
+        <LoadingBar color="#fec20f" />
         <Col lg={4} sm={12} xs={12}>
           <Navbar bg="light" expand="lg">
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -91,7 +91,7 @@ function Header() {
          
             <Nav className="mr-auto">
             
-            <Link to="/feedback" className="feedback"><FontAwesomeIcon icon={faComments} /></Link>
+            <Link to="/feedback" className="feedback">Feedback</Link>
               <Link target="_blank" to="/admin/login"><FontAwesomeIcon icon={faUser} />  Dashboard
               
               </Link>

@@ -628,6 +628,39 @@ height: 70px;
 .select-search__select ul li:nth-child(4){
     padding-left: 20px !important;
 }
+
+
+/*.select-search__select ul li:nth-child(1){
+    padding-left: 40px !important;
+}
+
+.select-search__select ul li:nth-child(1) button:after{
+   content: "";
+    background: url(http://www.usedexcavatorforsale.com/wp-content/uploads/2020/10/imgphone.png);
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 0px;
+    top: -1px;
+    background-repeat: no-repeat;
+
+}*/
+
+
+
+.selecttype4:after {
+    content: "";
+    background: url(https://themeforest.img.customer.envatousercontent.com/files/259291054/preview/00_Preview.__large_preview.jpg?auto=compress%2Cformat&q=80&fit=crop&crop=top&max-h=8000&max-w=590&s=f4475e5…);
+    width: 590px;
+    height: 300px;
+    position: absolute;
+    left: -13px;
+    top: 19px;
+}
+
+
+
+
 .getbtnsection img {
     width: 10%;
     margin-right: 8px;

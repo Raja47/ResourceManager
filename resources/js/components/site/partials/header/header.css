@@ -45,3 +45,19 @@
     color: black !important;
     padding-left: 12px;
 }
+
+
+.header .mr-auto.navbar-nav a.feedback {
+    background: #fec20e;
+    color: white !IMPORTANT;
+    padding: 6px 24px;
+    letter-spacing: 0px;
+    font-size: 21px;
+    /* font-weight: 600; */
+    position: fixed;
+    right: -61px;
+    transform: rotate(90deg);
+    top: 47%;
+    text-decoration: none;
+}
+

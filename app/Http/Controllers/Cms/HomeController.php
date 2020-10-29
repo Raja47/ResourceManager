@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function index()
     {   
 
-        $images = Resource::where('resource_category_id',1)->count();
+        $images = Resource::whereIn('resource_category_id',['1','5','6'])->count();
         $videos = Resource::where('resource_category_id',2)->count();
         $plugins= Resource::where('resource_category_id',3)->count();
         $themes = Resource::where('resource_category_id',4)->count();

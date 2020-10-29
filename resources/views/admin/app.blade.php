@@ -12,6 +12,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/backend/css/fontawesome-free/css/all.min.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('/backend/css/sb-admin-2.min.css') }}" />
     <link rel="shortcut icon" href="{{  asset('storage/'.config('settings.site_favicon') ) }}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     @yield('styles')
 </head>
 <body  class="app sidebar-mini rtl" >

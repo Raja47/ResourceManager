@@ -31,7 +31,7 @@ class Search extends Component{
         activePage:1,
         pages:[],
         redirect: null,
-        paginationResults: 28,
+        paginationResults: 60,
         loading:true,
     };
      
@@ -45,9 +45,7 @@ class Search extends Component{
         if(this.props.location.state != undefined){
           const {keywords , type } = this.props.location.state;
           this.props.dispatch(searchResourceAction(type,keywords));
-          this.props.dispatch(showLoading());
-          
-          
+          //   this.props.dispatch(showLoading());
         }
         
 
@@ -56,30 +54,26 @@ class Search extends Component{
     componentDidUpdate(prevProps) {
       // Typical usage (don't forget to compare props):
       
-      if (this.props.resources !== prevProps.resources) {
-        
-        if(this.props.resources.length != undefined){ 
-          var pages = [];
-          for(var i = 1; i <= Math.ceil(this.props.resources?.length/this.state.paginationResults); i++) {
-              pages[i] = i;
+          if (this.props.resources !== prevProps.resources) {
+            
+            if(this.props.resources.length != undefined){ 
+              var pages = [];
+              for(var i = 1; i <= Math.ceil(this.props.resources?.length/this.state.paginationResults); i++) {
+                  pages[i] = i;
+              }
+              this.pages = pages;  
+              this.setState({resources:this.props.resources,activePage:1,pageCount:Math.ceil(this.props.resources?.length/this.state.paginationResults)});
+              
+            }else{
+              this.setState({ resources:this.props.resources});
+            }
+            this.props.dispatch(hideLoading());
+            this.setState({loading:false});
           }
-          this.pages = pages;  
-          this.setState({resources:this.props.resources,pageCount:Math.ceil(this.props.resources?.length/this.state.paginationResults)});
           
-        }else{
-          this.setState({ resources:this.props.resources});
-        }
-        this.props.dispatch(hideLoading());
-        this.setState({loading:false});
-        
-        
-      }
-      
-      if(this.props.location.state !== prevProps.location.state ){
-         this.handler(this.props.location.state.type,this.props.location.state.keywords);
-         
-      }
-      
+          if(this.props.location.state !== prevProps.location.state ){
+             this.handler(this.props.location.state.type,this.props.location.state.keywords);
+          }
     }
 
     /**
@@ -88,18 +82,17 @@ class Search extends Component{
     handler = (type ,keywords) => {
         
         this.props.dispatch(searchResourceAction(type,keywords));
+       
         this.props.dispatch(showLoading());
     }
 
-
-  
     /**
      * {All pagination handling Functions  }
-     */
+    */
     handleFirst = () => {
         this.setState({activePage : '1'});
         this.props.dispatch(showLoading());
-        setTimeout( () =>{this.props.dispatch(hideLoading()) }, 2000);
+        setTimeout( () =>{this.props.dispatch(hideLoading()) }, 1500);
     }
 
     handlePrevious = () => {
@@ -108,14 +101,14 @@ class Search extends Component{
       if(activePage !== 1 ){
           this.setState({activePage:activePage-1 });
           this.props.dispatch(showLoading());
-          setTimeout( () =>{this.props.dispatch(hideLoading()) }, 2000);
+          setTimeout( () =>{this.props.dispatch(hideLoading()) }, 1500);
       }
     }
 
     handleLast = () => {
       this.setState({activePage: this.state.pageCount });
       this.props.dispatch(showLoading());
-      setTimeout( () =>{ this.props.dispatch(hideLoading())} , 2000);
+      setTimeout( () =>{ this.props.dispatch(hideLoading())} , 1500);
     }
 
     handleNext = () => {
@@ -125,14 +118,14 @@ class Search extends Component{
       }else{
         this.setState({activePage:activePage+1 }) ;
         this.props.dispatch(showLoading());
-        setTimeout( () =>{this.props.dispatch(hideLoading())} , 2000);
+        setTimeout( () =>{this.props.dispatch(hideLoading())} , 1500);
       }
     }
 
     handlePageChange = (i) => {
       this.setState({activePage:i});
       this.props.dispatch(showLoading());
-      setTimeout( () =>{this.props.dispatch(hideLoading())} , 2000);
+      setTimeout( () =>{this.props.dispatch(hideLoading())} , 1500);
     }
     
 

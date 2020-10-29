@@ -1,22 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Laravel 7 Datatables Tutorial</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    
+
+@extends('admin.app')
+
+@section('title') {{ "Resources" }} @endsection
+@section('styles')
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-</head>
-<body>
+@endsection
+@section('content')
     
 <div class="container mt-5">
-    <h2 class="mb-4">Laravel 7 Yajra Datatables Example</h2>
+    <h2 class="mb-4">Resources</h2>
     <table class="table table-bordered yajra-datatable">
         <thead>
             <tr>
                 <th>No</th>
                 <th>title</th>
-                
+                <th>category</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -25,7 +27,8 @@
     </table>
 </div>
    
-</body>
+@endsection
+@push('scripts')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
@@ -37,22 +40,24 @@
   $(function () {
     
     var table = $('.yajra-datatable').DataTable({
+        
         processing: true,
         serverSide: true,
+        searchable: true,
         ajax: "{{ route('admin.resources.list') }}",
         columns: [
-            {data: 'id', name: 'id'},
-            {data: 'title', name: 'title'},
-            {data: 'resource_category_id', name: 'resource_category_id'},
+            {data: 'id', name: 'id' , searchable: true },
+            {data: 'title', name: 'title' ,searchable: true },
+            {data: 'categories', name: 'categories' , searchable: true },
             {
                 data: 'action', 
                 name: 'action', 
-                orderable: true, 
-                searchable: false,
+                searchable: true,
+                filter: true,        
             },
         ]
     });
     
   });
 </script>
-</html>
+@endpush

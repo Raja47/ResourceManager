@@ -15,26 +15,23 @@ import Searchsingle from './site/searchsingle/searchsingle';
 import Home from './site/home';
 import Feedback from './site/feedback/feedback.jsx';
 
+
 class App extends Component {
     render() {
         return (
           
           <div className="App">
+          
             <Container className="MainAppFluid" fluid>
               
             <Router basename={"demo/search"}>
               <Header/>
               <Switch>
-
                     <Route exact path="/" component={Home} />
-
                     <Route path="/search" component={Search} />
-                     
                     <Route path="/searchsingle" component={Searchsingle} />
-                    
                     <Route path="/resource" component={Searchsingle} />  
-                    
-                     <Route path="/feedback" component={Feedback} />  
+                    <Route path="/feedback" component={Feedback} />  
                 </Switch>
                <Footer/>
             </Router>
