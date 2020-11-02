@@ -51,7 +51,7 @@
 <script src="{{ asset('backend/js/main.js') }}"></script>
 <script src="{{ asset('backend/js/plugins/pace.min.js') }}"></script>
 <script>
-        alert('Use Email as : \"admin@admin.com\" \nPassword as \"password\"');  
+        //alert('Use Email as : \"admin@admin.com\" \nPassword as \"password\"');  
     </script>
 </body>
 </html>

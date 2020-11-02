@@ -1,5 +1,5 @@
 .slidermain{
-    background: url('https://www.eworldclients.com/demo/globalmetal/wp-content/uploads/2020/10/home-2-scaled.jpg') no-repeat center bottom;
+    background: url(https://eworldclients.com/demo/library/public/images/home-2-scaled.jpg) no-repeat center bottom;
     min-height: 100vh;
     padding: 130px 0;
     background-size: cover;
@@ -332,19 +332,21 @@ height: 70px;
 }
 
 .select-search__option.is-selected {
-    background: #fec20e;
-    color: #fff;
+    /*background: #fec20e;*/
+    color: #fec20e;
 }
 
 .select-search__option.is-highlighted,
 .select-search__option:not(.is-selected):hover {
-    background: rgb(254 194 14 / 36%);
+    /*background: rgb(254 194 14 / 36%);*/
+    color: #fec20e;
 }
 
 .select-search__option.is-highlighted.is-selected,
 .select-search__option.is-selected:hover {
-    background: #fec20e;
-    color: #fff;
+    /*background: #fec20e;*/
+    
+    color: #fec20e;
 }
 
 /**
@@ -396,6 +398,7 @@ height: 70px;
     border-radius: 3px 3px 0 0;
 }
 
+
 .select-search--multiple:not(.select-search--search) .select-search__input {
     cursor: default;
 }
@@ -413,15 +416,16 @@ height: 70px;
     left: 0;
     border-radius: 3px;
     overflow: auto;
-    max-height: 360px;
+    max-height: 460px;
 }
 
 .select-search--multiple .select-search__select {
     position: relative;
     overflow: auto;
-    max-height: 260px;
+    max-height: 1060px !important;
     border-top: 1px solid #eee;
     border-radius: 0 0 3px 3px;
+    height:100%;
 }
 
 .NGdvQ {
@@ -626,27 +630,110 @@ height: 70px;
 .select-search__select ul li:nth-child(2),
 .select-search__select ul li:nth-child(3),
 .select-search__select ul li:nth-child(4){
-    padding-left: 20px !important;
+    padding-left: 40px !important;
+     position:relative;
 }
 
 
-/*.select-search__select ul li:nth-child(1){
-    padding-left: 40px !important;
+.select-search__select ul li:nth-child(1),
+.select-search__select ul li:nth-child(5),
+.select-search__select ul li:nth-child(6),
+.select-search__select ul li:nth-child(7){
+    padding-left: 25px !important;
+    position:relative;
 }
 
 .select-search__select ul li:nth-child(1) button:after{
    content: "";
-    background: url(http://www.usedexcavatorforsale.com/wp-content/uploads/2020/10/imgphone.png);
+    background: url(https://eworldclients.com/demo/library/public/images/allimages.png);
+    width: 40px;
+    height: 50px;
+    position: absolute;
+    left: 8px;
+    top: 5px;
+    background-repeat: no-repeat;
+
+}
+
+.select-search__select ul li:nth-child(2) button:after{
+   content: "";
+    background: url(https://eworldclients.com/demo/library/public/images/imgphone.png);
+    width: 40px;
+    height: 50px;
+    position: absolute;
+    left: 30px;
+    top: 5px;
+    background-repeat: no-repeat;
+
+}
+.select-search__select ul li:nth-child(3) button:after{
+   content: "";
+    background: url(https://eworldclients.com/demo/library/public/images/vector.png);
+    width: 40px;
+    height: 50px;
+    position: absolute;
+    left: 30px;
+    top: 5px;
+    background-repeat: no-repeat;
+
+}
+
+.select-search__select ul li:nth-child(4) button:after{
+   content: "";
+    background: url(https://eworldclients.com/demo/library/public/images/3194376-200.png);
+    width: 40px;
+    height: 50px;
+    position: absolute;
+    left: 30px;
+    top: 5px;
+    background-repeat: no-repeat;
+
+}
+
+
+.select-search__select ul li:nth-child(5) button:after{
+   content: "";
+    background: url(https://eworldclients.com/demo/library/public/images/camera.png);
     width: 40px;
     height: 40px;
     position: absolute;
-    right: 0px;
-    top: -1px;
+    left: 8px;
+    top: 8px;
+    background-repeat: no-repeat;
+}
+
+
+.select-search__select ul li:nth-child(6) button:after{
+   content: "";
+    background: url(https://eworldclients.com/demo/library/public/images/pugins.png);
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    background-repeat: no-repeat;
+}
+
+.select-search__select ul li:nth-child(7) button:after{
+   content: "";
+    background: url(https://eworldclients.com/demo/library/public/images/themes.png);
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 8px;
+    top: 8px;
     background-repeat: no-repeat;
 
-}*/
+}
 
-
+.select-search__select{
+    min-height: 270px !IMPORTANT;
+    height: 100% !IMPORTANT;
+}
+.formfirstcontent.searchresulttopbar .select-search__select{
+    min-height: 278px !IMPORTANT;
+    height: 100% !IMPORTANT;
+}
 
 .selecttype4:after {
     content: "";

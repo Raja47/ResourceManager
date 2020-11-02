@@ -67,11 +67,11 @@ class Resource extends Component{
         }
         
         if(resource.searchable?.category?.title == "video"){
+            
             return (
-                         
                 <Col md="auto" className="img5555 video-kk" onClick={() => this.handleRedirectToProduct(resource.url)}  >
                     <Card onMouseEnter={() => { this.play()} } onMouseLeave={ () => {this.pause()} }>
-                      <Player ref={player => {this.player = player;}} preload={"metadata"} autoPlay={false}  poster={resource.searchable.images?.[0]?.url  ?  (asset_url()+"/resources/images/small/"+ ( resource.searchable.images?.[0]?.url))  :   ( resource.searchable.image ??    (asset_url()+"/resources/images/small/"+"not-found.png"  )) }>
+                      <Player ref={player => {this.player = player;}} preload={"none"} autoPlay={false}  poster={resource.searchable.images?.[0]?.url  ?  (asset_url()+"/resources/images/small/"+ ( resource.searchable.images?.[0]?.url))  :   ( resource.searchable.image ??    (asset_url()+"/resources/images/small/"+"not-found.png"  )) }>
                         <source src={ resource.searchable.files?.[0]?.url ? asset_url()+"/resources/files/"+(resource.searchable.files?.[0]?.url)  :  resource.searchable.preview_video_url  } />
                       </Player> 
                     </Card>

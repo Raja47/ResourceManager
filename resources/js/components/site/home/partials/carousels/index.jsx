@@ -1,18 +1,19 @@
 import React ,{Component, Fragment} from 'react';
 import { Link, Redirect,useHistory} from "react-router-dom";
 import {Button, Carousel ,Container ,Row,Col,Card,Tabs,Tab,Sonnet,Form, Navbar,Nav,NavDropdown } from 'react-bootstrap';
+
 import './carousels.css';
 
 import { connect } from 'react-redux'
 import icon from '../../../../assets/img/icon.png'; 
 import Select from "react-select-search";
 
-// get our fontawesome imports
 import { faSearch ,faEye} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import SelectSearch from "react-select"
 import { suggestResourceAction }  from "../../../../../actions/resourceActions"; 
+
 
 class Carouselslider extends Component {
 
@@ -89,7 +90,7 @@ class Carouselslider extends Component {
      * { When use clicks in Select ,already values need to be cleared }
      */   
       handleOnFocus = (e) => {
-          this.setState({searchKeywords:null});
+          //this.setState({searchKeywords:null});
       }
   
   
@@ -185,7 +186,7 @@ class Carouselslider extends Component {
                 placeholder="Type Your keywords" 
                 className="form-control"
                 value={this.state.searchKeywords}
-                isClearable={'true'}
+                inputValue={this.state.searchKeywords.label}
               />
              
             </Col>

@@ -16,7 +16,9 @@ import Home from './site/home';
 import Feedback from './site/feedback/feedback.jsx';
 
 
+
 class App extends Component {
+    
     render() {
         return (
           
@@ -24,7 +26,7 @@ class App extends Component {
           
             <Container className="MainAppFluid" fluid>
               
-            <Router basename={"demo/search"}>
+            <Router basename={"demo/library"} assetPath={app_url+"/public/"} >
               <Header/>
               <Switch>
                     <Route exact path="/" component={Home} />

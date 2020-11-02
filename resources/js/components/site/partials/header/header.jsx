@@ -18,6 +18,7 @@ import LoadingBar from 'react-redux-loading-bar'
 
 
 function Header() {
+  
   const themeLocation = {
     pathname:'/search',
     state: {
@@ -53,27 +54,29 @@ function Header() {
   return (
       
     <Row className="header" >
-        <LoadingBar color="#fec20f" />
+        <LoadingBar color="blue" />
         <Col lg={4} sm={12} xs={12}>
           <Navbar bg="light" expand="lg">
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="mr-auto">
                   
-                  <Nav.Link><Link to={imageLocation} >Images</Link></Nav.Link>
-                  <Nav.Link><Link to={videoLocation} >Videos</Link></Nav.Link>
-                  <Nav.Link><Link to={pluginLocation}>Plugins</Link></Nav.Link>
-                  <Nav.Link><Link to={themeLocation} >Themes</Link></Nav.Link>
-                  
-                  
-                  
-                {/*<NavDropdown title="Search" id="basic-nav-dropdown">
+                  {/*<NavDropdown title="Search" id="basic-nav-dropdown">
                     <NavDropdown.Item>Search</NavDropdown.Item>
                     <NavDropdown.Item><Link >Images</Link></NavDropdown.Item>
                     <NavDropdown.Item><Link >Videos</Link></NavDropdown.Item>
                     <NavDropdown.Item><Link >Plugins</Link></NavDropdown.Item>
                     <NavDropdown.Item><Link >Themes</Link></NavDropdown.Item>
                   </NavDropdown>*/}
+                  
+                  <Nav.Link><Link to={imageLocation} >Photos</Link></Nav.Link>
+                  <Nav.Link><Link to={videoLocation} >Videos</Link></Nav.Link>
+                  <Nav.Link><Link to={pluginLocation}>Plugins</Link></Nav.Link>
+                  <Nav.Link><Link to={themeLocation} >Themes</Link></Nav.Link>
+                  
+                  
+                  
+                
 
                   </Nav>
                 </Navbar.Collapse>

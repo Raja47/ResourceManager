@@ -34,13 +34,12 @@ class Searchbar extends Component {
                 { value: '1',  name:' Image Photo'  },
                 { value: '5',  name:' Image Vector'  },
                 { value: '6',  name:' Image Illustration'  },
-             { value: '2',  name:'Video'  },
-             { value: '3',  name:'plugin' },
-             { value: '4',  name:'Theme' },
+            { value: '2',  name:'Video'  },
+            { value: '3',  name:'plugin' },
+            { value: '4',  name:'Theme' },
           ]  
       };
       var alreadyCalled = '';
-      
   }
 
   /**
@@ -91,17 +90,21 @@ class Searchbar extends Component {
        */
 
       handleTypedKeywords = (e,action) => {
+        console.log(action.action);
+
         if( action.action == 'input-change'){
             if( e === "" ){
                 this.setState({suggestedKeywords:[]});
                 this.setState({searchKeywords:{label:e , value:e}});
             }else{
-                var {selectedType } = this.state;
+                var { selectedType } = this.state;
                 clearTimeout(this.alreadyCalled);
                 this.alreadyCalled = setTimeout( () =>this.suggestions(selectedType,e) ,400);  
                 this.setState({searchKeywords:{label:e , value:e}});   
             }
-        }  
+        }
+        
+       
       }
       suggestions = (type,keywords) => {
           this.props.dispatch(suggestResourceAction(type,keywords));
@@ -109,8 +112,8 @@ class Searchbar extends Component {
       
 
      handleOnFocus = (e) => {
-          this.setState({searchKeywords:null});
-      }
+        
+     }
   
   
 /**
@@ -187,9 +190,10 @@ class Searchbar extends Component {
                 onInputChange={(e,action) => {this.handleTypedKeywords(e,action)}}
                 onKeyDown={e => {this.handleEnterKey(e)}}
                 onChange={(e)  =>  {this.handleChangeKeywords(e)}} 
-                options={suggestedKeywords} 
+                options={suggestedKeywords}
                 placeholder="Type Keywords" 
                 className="form-control"
+                inputValue={this.state.searchKeywords?.label}
                 value={this.state.searchKeywords} 
                 onFocus = {e => this.handleOnFocus(e) }
             />

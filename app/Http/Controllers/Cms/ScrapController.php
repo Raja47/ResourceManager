@@ -20,8 +20,6 @@ class ScrapController extends Controller
     public function __construct()
     {
         $this->token = '1/eyJjbGllbnRfaWQiOiI0ZGVlMi04Zjc3NS1kZDRjNi00ZTU2MS02ZTY0NS0xYWEwZiIsInJlYWxtIjoiY3VzdG9tZXIiLCJzY29wZSI6InVzZXIudmlldyB1c2VyLmVtYWlsIHVzZXIuYWRkcmVzcyB1c2VyLmVkaXQgb3JnYW5pemF0aW9uLnZpZXcgb3JnYW5pemF0aW9uLmFkZHJlc3MgY29sbGVjdGlvbnMudmlldyBjb2xsZWN0aW9ucy5lZGl0IGxpY2Vuc2VzLnZpZXcgbGljZW5zZXMuY3JlYXRlIG1lZGlhLnVwbG9hZCBtZWRpYS5zdWJtaXQgbWVkaWEuZWRpdCBwdXJjaGFzZXMudmlldyBwdXJjaGFzZXMuY3JlYXRlIiwidXR2IjoiWFVjMiIsInVzZXJuYW1lIjoiYWRtaW4yNzU1ODczIiwidXNlcl9pZCI6MTkzODYzOTg4LCJvcmdhbml6YXRpb25faWQiOm51bGwsIm9yZ2FuaXphdGlvbl91c2VyX2lkIjpudWxsLCJwYXJlbnRfb3JnYW5pemF0aW9uX2lkcyI6W10sImN1c3RvbWVyX2lkIjoxOTM4NjM5ODgsImV4cCI6MTYwMzY4ODc4NH0.k7F2acL8bSm5Qzjg55gUNTbnbWvsRhwD7Nj2e0vhuyPhEzwfRL-QmEAX0Twz-MXPdqZLVuQx_5q5FzA9WXJ1LQ';
-                        
-        
     }
     
     
@@ -223,10 +221,12 @@ class ScrapController extends Controller
     public function scraps(){
         
         
-        $resources = Resource::where('resource_category_id','2')->get();
+        $resources = Resource::all();
         
         foreach( $resources as $resource ){
-            $resource->notes = "";
+            $keywords  = $resource->keywords;
+            $keywords[] = "All";
+            $resource->keywords = $keywords;
             $resource->save();
         }
         

@@ -31,8 +31,9 @@ class Search extends Component{
         activePage:1,
         pages:[],
         redirect: null,
+        countResults:0,
         paginationResults: 60,
-        loading:true,
+        loading:false,
     };
      
       this.handler = this.handler.bind(this);  
@@ -45,16 +46,13 @@ class Search extends Component{
         if(this.props.location.state != undefined){
           const {keywords , type } = this.props.location.state;
           this.props.dispatch(searchResourceAction(type,keywords));
-          //   this.props.dispatch(showLoading());
+          this.setState({loading:true});
         }
-        
-
     }
 
     componentDidUpdate(prevProps) {
-      // Typical usage (don't forget to compare props):
-      
-          if (this.props.resources !== prevProps.resources) {
+        
+        if (this.props.resources !== prevProps.resources) {
             
             if(this.props.resources.length != undefined){ 
               var pages = [];
@@ -62,18 +60,19 @@ class Search extends Component{
                   pages[i] = i;
               }
               this.pages = pages;  
-              this.setState({resources:this.props.resources,activePage:1,pageCount:Math.ceil(this.props.resources?.length/this.state.paginationResults)});
+              this.setState({resources:this.props.resources,activePage:1,countResults:this.props.resources?.length,pageCount:Math.ceil(this.props.resources?.length/this.state.paginationResults)});
               
             }else{
               this.setState({ resources:this.props.resources});
             }
             this.props.dispatch(hideLoading());
-            this.setState({loading:false});
-          }
+            this.setState({loading:false})
+            
+        }
           
-          if(this.props.location.state !== prevProps.location.state ){
+        if(this.props.location.state !== prevProps.location.state ){
              this.handler(this.props.location.state.type,this.props.location.state.keywords);
-          }
+        }
     }
 
     /**
@@ -136,27 +135,27 @@ class Search extends Component{
    */
   render () {
    
-    const {resources,activePage,pageCount,paginationResults} = this.state;
+    const {resources,activePage,pageCount,countResults,paginationResults} = this.state;
     
     const pagess = this.pages
-  
+   
     
     return (
       <span> 
-           
+            
             <Row className="searhresultsec">
              <Col md={12}> 
                <Searchbar handler={this.handler}  /><br/>
              </Col>
-            <div className="loader-results">
+             
+             <div className="loader-results">
                  <MoonLoader
-                  
                   size={150}
                   color={"#123abc"}
                   loading={this.state.loading}
                 />
-            </div>
-            
+             </div>
+                
              {/**
              * { filtering results belonging to activePage only}
              */}
@@ -169,7 +168,8 @@ class Search extends Component{
 
            
            
-          </Row>   
+          </Row>
+          { resources == undefined && this.state.loading==false && <Row><Col md={3}></Col><Col lg={6} className="errormessage"><h1>Please enter keyword to search.</h1> <p>No Keywords</p></Col><Col md={3}></Col></Row> }
           { resources=='' && <Row><Col md={3}></Col><Col lg={6} className="errormessage"><h1>Sorry No Resource against keywords</h1> <p>404</p></Col><Col md={3}></Col></Row>}
           { resources != '' && resources != undefined && resources != [] && <Row>
               
@@ -191,7 +191,7 @@ class Search extends Component{
                     })}
                    
                     <Pagination.Next onClick={this.handleNext}/>
-                    <Pagination.Last onClick={this.handleLast}/><span className="pageCount">of { pageCount }</span>
+                    <Pagination.Last onClick={this.handleLast}>Last({pageCount})</Pagination.Last><span className="">{" (Records:"+countResults +")" }</span>
                   </Pagination>
                  
                 }
