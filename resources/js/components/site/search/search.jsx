@@ -37,16 +37,16 @@ class Search extends Component{
     };
      
       this.handler = this.handler.bind(this);  
-      var pages=[];  
+      let pages=[];  
      
     }
-
+    
     componentDidMount() {
-
         if(this.props.location.state != undefined){
           const {keywords , type } = this.props.location.state;
-          this.props.dispatch(searchResourceAction(type,keywords));
-          this.setState({loading:true});
+          const {activePage,paginationResults} = this.state;
+          this.props.dispatch(searchResourceAction(type,keywords,activePage,paginationResults));
+          this.setState({loading:true,keywords:keywords,type:type });
         }
     }
 
@@ -54,16 +54,17 @@ class Search extends Component{
         
         if (this.props.resources !== prevProps.resources) {
             
-            if(this.props.resources.length != undefined){ 
+            if(this.props.totalResults != undefined){ 
               var pages = [];
-              for(var i = 1; i <= Math.ceil(this.props.resources?.length/this.state.paginationResults); i++) {
+              var results = Math.ceil(this.props.totalResults/this.state.paginationResults);
+              for(var i = 1; i <= results ; i++) {
                   pages[i] = i;
               }
               this.pages = pages;  
-              this.setState({resources:this.props.resources,activePage:1,countResults:this.props.resources?.length,pageCount:Math.ceil(this.props.resources?.length/this.state.paginationResults)});
+              this.setState({resources : this.props.resources , activePage : this.props.activePage ,countResults:this.props.totalResults,pageCount:Math.ceil(this.props.totalResults/this.state.paginationResults)});
               
             }else{
-              this.setState({ resources:this.props.resources});
+              this.setState({ resources: this.props.resources});
             }
             this.props.dispatch(hideLoading());
             this.setState({loading:false})
@@ -75,54 +76,62 @@ class Search extends Component{
         }
     }
 
-    /**
-     * { function will be called from searchbar child component to update results}
-    */
     handler = (type ,keywords) => {
-        
-        this.props.dispatch(searchResourceAction(type,keywords));
-       
+        const { paginationResults } = this.state;
+        const activePage=1;
+        this.props.dispatch(searchResourceAction(type,keywords,activePage,paginationResults));
         this.props.dispatch(showLoading());
+        this.setState({keywords:keywords,type:type});
     }
 
     /**
      * {All pagination handling Functions  }
     */
     handleFirst = () => {
-        this.setState({activePage : '1'});
+        const activePage=1;
+        const {type,keywords,paginationResults} = this.state;
+        this.props.dispatch(searchResourceAction(type,keywords,activePage,paginationResults));
         this.props.dispatch(showLoading());
         setTimeout( () =>{this.props.dispatch(hideLoading()) }, 1500);
     }
 
     handlePrevious = () => {
-      let { activePage } = this.state;
+      let {type,keywords,activePage,paginationResults} = this.state;
       
       if(activePage !== 1 ){
-          this.setState({activePage:activePage-1 });
+          activePage = activePage-1;
+          this.props.dispatch(searchResourceAction(type,keywords,activePage,paginationResults));
           this.props.dispatch(showLoading());
           setTimeout( () =>{this.props.dispatch(hideLoading()) }, 1500);
       }
     }
 
     handleLast = () => {
-      this.setState({activePage: this.state.pageCount });
-      this.props.dispatch(showLoading());
+      let {type,keywords,paginationResults,pageCount} = this.state;
+       this.props.dispatch(searchResourceAction(type,keywords,pageCount,paginationResults));
+       this.props.dispatch(showLoading());
       setTimeout( () =>{ this.props.dispatch(hideLoading())} , 1500);
     }
 
     handleNext = () => {
-      let { pageCount,activePage } = this.state;
+      let {type,keywords,activePage,paginationResults,pageCount} = this.setState;
       if(pageCount == activePage){
 
       }else{
-        this.setState({activePage:activePage+1 }) ;
+        activePage=activePage+1;
+       
+        this.props.dispatch(searchResourceAction(type,keywords,activePage,paginationResults));
         this.props.dispatch(showLoading());
         setTimeout( () =>{this.props.dispatch(hideLoading())} , 1500);
       }
     }
 
     handlePageChange = (i) => {
-      this.setState({activePage:i});
+      let {type,keywords,activePage,paginationResults,pageCount} = this.state;
+      if(activePage != i ){
+          activePage=i;
+          this.props.dispatch(searchResourceAction(type,keywords,activePage,paginationResults));
+      }
       this.props.dispatch(showLoading());
       setTimeout( () =>{this.props.dispatch(hideLoading())} , 1500);
     }
@@ -138,7 +147,7 @@ class Search extends Component{
     const {resources,activePage,pageCount,countResults,paginationResults} = this.state;
     
     const pagess = this.pages
-   
+    console.log(pagess,activePage);   
     
     return (
       <span> 
@@ -159,19 +168,26 @@ class Search extends Component{
              {/**
              * { filtering results belonging to activePage only}
              */}
-            { resources !== undefined && resources.map((resource,i) => {
+            { resources !== undefined  && Array.isArray(resources) && resources.map((resource,i) => {
                 
-              if( (i < (paginationResults*activePage)) && (i >= (paginationResults*(activePage-1))) ){
+              
                    return <Resource resource={resource} key={i}/>
-              }   
+             
             })}
-
+            
+            { resources !== undefined  && !Array.isArray(resources) && Object.values(resources).map((resource , i) => {
+                
+              
+                   return <Resource resource={resource} key={i}/>
+             
+            })}
+            
            
            
           </Row>
           { resources == undefined && this.state.loading==false && <Row><Col md={3}></Col><Col lg={6} className="errormessage"><h1>Please enter keyword to search.</h1> <p>No Keywords</p></Col><Col md={3}></Col></Row> }
           { resources=='' && <Row><Col md={3}></Col><Col lg={6} className="errormessage"><h1>Sorry No Resource against keywords</h1> <p>404</p></Col><Col md={3}></Col></Row>}
-          { resources != '' && resources != undefined && resources != [] && <Row>
+          { resources != ''  && resources != undefined && resources != [] && <Row>
               
               <Col md={2}></Col>
               <Col md={8} className="paginationcustome">
@@ -185,7 +201,7 @@ class Search extends Component{
                      
                     
                     { pagess !== undefined && pagess.map((object,i) => { 
-                        if( (i > (activePage-5) &&  i < (activePage+5))){
+                        if( (i > (parseInt(activePage)-5) &&  i < (parseInt(activePage)+5))){
                             return <Pagination.Item onClick={ () => this.handlePageChange(i)} active={activePage==i ? 'active' : null } key={i}>{i}</Pagination.Item> 
                         }                
                     })}
@@ -211,6 +227,8 @@ class Search extends Component{
  function mapStateToProps(state){
    return {  
         resources: state.resourceReducer.searchedResources, 
+        activePage: state.resourceReducer.page_no,
+        totalResults: state.resourceReducer.totalResults,
     }
  }
 

@@ -1,24 +1,22 @@
 import axios from "axios"
 
 
-export const searchResourceAction =  (type, keywords) => dispatch => {
+export const searchResourceAction =  (type, keywords , page_no , paginationResults) => dispatch => {
    
-   axios.get(api_url+`/site/resource/search/${type}/${keywords}`)
+   axios.get(api_url+`/site/resource/search/${type}/${keywords}/${page_no}/${paginationResults}`)
   .then((response) => {
     
     if(response.data){
-
       dispatch({type: "SEARCH_RESOURCE", payload: response.data });
     }
     else{
-
       dispatch({type: "RETURN_EMPTY", payload: response.data});
     }
   })
-  .catch((error) => {
+  .catch( (error) => {
     console.log(error)
     dispatch({type: "ERROR_OCCURED", payload: error});
-  })
+  } )
 
 };
 

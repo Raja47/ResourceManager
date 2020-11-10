@@ -24,27 +24,7 @@ class ResourceController extends Controller
         return response()->json(["data" => "resource site index method","status" => true]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
+   
     /**
      * Display the specified resource.
      *
@@ -84,40 +64,7 @@ class ResourceController extends Controller
         
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Resource  $resource
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Resource $resource)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Resource  $resource
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Resource $resource)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Resource  $resource
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Resource $resource)
-    {
-        //
-    }
-
+    
     /**
      * { function_description }
      *
@@ -161,7 +108,7 @@ class ResourceController extends Controller
      *
      * @return     <type>  ( description_of_the_return_value )
      */
-    public function search($type ,$keywords){
+    public function search($type ,$keywords , $page_no , $paginationResults){
             
        $searchResults = (new Search())
             ->registerModel(Resource::class, function(ModelSearchAspect $modelSearchAspect) use ($type){
@@ -172,7 +119,10 @@ class ResourceController extends Controller
                 ->type($type)  // resourceCategoryId image 1 video 2 
                 ->with(['category','images','files']);
             })->search($keywords);
-       return response()->json(["data" =>$searchResults,"status" => true ,"searchedFor" => ["type" => $type, "keywords" => $keywords ]]);
+        $totalResults = $searchResults->count();
+        $searchResults = $searchResults->slice( ($page_no-1)*$paginationResults , $paginationResults);
+        
+       return response()->json(["data" => $searchResults , "page_no" => $page_no , 'totalResults' => $totalResults , "status" => true , "searchedFor" => [ "type"=>$type , "keywords"=>$keywords ] ]);
     }
 
     public function download( $type , $id){

@@ -4,6 +4,8 @@ const initialState = {
     resource: [],
     searchedResources:[],
     searchedFor:[],
+    totalResults:'',
+    page_no:'',
     suggestedResources:[],
     suggestedKeywords:[],
 };
@@ -16,6 +18,8 @@ const initialState = {
             ...state,
             searchedResources: action.payload.data,
             searchedFor : action.payload.searchedFor,
+            totalResults : action.payload.totalResults,
+            page_no: action.payload.page_no,
           };
       
       case "SUGGEST_RESOURCE": 
