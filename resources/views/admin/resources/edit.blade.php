@@ -65,7 +65,37 @@
                                     </div>
                                 </div>
                                
-                               
+                               <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="image">Display Image Url</label>
+                                            <input
+                                                class="form-control @error('image') is-invalid @enderror"
+                                                type="text"
+                                                placeholder="Enter Resource Title"
+                                                id="image"
+                                                name="image"
+                                                value="{{ old('image', $resource->image) }}"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="demo_url">Demo Url (For plugins & themes)</label>
+                                            <input
+                                                class="form-control @error('demo_url') is-invalid @enderror"
+                                                type="text"
+                                                placeholder="Enter Resource Demo Url"
+                                                id="demo_url"
+                                                name="demo_url"
+                                                value="{{ old('demo_url', $resource->demo_url) }}"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
                                 
                                 <div class="row">
                                     <div class="col-md-12">
@@ -74,11 +104,9 @@
                                             <select type="hidden" name="keywords[]" id="keywords" class="form-control" multiple>
                                                 @if($resource->keywords)
                                                     @foreach($resource->keywords as $keyword)
-                                                    @if( $keyword == "All" ) 
-                                                        <?php
-                                                        continue
-                                                        ?>
-                                                    @endif
+                                                        @if( $keyword == "All" ) 
+                                                            <?php continue ?>
+                                                        @endif
                                                         <option value="{{ $keyword }}" selected="selected"> {{ $keyword}} <option>
                                                     @endforeach
                                                 @endif

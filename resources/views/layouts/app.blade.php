@@ -10,17 +10,17 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" >
         <title>Library</title>
         <!-- Styles -->
-        <link href="{{ asset('css/app.css')  }}" rel="stylesheet" >
+        <link href="{{ asset('css/app.css?version=5')  }}" rel="stylesheet" >
+        
         <script>
-            
+        
             const api_url = "{{ config('app.url').'/api' }}";
-		    
             const app_url = "{{ config('app.url') }}";
             
             function asset_url(){
                 return "{{ config('filesystems.disks.public.url') }}";
             }
-
+            
         </script>
             
     </head>
@@ -28,7 +28,7 @@
     <body>
         <div id="app"></div>
 
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/app.js?version=5') }}"></script>
     </body>
 
 </html>

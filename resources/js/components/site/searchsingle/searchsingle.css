@@ -51,10 +51,16 @@
     font-weight: 700;
     font-size: 18px;
     float: left;
-    margin-top: -4px;
+    
     letter-spacing: 3px;
         
 }
+
+.demo-button{
+     display: flex;
+  justify-content: center;
+  align-items: center;
+} 
 
 .badgemain h2 {
     text-align: left;
@@ -202,4 +208,17 @@ span.photodis p {
         background: #f5b11f !important;
     border-color: #f5b11f !important;
     color: black !important;
+}
+
+button.demo-button.rajaex-kk.btn.btn-primary {
+margin: 0 auto;
+text-align: center;
+display: inline-block;
+text-align: center;
+margin: 0 auto;
+align-items: center;
+justify-content: center;
+float: none;
+margin-top: 50px;
+padding: 6px 25px;
 }

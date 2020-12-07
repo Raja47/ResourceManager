@@ -65,7 +65,7 @@
                             <hr>
                             <div class="tile-body">
                                 <div class="form-group">
-                                    <label class="control-label" for="title">Title</label>
+                                    <label class="control-label" for="title">Title*</label>
                                     <input
                                         class="form-control @error('title') is-invalid @enderror"
                                         type="text"
@@ -82,7 +82,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="control-label" for="categories">Category</label>
+                                            <label class="control-label" for="categories">Category*</label>
                                             <select name="resource_category_id" id="categories" class="form-control" >
                                                 @foreach($categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->title }}</option>
@@ -108,6 +108,21 @@
                                     </div>
                                 </div>
                                 
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="demo_url">Demo Url (For plugins & themes)</label>
+                                            <input
+                                                class="form-control @error('demo_url') is-invalid @enderror"
+                                                type="text"
+                                                placeholder="Enter Resource Demo Url"
+                                                id="demo_url"
+                                                name="demo_url"
+                                                value="{{ old('demo_url') }}"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
                                 
                                 <div class="row">
                                     <div class="col-md-12">

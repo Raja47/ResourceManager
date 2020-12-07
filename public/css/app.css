@@ -12058,6 +12058,11 @@ body {
   display: none;
 }
 
+.video-kk .video-react .video-react-poster {
+  background-position: 100% 100% !important;
+  background-size: cover !important;
+}
+
 @-webkit-keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -12075,6 +12080,18 @@ body {
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media all and (max-width: 1600px) {
+  .img5555.video-kk {
+    width: 25% !important;
+  }
+}
+
+@media all and (max-width: 1199px) {
+  .img5555.video-kk {
+    width: 27% !important;
   }
 }
 

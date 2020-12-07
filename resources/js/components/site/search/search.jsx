@@ -147,7 +147,7 @@ class Search extends Component{
     const {resources,activePage,pageCount,countResults,paginationResults} = this.state;
     
     const pagess = this.pages
-    console.log(pagess,activePage);   
+  
     
     return (
       <span> 
@@ -171,14 +171,14 @@ class Search extends Component{
             { resources !== undefined  && Array.isArray(resources) && resources.map((resource,i) => {
                 
               
-                   return <Resource resource={resource} key={i}/>
+                   return <Resource resource={resource} key={i} position={i}/>
              
             })}
             
             { resources !== undefined  && !Array.isArray(resources) && Object.values(resources).map((resource , i) => {
                 
               
-                   return <Resource resource={resource} key={i}/>
+                   return <Resource resource={resource} key={i} position={i}/>
              
             })}
             
@@ -195,17 +195,16 @@ class Search extends Component{
                   <Pagination>
                     <Pagination.First onClick={this.handleFirst}/>
                     <Pagination.Prev  onClick={this.handlePrevious} />  
+                    
                     {/**
                      * { dynamic page number generetation inside pagination }
                      */}
                      
-                    
                     { pagess !== undefined && pagess.map((object,i) => { 
                         if( (i > (parseInt(activePage)-5) &&  i < (parseInt(activePage)+5))){
                             return <Pagination.Item onClick={ () => this.handlePageChange(i)} active={activePage==i ? 'active' : null } key={i}>{i}</Pagination.Item> 
                         }                
                     })}
-                   
                     <Pagination.Next onClick={this.handleNext}/>
                     <Pagination.Last onClick={this.handleLast}>Last({pageCount})</Pagination.Last><span className="">{" (Records:"+countResults +")" }</span>
                   </Pagination>

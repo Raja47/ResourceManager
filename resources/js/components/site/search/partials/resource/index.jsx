@@ -18,6 +18,7 @@ class Resource extends Component{
         redirect: null,
         resource:[],  
       };
+      let hoveredVideo = "";
       this.play = this.play.bind(this);
       this.pause = this.pause.bind(this);     
     }
@@ -27,20 +28,33 @@ class Resource extends Component{
      * Video Related Functions
      **/
     componentDidMount(){
-       if(this.props.resource?.searchable?.category?.title == "video"){
+       if(this.props.resource?.searchable?.category_title == "video"){
            this.player.subscribeToStateChange(this.handleStateChange.bind(this));
-       }    
+           if(this.props.position === 0){
+            this.playDefault();
+           }
+       }
     }
+    
     handleStateChange(state) {
         // copy player state to this component's state
         this.setState({
           player: state
         });
+          
     }
+    
     play() {
-        this.player.play();
+        this.hoveredVideo = setTimeout( () => {  this.player.play() } , 800 );
+
     }
+    
+    playDefault(){
+         this.player.play() 
+    }
+    
     pause() {
+        clearTimeout(this.hoveredVideo);
         this.player.pause();
     }    
     
@@ -65,28 +79,31 @@ class Resource extends Component{
         if( this.state.redirect != null ){
           return <Redirect to={this.state.redirect} push />
         }
-        
-        if(resource.searchable?.category?.title == "video"){
+        {/**
+            Video or 
+        **/}
+        if(resource.searchable?.category_title == "video"){
             
             return (
-                <Col md="auto" className="img5555 video-kk" onClick={() => this.handleRedirectToProduct(resource.url)}  >
+                <Col md="auto" className="img5555 video-kk" onClick={ () => this.handleRedirectToProduct("resource?id="+resource.searchable?.id) }  >
                     <Card onMouseEnter={() => { this.play()} } onMouseLeave={ () => {this.pause()} }>
-                      <Player ref={player => {this.player = player;}} preload={"none"} autoPlay={false}  poster={resource.searchable.images?.[0]?.url  ?  (asset_url()+"/resources/images/small/"+ ( resource.searchable.images?.[0]?.url))  :   ( resource.searchable.image ??    (asset_url()+"/resources/images/small/"+"not-found.png"  )) }>
-                        <source src={ resource.searchable.files?.[0]?.url ? asset_url()+"/resources/files/"+(resource.searchable.files?.[0]?.url)  :  resource.searchable.preview_video_url  } />
+                      <Player  key={resource.searchable.uploaded_file_url ? asset_url()+"/resources/files/"+ resource.searchable.uploaded_file_url  :  resource.searchable.preview_video_url} ref={player => {this.player = player;}} preload={"none"} autoPlay={false}  poster={resource.searchable.images?.[0]?.url  ?  (asset_url()+"/resources/images/small/"+ ( resource.searchable.images?.[0]?.url))  :   ( resource.searchable.image ??    (asset_url()+"/resources/images/small/"+"not-found.png"  )) }>
+                        <source src={ resource.searchable.uploaded_file_url ? asset_url()+"/resources/files/"+ resource.searchable.uploaded_file_url  :  resource.searchable.preview_video_url  } />
                       </Player> 
                     </Card>
                 </Col>
             );
+            
         }
         else{
             
             return (
-                <Col md="auto" className={ (resource.searchable?.category?.title == "theme"  || resource.searchable?.category?.title == "plugin" ) ? "img5555 img-plugin-kk" : "img5555"}>  
-                    <Card  onClick={() => this.handleRedirectToProduct(resource.url)}  >
-                      <Image variant="top" thumbnail  src={ resource.searchable.images?.[0]?.url  ?  (asset_url()+"/resources/images/small/"+ ( resource.searchable.images?.[0]?.url))  :   ( resource.searchable.image ??    (asset_url()+"/resources/images/small/"+"not-found.png"  ))  } />
+                <Col md="auto" className={ (resource.searchable?.category_title == "theme"  || resource.searchable?.category_title == "plugin" ) ? "img5555 img-plugin-kk" : "img5555"}>  
+                    <Card  onClick={ () => this.handleRedirectToProduct("resource?id="+resource.searchable.id) }  >
+                      <Image variant="top" thumbnail  src={ resource.searchable.uploaded_image_url  ?  (asset_url()+"/resources/images/small/"+ (resource.searchable.uploaded_image_url))  :   ( resource.searchable.image ??    (asset_url()+"/resources/images/small/"+"not-found.png"  ))  } />
                       <Card.Body >
-                        <Card.Title> { resource.title} </Card.Title>
-                            <div key={resource.title} >
+                        <Card.Title> { resource.searchable?.title} </Card.Title>
+                            <div key={resource.searchable?.title} >
                                 <FontAwesomeIcon icon={faEye}  />
                             </div>  
                         </Card.Body>
@@ -95,11 +112,13 @@ class Resource extends Component{
             );
         }
     }
+
+    
 }
 
 
 function mapStateToProps(state){
-   return {}
+   return { }
 }
 
 export default connect(mapStateToProps)(Resource)
