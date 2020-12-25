@@ -71,13 +71,13 @@ class Searchsingle extends Component{
       
       var resourceType = resource.category?.title;
       var url=""; 
-      if(resourceType == 'image-photo' || resourceType == 'image-vector' || resourceType == 'image-illustration' ){
-        var downloadable_type  = "image";
-        if(resource.resource.sourceable_downlaod_link != "" ){
-            url = resource.resource.sourceable_download_link;
-        }else{ 
-            url = app_url+"/site/file/download/"+downloadableType+"/"+resource.resource.images[0].id;
-        }
+      
+      if(resource.sourceable_download_link != "" && resource.sourceable_downloaded == 1 ){
+            url = app_url+"/site/sourceable/download/"+resource.id;
+      }else if(resourceType == 'image-photo' || resourceType == 'image-vector' || resourceType == 'image-illustration' ){
+          var downloadable_type  = "image";
+          url = app_url+"/site/file/download/"+downloadableType+"/"+resource.resource.images[0].id;
+        
       }
       
       if( resource.resource?.downloads){

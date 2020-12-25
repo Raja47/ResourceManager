@@ -19,7 +19,7 @@ class Resource extends Model implements Searchable
      * @var array
      */
     protected $fillable = [
-       'title' , 'description' , 'keywords' , 'notes' , 'views' , 'downloads' , 'status' , 'resource_category_id' , 'image', 'preview_video_url' ,'demo_url' ,'sourceable_id' , 'sourcable_type' , 'sourcable_link' , 'sourceable_download_link', 
+       'title' , 'description' , 'keywords' , 'notes' , 'views' , 'downloads' , 'status' , 'resource_category_id' , 'image', 'preview_video_url' ,'demo_url' ,'sourceable_id' , 'sourcable_type' , 'sourcable_link' , 'sourceable_download_link','sourceable_downloaded' ,'sourceable_format' ,'sourceable_account'
     ];
 
     /**

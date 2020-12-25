@@ -7,6 +7,10 @@ Route::group(['prefix'  =>  'site'], function (){
     Route::get('/file/download/{type}/{id}' , 'Site\ResourceController@download')->name('site.file.download');
 });
 
+Route::group(['prefix'  =>  'site'], function (){
+    Route::get('/sourceable/download/{id}' , 'Site\ResourceController@downloadSourceable')->name('site.file.download');
+});
+
 
 Route::group(['prefix'  =>  'admin'], function (){
     Route::get('/', 'Cms\LoginController@showLoginForm')->name('admin.login');

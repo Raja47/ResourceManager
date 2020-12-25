@@ -204,4 +204,31 @@ class ResourceController extends Controller
 
             return Storage::disk('public')->download("/resources/files/".$url);
     }
+
+
+    public function downloadSourceable( $id ){
+            
+        $resource = Resource::findorFail($id);
+
+        if($resource->sourceable_downloaded == 1){
+           
+           if($resource->sourceable_type  == 'iStock'){
+                 $file = $resource->sourceable_type.'-'.$resource->sourceable_id.".".$resource->sourceable_format;
+           }else{ 
+                $file = $resource->sourceable_type.'_'.$resource->sourceable_id.".".$resource->sourceable_format;
+           }
+
+
+           if($file && in_array( $resource->resource_category_id  , [1,5,6] )){
+                $resource->downloads = $resource->downloads+1;
+                $resource->save();
+                return Storage::disk('public')->download("/resources/images/original/".$file);
+           }
+           elseif( $file &&  $resource->resource_category_id == 2  ) {
+                $resource->downloads = $resource->downloads+1;
+                $resource->save();
+                return Storage::disk('public')->download("/resources/files/videos/".$file);
+           }
+        } 
+    }
 }
